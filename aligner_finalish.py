@@ -44,4 +44,4 @@ with open ("alignment_out.txt", "w") as f:
      for item in alignment_out:
              f.write("%s\n" % item) #looks fab
 
-Rscript ../R_script_V3.R
+Rscript ../R_script_struct.R
