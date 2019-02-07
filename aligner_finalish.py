@@ -11,7 +11,7 @@ import itertools, sys
 fastq = sys.argv[1]
 #CAN have dictionary created in one step -- on the TODO list
 id_list = []
-for seq_record in SeqIO.parse("fqish_edtis.fastq", "fastq"): #actually replace "fqish..." with "sys.argv[1]"
+for seq_record in SeqIO.parse(sys.argv[1], "fastq"):
     x = (seq_record.id)
     id_list.append(x)
 
@@ -44,4 +44,4 @@ with open ("alignment_out.txt", "w") as f:
      for item in alignment_out:
              f.write("%s\n" % item) #looks fab
 
-Rscript ../R_script_struct.R
+Rscript ./R_script_struct.R
