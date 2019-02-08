@@ -15,7 +15,7 @@ struct_align_score_table$align_score = as.numeric(gsub("Score=", "", struct_alig
 
 ####align score
 shaped_algn_score <- reshape(struct_align_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
-names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) #...don't rmember what 10,100 does....
+names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) 
 
 
 #this creates rownames (seq ids are in a  column/row now)
