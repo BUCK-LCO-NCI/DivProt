@@ -1,5 +1,5 @@
-#If using biowulf, one has to configure an enviornment that contains pandas, as it is no longer an availible module
-
+#If using biowulf, one has to configure an enviornment that contains pandas, as it doesn't seem to be(?) an availible module with python3
+#example:
 #source /data/belfordak/Buck_lab/conda/etc/profile.d/conda.sh
 #conda activate base
 #conda activate project_pandas  (just a py env with pandas)
