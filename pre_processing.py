@@ -1,4 +1,4 @@
-#If using biowulf, onne has to configure an enviornment that contains pandas, as it is no longer an availible module
+#If using biowulf, one has to configure an enviornment that contains pandas, as it is no longer an availible module
 
 #source /data/belfordak/Buck_lab/conda/etc/profile.d/conda.sh
 #conda activate base
