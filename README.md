@@ -23,8 +23,7 @@ Submit a swarm job like the prompt at the end of the pre_pre_processing.sh scrip
 ### Step 3.
 Run the pre_procesing.py script to take the Porter5 output and produce what I'm calling "fastqish" files.
 
-They're basically fastq files:
-(but they don't contain the line numbers I've included here)
+They're basically fastq files (but they don't contain the line numbers I've included here):
 
 >1. @Arowana_adomavirus_LT | 14901:17525 Reverse
 >2. CCCHHHHHHHHHHHHHCCCCCCCCHHHHHHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHCCCC
