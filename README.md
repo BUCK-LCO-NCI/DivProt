@@ -3,7 +3,7 @@ Simple alignment method for divergent proteins based on amino acid sequence and 
 This is compiled to work on the NIH's Biowulf system
 
 User instructions, may change a little
-~will update with more directory info as I think that will be a little confusing~
+- will update with more directory info as I think that will be a little confusing
 ## For running on conserved amino acid domains:
 
 [coming soon]
@@ -22,17 +22,19 @@ Submit a swarm job like the prompt at the end of the pre_pre_processing.sh scrip
 
 ### Step 3.
 Run the pre_procesing.py script to take the Porter5 output and produce what I'm calling "fastqish" files.
-They're basically fastq files:
 
-> @Arowana_adomavirus_LT | 14901:17525 Reverse
-> CCCHHHHHHHHHHHHHCCCCCCCCHHHHHHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHCCCC
-> +
-> !"#$%'(*++++*'%$"!!!!"##$&'+----,,+++*))&#!!!!!!!#'(+-..--+(%$##$$##"!
+They're basically fastq files:
+(but they don't contain the line numbers I've included here)
+
+>1. @Arowana_adomavirus_LT | 14901:17525 Reverse
+>2. CCCHHHHHHHHHHHHHCCCCCCCCHHHHHHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHCCCC
+>3. "+"
+>4. !"#$%'(*++++*'%$"!!!!"##$&'+----,,+++*))&#!!!!!!!#'(+-..--+(%$##$$##"!
 
 You want to run this script on all of the files in the directory (all individual sequences from your input,as Porter5 only takes on at a time)
 So in the terminal, run:
 ```
-for f in *; do python3 pre_procesing.py $f; done"
+for f in *; do python3 pre_procesing.py $f; done
 ```
 Once this is done, you'll want to create on meraged file of all the XX.ssX.fastqish files. This file containes the sequence name, secondary structure prediction, and phred score of each position structure.
 Create the file with something like:
