@@ -1,6 +1,7 @@
 # DivProt
-Simple alignment method for divergent proteins based on amino acid sequence and predicted structure
-This is compiled to work on the NIH's Biowulf system
+Simple alignment method for divergent proteins based on amino acid sequence and predicted structure.
+
+This is compiled to work on the NIH's Biowulf cluster
 
 [add info about and link to Porter5's github page]
 
