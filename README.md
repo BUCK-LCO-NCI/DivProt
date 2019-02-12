@@ -67,8 +67,8 @@ Run aligner:
 python3 aligner_finalish.py original_fasta_name.ss3.fastqish
 ```
 
-#### On the strcuture:
-> XX.ss3: (H), strand (E), and coil (C)
+#### On the structure:
+> XX.ss3: helix (H), strand (E), and coil (C)
 
 > XX.ss8: helix (G), α-helix (H), π-helix (I), β-stand (E), bridge (B), turn (T), bend (S), and others (C)
 
