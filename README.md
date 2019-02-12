@@ -7,6 +7,21 @@ This is compiled to work on the NIH's Biowulf cluster
 
 User instructions, may change a little
 - will update with more directory info as I think that will be a little confusing
+
+#### Dependencies
+1. Python3
+  - pandas
+  - NumPy
+  - Biopython
+
+2. Porter5
+  - hhsuite
+  - psiblast
+  - uniprot
+  - uniref90
+  
+3. R
+
 ## For running on conserved amino acid domains:
 
 [coming soon]
@@ -52,13 +67,17 @@ Run aligner:
 python3 aligner_finalish.py original_fasta_name.ss3.fastqish
 ```
 
+#### On the strcuture:
+> XX.ss3: (H), strand (E), and coil (C)
+
+> XX.ss8: helix (G), α-helix (H), π-helix (I), β-stand (E), bridge (B), turn (T), bend (S), and others (C)
+
 
 ...That's it for now...
 
 Notes:
-- The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change.
-- There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used
-- I'll be benchmarking Porter5 with more threads to see if it makes much of a difference in run time
-
-
+> 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change.
+> 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used.
+> 3. I'll be benchmarking Porter5 with more threads to see if it makes much of a difference in run time.
+> 4. A 3rd method that takes into account both the aa and ss alignment scores for producing a matrix may be be implemented in the future.
 
