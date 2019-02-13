@@ -51,7 +51,7 @@ They're basically fastq files (but they don't contain the line numbers I've incl
 You want to run this script on all of the files in the directory (all individual sequences from your input,as Porter5 only takes on at a time)
 So in the terminal, run:
 ```
-for f in *; do python3 pre_procesing.py $f original_fasta.fasta; done
+for f in *; do python3 pre_procesing.py $f ../original_fasta.fasta; done
 ```
 Once this is done, you'll want to create on meraged file of all the XX.ssX.fastqish files. This file containes the sequence name, secondary structure prediction, and phred score of each position structure.
 Create the file with something like:
