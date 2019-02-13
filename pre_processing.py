@@ -72,7 +72,7 @@ my_dictionary= {
 
 ASCII = infile['phred_calc'].apply(np.floor)
 # with var assignment
-infile['ASCII']= ASCII.map(my_dictionary) #this works!
+infile['ASCII']= ASCII.map(my_dictionary) 
 
 #Transposing
 infile_transposed_in = infile.T
@@ -88,8 +88,8 @@ concat_test = np.array(concat_test_temp)
 infile_name = sys.argv[1]
 
 #1. read in temp_porter5_submission.swarm as list_seq_XX
-#note fix path thing, and actual file will always be called temp_porter5_submission.swarm
-with open("/data/belfordak/Buck_lab/Divergent_prots/SCRIPT_V3/largerfile/new/Porter5_swarm_submission.swarm") as f:
+#note: I'm not sure if this will be the final path (maybe we'll want it back 1 dir?)
+with open("./temp_porter5_submission.swarm") as f: 
     list_seq_XX = f.readlines()
 list_seq_XX = [x.strip() for x in list_seq_XX]
 
@@ -107,7 +107,8 @@ for line in y:
 list_seq_XX_fin = x
 
 #2. read original.fa as list, but only lines that start with ">"
-with open("/data/belfordak/Buck_lab/Divergent_prots/SCRIPT_V3/Adoma_polyoma_LTandVP1.fasta","r") as f:
+original_fasta = sys.argv[2]
+with open(original_fasta,"r") as f:
     id_temp = []
     for ln in f:
         if ln.startswith(">"):
@@ -118,7 +119,7 @@ list_seq_fa_orig = [x.strip() for x in id_temp]
 #3. dictionary from the two lists
 keys = list_seq_XX_fin #id_temp_clean in test
 values = list_seq_fa_orig
-dict_for_name_appends = dict(zip(keys, values)) #weird name, change this
+dict_for_name_appends = dict(zip(keys, values)) 
 
 #3.5 parse file name for key val search
 sep = os.path.basename(infile_name).split('.')[0]
