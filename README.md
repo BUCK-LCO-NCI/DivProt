@@ -51,7 +51,7 @@ They're basically fastq files (but they don't contain the line numbers I've incl
 You want to run this script on all of the files in the directory (all individual sequences from your input,as Porter5 only takes on at a time)
 So in the terminal, run:
 ```
-for f in *; do python3 pre_procesing.py $f; done
+for f in *; do python3 pre_procesing.py $f original_fasta.fasta; done
 ```
 Once this is done, you'll want to create on meraged file of all the XX.ssX.fastqish files. This file containes the sequence name, secondary structure prediction, and phred score of each position structure.
 Create the file with something like:
@@ -76,7 +76,7 @@ python3 aligner_finalish.py original_fasta_name.ss3.fastqish
 ...That's it for now...
 
 Notes:
-> 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change.
+> 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change. If it doesn't, we should change alignment method anyway from custom -> blosum62
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used.
 > 3. I'll be benchmarking Porter5 with more threads to see if it makes much of a difference in run time.
 > 4. A 3rd method that takes into account both the aa and ss alignment scores for producing a matrix may be be implemented in the future.
