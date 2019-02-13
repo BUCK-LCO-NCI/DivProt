@@ -75,9 +75,12 @@ python3 aligner_finalish.py original_fasta_name.ss3.fastqish
 
 ...That's it for now...
 
-Notes:
+Notes and TODO:
 > 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change. If it doesn't, we should change alignment method anyway from custom -> blosum62
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used.
 > 3. I'll be benchmarking Porter5 with more threads to see if it makes much of a difference in run time.
 > 4. A 3rd method that takes into account both the aa and ss alignment scores for producing a matrix may be be implemented in the future.
+> 5. Add .log file for ss aligner
+> 6. Add --help
+> 7. Add error messages
 
