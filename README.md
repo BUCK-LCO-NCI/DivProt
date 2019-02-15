@@ -1,11 +1,14 @@
 # DivProt
-Simple alignment method for divergent proteins based on amino acid sequence and predicted structure.
+Simple alignment method for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phyologentic space.
 
-This is compiled to work on the NIH's Biowulf cluster
+DivProt works by iteritevly aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (eatmap, phylogenetic tress, and networks) to help visualise evolutionary relationships.
 
-[add info about and link to Porter5's github page]
+For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
+For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with [either blomsum62 or custom scoring with account to phred score caluculated from Porter5 output confidence in assignment]
 
-User instructions, may change a little
+This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally.
+
+User instructions(may change a little)
 - will update with more directory info as I think that will be a little confusing
 
 #### Dependencies
