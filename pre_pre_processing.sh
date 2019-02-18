@@ -14,4 +14,4 @@ ls *.fasta > temp_porter5_submission.swarm
 awk '{print "python 3 ../Porter5/Porter5.py -i", $0 , "--cpu 4 --fast -o ./porter_out"}' temp_porter5_submission.swarm > porter5_submission.swarm
 
 #Porter5 has to be optimised with paths to hhblits, psi-blast, etc...? I'm not sure if it will be a problem?
-printf "Now submit a swarm job with Porter5_swarm_submission.swarm\n"
+printf "Now submit a swarm job with the Porter5_swarm_submission.swarm file in ./split_out\n"
