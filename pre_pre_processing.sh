@@ -11,7 +11,7 @@ csplit -s -b "%02d.fasta" -f seq_ -z ../$1 '/>/' {*}
 #2 put all files as porter5 job submisstions in one .swarm file
 ls *.fasta > temp_porter5_submission.swarm
 
-awk '{print "python 3 ../Porter5/Porter5.py -i", $0 , "--cpu 4 --fast -newoutdircommand?"}' temp_porter5_submission.swarm > porter5_submission.swarm
+awk '{print "python 3 ../Porter5/Porter5.py -i", $0 , "--cpu 4 --fast -o ./porter_out"}' temp_porter5_submission.swarm > porter5_submission.swarm
 
 #Porter5 has to be optimised with paths to hhblits, psi-blast, etc...? I'm not sure if it will be a problem?
 printf "Now submit a swarm job with Porter5_swarm_submission.swarm\n"
