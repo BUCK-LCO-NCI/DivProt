@@ -20,8 +20,14 @@ User instructions(may change a little)
 2. Porter5
   - hhsuite
   - psiblast
-  - uniprot
+  - uniprot (cp -r /fdb/hhsuite/uniprot20_2016_02 .)
   - uniref90
+  
+> when Porter5 is configuring and wants paths I do this:
+> uniref90 = /fdb/SIFT/uniref90.fa
+> hhblits = hhblits [or /usr/local/apps/hhsuite/3.0-beta.3/bin/hhblits should work too]
+>	uniprot = ./uniprot20_2016_02/uniprot20_2016_02
+>	psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
   
 3. R
 
