@@ -96,4 +96,5 @@ Notes and TODO:
 > 5. Add .log file for ss aligner
 > 6. Add --help
 > 7. Add error messages
+> 8. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
 
