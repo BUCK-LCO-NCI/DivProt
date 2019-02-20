@@ -24,10 +24,14 @@ User instructions(may change a little)
   - uniref90
   
 > when Porter5 is configuring and wants paths I do this:
-> uniref90 = /fdb/SIFT/uniref90.fa
-> hhblits = hhblits [or /usr/local/apps/hhsuite/3.0-beta.3/bin/hhblits should work too]
->	uniprot = ./uniprot20_2016_02/uniprot20_2016_02
->	psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
+
+>uniref90 = /fdb/SIFT/uniref90.fa
+
+>hhblits = hhblits [or /usr/local/apps/hhsuite/3.0-beta.3/bin/hhblits should work too]
+
+>uniprot = ./uniprot20_2016_02/uniprot20_2016_02 (cp -r to dir you have permission to - giving the path to where it's posted on biowulf will cause an error when you run Porter b/c you don't have permission to access the db in this location)
+
+>psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
   
 3. R
 
