@@ -55,7 +55,7 @@ bash pre_pre_processing.sh Adoma_polyoma_LTandVP1.fasta
 ```
 
 ### Step 2. 
-Submit a swarm job like the prompt at the end of the pre_pre_processing.sh script says to do with the outfile
+Submit a swarm job like the prompt at the end of the pre_pre_processing.sh script says to do with the outfile. Do this from within the Porter5 directory, linking to the location of the file in ~/split_out. 
 
 ### Step 3.
 Run the pre_procesing.py script to take the Porter5 output and produce what I'm calling "fastqish" files.
