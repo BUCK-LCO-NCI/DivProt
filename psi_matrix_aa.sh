@@ -18,4 +18,4 @@ cd $DIRNAME
 
 psiblast -query "../$QUERYFILE" -subject "../$SUBJECTFILE" -outfmt 6 > PSIBLAST_results.txt
 
-Rscript ../R_script_aa.R
+Rscript R_script_aa.R
