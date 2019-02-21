@@ -23,13 +23,13 @@ User instructions(may change a little)
   - uniprot (cp -r /fdb/hhsuite/uniprot20_2016_02 .)
   - uniref90
   
-> when Porter5 is configuring and wants paths I do this:
+> Example: when Porter5 is configuring and wants paths I do this:
 
 >uniref90 = /fdb/SIFT/uniref90.fa
 
->hhblits = hhblits [or /usr/local/apps/hhsuite/3.0-beta.3/bin/hhblits should work too]
+>hhblits = hhblits [I call the hhsuite module with the job submission, or /usr/local/apps/hhsuite/3.0-beta.3/bin/hhblits without doing that should work too]
 
->uniprot = ./uniprot20_2016_02/uniprot20_2016_02 (cp -r to dir you have permission to - giving the path to where it's posted on biowulf will cause an error when you run Porter b/c you don't have permission to access the db in this location)
+>uniprot = /data/belfordak/Buck_lab/Divergent_prots/DivProt/uniprot20_2016_02/uniprot20_2016_02 (cp -r uniprot20_2016_02 db to a dir you have permission to - giving the path to where it's hosted on biowulf will cause an error when you run Porter b/c you don't have permission to access the db in this location)
 
 >psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
   
