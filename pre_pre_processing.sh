@@ -8,6 +8,7 @@ cd split_out
 csplit -s -b "%02d.fasta" -f seq_ -z ../$1 '/>/' {*}
 #for fastq: csplit -s -b "%02d.fasta" -f seq_ -z ./testt.fa '/@/' {*} --we should probably integrate this so someone can supply a fastq in additon to fasta
 
+ls seq_* > all_seqs.list #not doing .fasta to avoid input fa getting put in there
 #2 put all files as porter5 job submisstions in one .swarm file
 ls *.fasta > temp_porter5_submission.swarm
 
