@@ -85,7 +85,7 @@ Run the aligner to produce a metrix of alignment scores of all your input struct
 
 Run aligner:
 ```
-python3 aligner_finalish.py original_fasta_name.ss3.fastqish
+python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ```
 
 #### On the structure:
