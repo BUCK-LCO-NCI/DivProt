@@ -44,6 +44,8 @@ You'll need to set up Porter5 with a single sequence before you can run all in y
 >uniprot = /data/belfordak/Buck_lab/Divergent_prots/DivProt/uniprot20_2016_02/uniprot20_2016_02 (cp -r uniprot20_2016_02 db to a dir you have permission to - giving the path to where it's hosted on biowulf will cause an error when you run Porter b/c you don't have permission to access the db in this location)
 
 >psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
+
+(If found that your prediction works and you get your .ssX files, you're good to go. If you get an error message, it is likely due to your paths, even though there was probably no error called when you set them up. Also, just fyi, the error messages from Porter don't always obviously direct you to the problem (an error telling you a certins psi-blast related file could not be found doesn't necessarily mean there is anything wrong with your psi-blast directory/module/path).
   
 ### Step 1. 
 Run the pre_pre_processing script on your fasta input file. Both single and multiline fasta are fine.
