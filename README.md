@@ -23,7 +23,19 @@ User instructions(may change a little)
   - uniprot (cp -r /fdb/hhsuite/uniprot20_2016_02 .)
   - uniref90
   
-> Example: when Porter5 is configuring and wants paths I do this:
+3. R
+
+## For running on conserved amino acid domains:
+
+[coming soon]
+
+## For running on predicted secondary structure:
+
+
+### Step 0.
+You'll need to set up Porter5 with a single sequence before you can run all in your fasta file. Porter5 requests the paths to its dependencies. I do this by pulling the first sequence in my fasta file, creating a new .fa with that, and submitting that to Porter. This lets me input my paths and set everything up. You only need to do this once.
+
+> Example of how I configure the paths (this will be almost the same for anyone else running on biowulf):
 
 >uniref90 = /fdb/SIFT/uniref90.fa
 
@@ -33,14 +45,6 @@ User instructions(may change a little)
 
 >psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
   
-3. R
-
-## For running on conserved amino acid domains:
-
-[coming soon]
-
-## For running on predicted secondary structure:
-
 ### Step 1. 
 Run the pre_pre_processing script on your fasta input file. Both single and multiline fasta are fine.
 Ex.
