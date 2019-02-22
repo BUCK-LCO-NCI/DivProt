@@ -7,7 +7,7 @@ library("dplyr")
 library("reshape")
 
 ##subject file
-struct_align_score_table <- read.table("struct_score_table.csv", sep = "\t", header = FALSE)
+struct_align_score_table <- read.table("struct_score_table.csv", sep = ",", header = FALSE)
 
 colnames(struct_align_score_table) <- c("qseqid", "sseqid", "align_score")
 
