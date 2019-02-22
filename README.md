@@ -75,7 +75,7 @@ So in the terminal, run:
 ```
 for f in *.ssX; do python3 pre_processing.py $f ../original_fasta.fasta; done
 ```
-Once this is done, you'll want to create on meraged file of all the XX.ssX.fastqish files. This file containes the sequence name, secondary structure prediction, and phred score of each position structure.
+Once this is done, you'll want to create one merged file of all the XX.ssX.fastqish files. This file contains the sequence name, secondary structure prediction, and phred score of each position structure.
 Create the file with something like:
 ```
 awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.fastqish)
