@@ -44,4 +44,5 @@ with open ("alignment_out.txt", "w") as f:
      for item in alignment_out:
              f.write("%s\n" % item) #looks fab
 
-Rscript R_script_struct.R
+import subprocess
+subprocess.check_call(['Rscript', 'R_script_strct.R'], shell=False)
