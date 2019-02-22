@@ -61,7 +61,7 @@ library("igraph")
 ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = TRUE)
 
 community_clustering <- fastgreedy.community(ig)
-cluster_colors <- rainbow(max(membership(community_clustering)))
+cluster_colours <- rainbow(max(membership(community_clustering)))
 
 l <- layout <- layout.reingold.tilford(ig, circular=T)
 ll <- layout.fruchterman.reingold(ig, niter=10000)
@@ -70,10 +70,10 @@ plot(ig, layout=l,
      edge.arrow.size=0.5, 
      vertex.label.cex=0.5, 
      vertex.label.family="Helvetica",
-     vertex.label.font=2,
+     vertex.label.font=1.5,
      vertex.shape="circle", 
      vertex.size=3,
-     vertex.color=colors[membership(fc)], 
+     vertex.color=cluster_colours[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4)
 
@@ -81,10 +81,10 @@ plot(ig, layout=ll,
      edge.arrow.size=0.5, 
      vertex.label.cex=0.5, 
      vertex.label.family="Helvetica",
-     vertex.label.font=2,
+     vertex.label.font=1.5,
      vertex.shape="circle", 
      vertex.size=3,
-     vertex.color=colors[membership(fc)], 
+     vertex.color=cluster_colours[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4)
 
