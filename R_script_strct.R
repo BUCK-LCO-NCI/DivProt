@@ -25,13 +25,12 @@ shaped_algn <- tmpb
 
 algnscore_matrix <- shaped_algn
 
-
-#Replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. Here perfect alignment across the diagonal = 180. Not a problem (pretty sure) as we can ignore diagonal 
+#Below replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. 
+#Here perfect alignment across the diagonal is a real , and variable,value. Not a problem for the tees and networks as we can ignore diagonal 
+#it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
 #algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
 
-
 write.csv(algnscore_matrix, "algnscore_matrix.csv") 
-
 
 #dendrogram / tree   
 library("stats")
@@ -52,14 +51,9 @@ plot(as.phylo.hclust(hc), type = "fan")
 
 #heatmap
 library("pheatmap")
-ph <- pheatmap(algnscore_matrix, width = 10, height = 10)
-plot(ph, cex = 0.6)
-
-
-#igraph, and heatmap, weirdly enough
 matrix_confirm <- as.matrix(algnscore_matrix)
 mode(matrix_confirm) <- "numeric"
-#plot(matrix_confirm, cex = 0.6) #this turned into the heatmap once...
+plot(matrix_confirm, cex = 0.6) 
 
 
 #actual igrpah, two for different layout options 
