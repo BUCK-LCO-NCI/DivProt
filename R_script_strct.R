@@ -56,7 +56,8 @@ mode(matrix_confirm) <- "numeric"
 pheatmap(matrix_confirm, cex = 0.7) #user may want to change cex for name visibility depending on the number of sequences they have 
 
 
-#actual igrpah, two for different layout options 
+#actual igrpah, two for different layout options
+library("igraph")
 ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = TRUE)
 
 community_clustering <- fastgreedy.community(ig)
