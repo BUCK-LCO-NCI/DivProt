@@ -6,7 +6,7 @@ DivProt works by iteritevly aligning sequences, storing the scores (bitscore, e-
 For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
 For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with [either blomsum62 or custom scoring with account to phred score caluculated from Porter5 output confidence in assignment]
 
-This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally.
+This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory.
 
 Anywhere below where you see .ssX, I am referring to the Porter5 output files .ss3 or .ss8. .ssX denotes that you should specify which one you are working with. 
 
@@ -81,11 +81,12 @@ awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.
 ```
 
 ### Step 4
-Run the aligner to produce a metrix of alignment scores of all your input structure sequences. The R file to produce figures will automatically run from the aligner_finalish.py script. They will be outputted into Rplots.pdf.
+Run the aligner to produce a metrix of alignment scores of all your input structure sequences. The R file to produce figures will automatically run from the aligner_finalish.py script. They will be outputted into Rplots.pdf. You do need to load an R module though. 
 
 Run aligner:
 ```
-python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
+$ module load R/3.5
+$ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ```
 
 #### On the structure:
