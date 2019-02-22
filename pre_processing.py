@@ -1,8 +1,9 @@
 #If using biowulf, one has to configure an enviornment that contains pandas, as it doesn't seem to be(?) an availible module with python3
-#example:
+#example, type something like this:
 #source /data/belfordak/Buck_lab/conda/etc/profile.d/conda.sh
 #conda activate base
-#conda activate project_pandas  (just a py env with pandas)
+#conda activate all_libs  (just an env with pandas and other packages)
+    #done with: conda create -n all_libs python=3.6 numpy scipy pandas biopython
 #python
 
 #run as python3 pre_processing.py seq_00.fa.ss3 (except for all file in dir so some sort of loop?) <- TODO
