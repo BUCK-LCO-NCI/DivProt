@@ -53,7 +53,7 @@ plot(as.phylo.hclust(hc), type = "fan")
 library("pheatmap")
 matrix_confirm <- as.matrix(algnscore_matrix)
 mode(matrix_confirm) <- "numeric"
-plot(matrix_confirm, cex = 0.6) 
+pheatmap(matrix_confirm, cex = 0.7) #user may want to change cex for name visibility depending on the number of sequences they have 
 
 
 #actual igrpah, two for different layout options 
