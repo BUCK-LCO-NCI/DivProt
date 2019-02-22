@@ -23,7 +23,7 @@ tmpb <- shaped_algn_score[,-1]
 rownames(tmpb) <- shaped_algn_score[,1]
 shaped_algn <- tmpb
 
-algnscore_matrix <- shaped_algn_score[,rownames(shaped_algn_score)]
+algnscore_matrix <- shaped_algn
 
 
 #Replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. Here perfect alignment across the diagonal = 180. Not a problem (pretty sure) as we can ignore diagonal 
