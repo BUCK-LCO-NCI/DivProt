@@ -1,10 +1,10 @@
 # DivProt
-Simple alignment method for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phyologentic space.
+Simple alignment method for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space.
 
-DivProt works by iteritevly aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (eatmap, phylogenetic tress, and networks) to help visualise evolutionary relationships.
+DivProt works by iteratively aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (heatmap, phylogenetic tress, and networks) to help visualise evolutionary relationships.
 
 For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
-For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with [either blomsum62 or custom scoring with account to phred score caluculated from Porter5 output confidence in assignment]
+For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with [either blomsum62 or custom scoring with account to phred score calculated from Porter5 output confidence in assignment]
 
 This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory.
 
@@ -47,7 +47,7 @@ You'll need to set up Porter5 with a single sequence before you can run all in y
 
 >psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
 
-(If found that your prediction works and you get your .ssX files, you're good to go. If you get an error message, it is likely due to your paths, even though there was probably no error called when you set them up. Also, just fyi, the error messages from Porter don't always obviously direct you to the problem (an error telling you a certins psi-blast related file could not be found doesn't necessarily mean there is anything wrong with your psi-blast directory/module/path).
+(If found that your prediction works and you get your .ssX files, you're good to go. If you get an error message, it is likely due to your paths, even though there was probably no error called when you set them up. Also, just fyi, the error messages from Porter don't always obviously direct you to the problem (an error telling you a certain psi-blast related file could not be found doesn't necessarily mean there is anything wrong with your psi-blast directory/module/path).
   
 ### Step 1. 
 Run the pre_pre_processing script on your fasta input file. Both single and multiline fasta are fine.
@@ -69,7 +69,8 @@ They're basically fastq files (but they don't contain the line numbers I've incl
 >3. "+"
 >4. !"#$%'(*++++*'%$"!!!!"##$&'+----,,+++*))&#!!!!!!!#'(+-..--+(%$##$$##"!
 
-You want to run this script on all of the files in the directory (all individual sequences from your input,as Porter5 only takes on at a time)
+You want to run this script on all of the files in the directory (all individual sequences from your input, as Porter5 only takes one at a time)
+
 So in the terminal, run:
 ```
 for f in *.ssX; do python3 pre_processing.py $f ../original_fasta.fasta; done
@@ -81,7 +82,7 @@ awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.
 ```
 
 ### Step 4
-Run the aligner to produce a metrix of alignment scores of all your input structure sequences. The R file to produce figures will automatically run from the aligner_finalish.py script. They will be outputted into Rplots.pdf. You do need to load an R module though. 
+Run the aligner to produce a matrix of alignment scores of all your input structure sequences. The R file to produce figures will automatically run from the aligner_finalish.py script. They will be outputted into Rplots.pdf. You do need to load an R module though. 
 
 Run aligner:
 ```
