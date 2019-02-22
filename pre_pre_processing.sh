@@ -12,7 +12,7 @@ ls seq_* > all_seqs.list #not doing .fasta to avoid input fa getting put in ther
 #2 put all files as porter5 job submisstions in one .swarm file
 ls *.fasta > temp_porter5_submission.swarm
 
-awk '{print "python3 Porter5/Porter5.py -i", $0 , "--cpu 4 --fast"}' temp_porter5_submission.swarm > porter5_submission.swarm
+awk '{print "python3 Porter5/Porter5.py -i", split_out/$0 , "--cpu 12 --fast"}' temp_porter5_submission.swarm > porter5_submission.swarm
 
 #Porter5 has to be optimised with paths to hhblits, psi-blast, etc...? I'm not sure if it will be a problem?
-printf "Now submit a swarm job with the Porter5_swarm_submission.swarm file in ./split_out\n"
+printf "Now submit a swarm job with the Porter5_swarm_submission.swarm file from ./DivProt\n"
