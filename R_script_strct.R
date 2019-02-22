@@ -35,25 +35,24 @@ write.csv(algnscore_matrix, "algnscore_matrix.csv")
 #dendrogram / tree   
 library("stats")
 pdf(file = "Rplots.pdf")
-for_hclust <- dist(algnscore_matrix, method = "canberra", diag = FALSE, upper = FALSE, p = 2)
+for_hclust <- dist(algnscore_matrix, method = "canberra", diag = FALSE, upper = FALSE, p = 2) #method can be changed. From our tests, the one chosen here produced the most resonable trees
 hc <- hclust(for_hclust, method = "average", members = NULL)
-plot(hc, hang = -0.5, cex = 0.6) 
+plot(hc, hang = -0.5, cex = 0.4, edge.width=0.4) 
 
 #more trees
 library("ape")
 ##unrooted
 myphylo <- as.phylo.hclust(hc)
-plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.6,
-     no.margin = TRUE)
+plot(myphylo, type = "unrooted", cex = 0.35, label.offset = 0.5, edge.width=0.4, lab4ut="axial", no.margin = TRUE)
 
 ##Fan/circular
-plot(as.phylo.hclust(hc), type = "fan")
+plot(myphylo, type = "fan", cex = 0.4, edge.width=0.4)
 
 #heatmap
 library("pheatmap")
 matrix_confirm <- as.matrix(algnscore_matrix)
 mode(matrix_confirm) <- "numeric"
-pheatmap(matrix_confirm, cex = 0.7) #user may want to change cex for name visibility depending on the number of sequences they have 
+pheatmap(matrix_confirm, cex = 0.5) #user may want to change cex for name visibility depending on the number of sequences they have 
 
 
 #actual igrpah, two for different layout options
@@ -61,7 +60,7 @@ library("igraph")
 ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = TRUE)
 
 community_clustering <- fastgreedy.community(ig)
-cluster_colours <- rainbow(max(membership(community_clustering)))
+cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
 l <- layout <- layout.reingold.tilford(ig, circular=T)
 ll <- layout.fruchterman.reingold(ig, niter=10000)
@@ -75,7 +74,7 @@ plot(ig, layout=l,
      vertex.size=3,
      vertex.color=cluster_colours[membership(community_clustering)], 
      vertex.label.color="black", 
-     edge.width=0.4)
+     edge.width=0.3)
 
 plot(ig, layout=ll, 
      edge.arrow.size=0.5, 
@@ -86,7 +85,7 @@ plot(ig, layout=ll,
      vertex.size=3,
      vertex.color=cluster_colours[membership(community_clustering)], 
      vertex.label.color="black", 
-     edge.width=0.4)
+     edge.width=0.3)
 
 dev.off()
 
