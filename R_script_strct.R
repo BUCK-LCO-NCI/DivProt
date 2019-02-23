@@ -57,13 +57,15 @@ pheatmap(matrix_confirm, cex = 0.5) #user may want to change cex for name visibi
 
 #actual igrpah, two for different layout options
 library("igraph")
-ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = TRUE)
+ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = FALSE, add.colnames = NULL)
 
 community_clustering <- fastgreedy.community(ig)
 cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
 l <- layout <- layout.reingold.tilford(ig, circular=T)
-ll <- layout.fruchterman.reingold(ig, niter=10000)
+ll <- layout.fruchterman.reingold(ig, niter=10000) 
+#layout_nicel  with the same params = same graph. This seems to be the best network layout for this data. If you want to play around with layouts, we highly recommend a high number of iterations like we've used, as it makes a significant difference in clustering. Higher niter = MUCH more accurate
+#circlar plot provided b/c sometimes the characteristics of data can make a typical network hard to read. It's usually not going to be espacially valuable.
 
 plot(ig, layout=l, 
      edge.arrow.size=0.5, 
