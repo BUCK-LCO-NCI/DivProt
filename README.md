@@ -32,7 +32,7 @@ User instructions(may change a little)
 [coming soon]
 
 
-Note: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, alignemnt score, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three pis-blast outputs. You can certainly change this though by going into the R script (R_script_aa) and replacing line XX " " with "" or "". All subsequent figures will be created with that data.
+Note: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, persent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three pis-blast outputs. You can certainly change this though by going into the R script (R_script_aa) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
 
 ## For running on predicted secondary structure:
 
