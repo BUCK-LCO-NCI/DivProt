@@ -91,7 +91,7 @@ infile_name = sys.argv[1]
 #1. read in temp_porter5_submission.swarm as list_seq_XX
 #note: I'm not sure if this will be the final path (maybe we'll want it back 1 dir?)
 #all_seqs.list created in pre_pre_processing script
-with open("all_seqs.list") as f: 
+with open("temp_porter5_submission.swarm") as f: 
     list_seq_XX = f.readlines()
 list_seq_XX = [x.strip() for x in list_seq_XX]
 
