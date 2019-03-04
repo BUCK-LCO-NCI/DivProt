@@ -54,6 +54,8 @@ You'll need to set up Porter5 with a single sequence before you can run all in y
   
 ### Step 1. 
 Run the pre_pre_processing script on your fasta input file. Both single and multiline fasta are fine.
+HOWEVER, you cannot have any non-sequence characters in your file outside of the header. 
+###### So you can't have a * at the end of each protein sequence. This will cause Porter5 to fail
 Ex.
 ```
 bash pre_pre_processing.sh Adoma_polyoma_LTandVP1.fasta
