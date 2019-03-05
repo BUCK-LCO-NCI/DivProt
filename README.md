@@ -78,7 +78,7 @@ You want to run this script on all of the files in the directory (all individual
 
 So in the terminal, run:
 ```
-for f in *.ssX; do python3 pre_processing.py $f ../original_fasta.fasta; done
+for f in *.ssX; do python3 ../pre_processing.py $f ../original_fasta.fasta; done
 ```
 Once this is done, you'll want to create one merged file of all the XX.ssX.fastqish files. This file contains the sequence name, secondary structure prediction, and phred score of each position structure.
 Create the file with something like:
@@ -104,12 +104,10 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ...That's it for now...
 
 Notes and TODO:
-> 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change. If it doesn't, we should change alignment method anyway from custom -> blosum62
+> 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change. Alignment method right now is blosum62. It will change to custom if we decide to implement phred in alignment score
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used.
-> 3. I'll be benchmarking Porter5 with more threads to see if it makes much of a difference in run time.
-> 4. A 3rd method that takes into account both the aa and ss alignment scores for producing a matrix may be be implemented in the future.
-> 5. Add .log file for ss aligner
-> 6. Add --help
-> 7. Add error messages
-> 8. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
+> 3. Add .log file for ss aligner
+> 4. Add --help
+> 5. Add error messages
+> 6. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
 
