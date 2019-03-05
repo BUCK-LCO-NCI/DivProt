@@ -85,6 +85,7 @@ Create the file with something like:
 ```
 awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.fastqish)
 ```
+~ Note: we *highly* reccommend using the .ss8 files for meaningful alignments ~
 
 ### Step 4
 Run the aligner to produce a matrix of alignment scores of all your input structure sequences. The R file to produce figures will automatically run from the aligner_finalish.py script. They will be outputted into Rplots.pdf. You do need to load an R module though. 
@@ -106,8 +107,9 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 Notes and TODO:
 > 1. The aligner currently *does not* take into account phred scores when calculating the alignment score. This may change. Alignment method right now is blosum62. It will change to custom if we decide to implement phred in alignment score
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used.
-> 3. Add .log file for ss aligner
-> 4. Add --help
-> 5. Add error messages
-> 6. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
+> 3. Add e value calculations
+> 4. Add .log file for ss aligner
+> 5. Add --help
+> 6. Add error messages
+> 7. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
 
