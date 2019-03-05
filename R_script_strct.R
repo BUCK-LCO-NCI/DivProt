@@ -37,22 +37,22 @@ library("stats")
 pdf(file = "Rplots.pdf")
 for_hclust <- dist(algnscore_matrix, method = "canberra", diag = FALSE, upper = FALSE, p = 2) #method can be changed. From our tests, the one chosen here produced the most resonable trees
 hc <- hclust(for_hclust, method = "average", members = NULL)
-plot(hc, hang = -0.5, cex = 0.4, edge.width=0.4) 
+plot(hc, hang = -0.5, cex = 0.3, edge.width=0.4) 
 
 #more trees
 library("ape")
 ##unrooted
 myphylo <- as.phylo.hclust(hc)
-plot(myphylo, type = "unrooted", cex = 0.35, label.offset = 0.5, edge.width=0.4, lab4ut="axial", no.margin = TRUE)
+plot(myphylo, type = "unrooted", cex = 0.3, label.offset = 0.5, edge.width=0.4, lab4ut="axial", no.margin = TRUE)
 
 ##Fan/circular
-plot(myphylo, type = "fan", cex = 0.4, edge.width=0.4)
+plot(myphylo, type = "fan", cex = 0.3, edge.width=0.4)
 
 #heatmap
 library("pheatmap")
 matrix_confirm <- as.matrix(algnscore_matrix)
 mode(matrix_confirm) <- "numeric"
-pheatmap(matrix_confirm, cex = 0.5) #user may want to change cex for name visibility depending on the number of sequences they have 
+pheatmap(matrix_confirm, cex = 0.4) #user may want to change cex for name visibility depending on the number of sequences they have 
 
 
 #actual igrpah, two for different layout options
