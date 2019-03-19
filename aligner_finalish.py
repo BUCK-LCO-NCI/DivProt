@@ -31,7 +31,7 @@ alignment_out = []
 
 for key1 in final_dictionary:
     for key2 in final_dictionary:
-            align = pairwise2.align.globalms(final_dictionary[key1],final_dictionary[key2],1,-1,0,0, one_alignment_only=True)
+            align = pairwise2.align.globalms(final_dictionary[key1],final_dictionary[key2],5,-2,-2,-2, one_alignment_only=True)
             string = format_alignment(*align[0])
             score_table.append(key1 + "," + key2 + "," + string.splitlines()[3])
             alignment_out.append(key1 + "::" + key2 + "\n" + string)
