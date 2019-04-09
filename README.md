@@ -1,23 +1,24 @@
 # DivProt
-Simple alignment method for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space.
+Alignment programme for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space. Alignment 
 
-DivProt works by iteratively aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (heatmap, phylogenetic tress, and networks) to help visualise evolutionary relationships.
+DivProt works by iteratively aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (heatmap, phylogenetic trees, and networks) to help visualise evolutionary relationships.
 
 For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
-For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with [either blomsum62 or custom scoring with account to phred score calculated from Porter5 output confidence in assignment]
+For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with a 3-tierd alignemnt strategy that utilises a scoring matrix based on structure grouping, a log-odd probability matrix, and predicted structure probablilty. Amino acid weighting from running your dataset through the PSI-BLAST method can influence your secondary structure scoring (or vise-versa) according to input specifications.
 
-This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory.
+[TODO: figure here]
+
+This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory + set up a custom enviornment to run python modules not automatically availible (instruction on this are at the top of the pre_pre_proc file).
 
 Anywhere below where you see .ssX, I am referring to the Porter5 output files .ss3 or .ss8. .ssX denotes that you should specify which one you are working with. 
 
-User instructions(may change a little)
-- will update with more directory info as I think that will be a little confusing
 
 #### Dependencies
 1. Python3
   - pandas
   - NumPy
   - Biopython
+  - Biotite (if interested in 2D visualisation of structure)
 
 2. Porter5
   - hhsuite
