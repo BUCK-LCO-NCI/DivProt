@@ -100,7 +100,7 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 #### On the structure:
 > XX.ss3: helix (H), strand (E), and coil (C)
 
-> XX.ss8: helix (G), α-helix (H), π-helix (I), β-stand (E), bridge (B), turn (T), bend (S), and others (C)
+> XX.ss8: α-helix (H), π-helix (I), 3<sub>10</sub> helix (G), β-stand (E), β-bridge (B), H bonded turn (T), bend (S), and Coil and others (C)
 
 
 ...That's it for now...
