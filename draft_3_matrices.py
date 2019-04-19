@@ -64,16 +64,14 @@ for key1 in final_dictionary:
 #1. clustalw alignment (pairwise2 canoot produce an MSA, which we must have for this process)
 from Bio.Align.Applications import ClustalwCommandline
 
-cline = ClustalwCommandline("clustalw2", infile="my.fastqish") #Have to change it to fasta :/ lame
+cline = ClustalwCommandline("clustalw2", infile="my_test.fastqish") #Have to change it to fasta :/ lame
 print(cline)
 stdout, stderr = cline() #run it here
 
-#2.
+#2. alignmanet object
 from Bio import AlignIO
 
-alignment = AlignIO.read(open("koon_2_seqs_test.aln"), "clustal")
-# or (?) align = AlignIO.read("my.aln", "clustal")
-
+alignment = AlignIO.read(open("my_test.aln"), "clustal")
 
 #3. calculate summary information
 from Bio.Align import AlignInfo
@@ -83,7 +81,7 @@ summary_align = AlignInfo.SummaryInfo(alignment)
 consensus = summary_align.dumb_consensus()
 print(consensus)
 
-#substitution matrix
+#4. substitution matrix
 replace_info = summary_align.replacement_dictionary()
 print(replace_info[("B", "G")])
 
@@ -91,5 +89,5 @@ my_arm = SubsMat.SeqMat(replace_info)
 custom_sub_mat = SubsMat.make_log_odds_matrix(my_arm)
 custom_sub_mat.print_full_mat()
 
-#then loop to re run alignment with this matrix...
+#TODO: then loop to re run alignment with this matrix
 
