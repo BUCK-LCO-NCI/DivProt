@@ -28,6 +28,8 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
   
 3. R
 
+4. clustalW
+
 ## For running on conserved amino acid domains:
 
 [coming soon]
