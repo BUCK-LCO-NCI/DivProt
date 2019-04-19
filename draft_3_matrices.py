@@ -6,7 +6,7 @@ from Bio.SubsMat import MatrixInfo
 from Bio import Align
 
 fastq = sys.argv[1]
-#CAN have dictionary created in one step -- on the TODO list
+
 id_list = []
 for seq_record in SeqIO.parse(sys.argv[1], "fastq"):
     x = (seq_record.id)
