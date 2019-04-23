@@ -91,3 +91,37 @@ custom_sub_mat.print_full_mat()
 
 #TODO: then loop to re run alignment with this matrix
 
+
+
+###################################################################
+####### MATRIX 3: quality matrix (phred from structure prediction) 
+###################################################################
+#This in in R b/c of Biostrings, so using RPy2 and biostrings 
+
+#create a just-phred file to read into R
+all_lines = []
+with open('All_psi_plus_SS8.fastqish') as f:
+    x = [v for i, v in enumerate(f, start=1) if i % 4 == 0]
+    all_lines.append(x)
+    
+print(all_lines)
+
+
+with open('just_qual.csv', mode='w') as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerows(all_lines)
+
+csv_file.close()
+
+import rpy2
+import rpy2.robjects as robjects
+import rpy2.robjects.packages as rpackages
+import bio
+
+package_names = ('biostrings')
+biostrings.biostrings_env['PHRED_MATRIX']
+
+
+
+
+
