@@ -18,7 +18,6 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
   - pandas
   - NumPy
   - Biopython
-  - RPy2
   - Biotite (if interested in 2D visualisation of structure)
   
 
