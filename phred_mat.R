@@ -41,10 +41,61 @@ write.csv(phred_mat_fin, "./phred_mat_align.cs") #possibly change location
 #####################################
 #Produce score_mat and prob_mat actual matrics
 #####################################
+#this is just copied from the top of the older ss_rscript...i suppose that file will turn into just producing the figures
+
+library("tidyr")
+library("dplyr")
+library("reshape")
+
+#1. for score_mat
+##subject file
+struct_align_score_table <- read.table("struct_score_table.csv", sep = ",", header = FALSE)
+colnames(struct_align_score_table) <- c("qseqid", "sseqid", "align_score")
+struct_align_score_table$align_score = as.numeric(gsub("Score=", "", struct_align_score_table$align_score)) #gets rid of Score=
+
+####align score
+shaped_algn_score <- reshape(struct_align_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
+names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) 
 
 
+#this creates rownames (seq ids are in a  column/row now)
+tmpb <- shaped_algn_score[,-1]
+rownames(tmpb) <- shaped_algn_score[,1]
+shaped_algn <- tmpb
+
+algnscore_matrix <- shaped_algn
+
+#Below replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. 
+#Here perfect alignment across the diagonal is a real , and variable,value. Not a problem for the tees and networks as we can ignore diagonal 
+#it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
+#algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
+
+write.csv(algnscore_matrix, "algnscore_matrix.csv") 
 
 
+#2. for prob_mat
+##subject file
+struct_align_score_table <- read.table("struct_score_table.csv", sep = ",", header = FALSE)
+colnames(struct_align_score_table) <- c("qseqid", "sseqid", "align_score")
+struct_align_score_table$align_score = as.numeric(gsub("Score=", "", struct_align_score_table$align_score)) #gets rid of Score=
+
+####align score
+shaped_algn_score <- reshape(struct_align_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
+names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) 
+
+
+#this creates rownames (seq ids are in a  column/row now)
+tmpb <- shaped_algn_score[,-1]
+rownames(tmpb) <- shaped_algn_score[,1]
+shaped_algn <- tmpb
+
+algnscore_matrix <- shaped_algn
+
+#Below replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. 
+#Here perfect alignment across the diagonal is a real , and variable,value. Not a problem for the tees and networks as we can ignore diagonal 
+#it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
+#algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
+write.csv(algnscore_matrix, "algnscore_matrix.csv") 
 
 
 ######################################
