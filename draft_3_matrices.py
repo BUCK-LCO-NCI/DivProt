@@ -44,13 +44,24 @@ matrix = {
 from Bio import SubsMat
 from Bio.SubsMat import MatrixInfo as matlist
 
-for key1 in final_dictionary:
-    for key2 in final_dictionary:
-            align = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
-            string = format_alignment(*align[0])
-            score_table.append(key1 + "," + key2 + "," + string.splitlines()[3])
-            alignment_out.append(key1 + "::" + key2 + "\n" + string)
+def funct_score_mat():
+    for key1 in final_dictionary:
+        for key2 in final_dictionary:
+                align = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
+                string = format_alignment(*align[0])
+                score_table.append(key1 + "," + key2 + "," + string.splitlines()[3])
+                alignment_out.append(key1 + "::" + key2 + "\n" + string)
 
+#funct_score_mat()
+
+with open ("score_mat_score_table.csv", "w") as f:
+    for item in score_table:
+            f.write("%s\n" % item)
+            
+with open ("score_mat_align_out.txt", "w") as f:
+    for item in alignment_out:
+            f.write("%s\n" % item)       
+            
 #so the above returns an error:
 #SystemError: PyEval_EvalFrameEx returned a result with an error set
 #The above exception was the direct cause of the following exception:
@@ -108,15 +119,25 @@ custom_sub_mat.print_full_mat()
 
 
 #loop to re run alignment with this matrix
+funct_prob_mat():
+    for key1 in final_dictionary:
+        for key2 in final_dictionary:
+                align = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],custom_sub_mat, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
+                string = format_alignment(*align[0])
+                score_table.append(key1 + "," + key2 + "," + string.splitlines()[3])
+                alignment_out.append(key1 + "::" + key2 + "\n" + string)
 
-for key1 in final_dictionary:
-    for key2 in final_dictionary:
-            align = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],custom_sub_mat, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
-            string = format_alignment(*align[0])
-            score_table.append(key1 + "," + key2 + "," + string.splitlines()[3])
-            alignment_out.append(key1 + "::" + key2 + "\n" + string)
- 
+#funct_prob_mat()
 
+
+with open ("prob_mat_score_table.csv", "w") as f:
+    for item in score_table:
+            f.write("%s\n" % item)
+            
+with open ("prob_mat_align_out.txt", "w") as f:
+    for item in alignment_out:
+            f.write("%s\n" % item) 
+            
 ###################################################################
 ####### MATRIX 3: quality matrix (phred from structure prediction) 
 ###################################################################
@@ -145,7 +166,6 @@ subprocess.check_call(['Rscript', '--args', '$fastq','phred_mat.R'], stderr=subp
 
 
 ###################################################################
-####### Merge all marticies together 
+####### Merge all marticies together --probably just do in the same R script as above
 ###################################################################
 
-##again R script?
