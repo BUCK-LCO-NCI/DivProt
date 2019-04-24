@@ -64,9 +64,26 @@ for key1 in final_dictionary:
 #1. clustalw alignment (pairwise2 canoot produce an MSA, which we must have for this process)
 from Bio.Align.Applications import ClustalwCommandline
 
-cline = ClustalwCommandline("clustalw2", infile="my_test.fastqish") #Have to change it to fasta :/ lame
+#change to fasta here
+just_fa = []
+with open('All_psi_plus_SS8.fastqish') as f:
+    x = [v for i, v in enumerate(f, start=1) if i % 1 == 0] #?
+    just_fa.append(x)
+    
+print(just_fa)
+
+
+with open('my_test.fasta', mode='w') as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerows(all_lines)
+
+csv_file.close()
+
+
+#alignment begin
+cline = ClustalwCommandline("clustalw2", infile="my_test.fasta") #Have to change it to fasta :/ lame
 print(cline)
-stdout, stderr = cline() #run it here
+stdout, stderr = cline() #run it here (.aln production)
 
 #2. alignmanet object
 from Bio import AlignIO
@@ -83,20 +100,27 @@ print(consensus)
 
 #4. substitution matrix
 replace_info = summary_align.replacement_dictionary()
-print(replace_info[("B", "G")])
+#print(replace_info[("B", "G")]) just checking
 
 my_arm = SubsMat.SeqMat(replace_info)
 custom_sub_mat = SubsMat.make_log_odds_matrix(my_arm)
 custom_sub_mat.print_full_mat()
 
-#TODO: then loop to re run alignment with this matrix
 
+#loop to re run alignment with this matrix
 
+for key1 in final_dictionary:
+    for key2 in final_dictionary:
+            align = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],custom_sub_mat, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
+            string = format_alignment(*align[0])
+            score_table.append(key1 + "," + key2 + "," + string.splitlines()[3])
+            alignment_out.append(key1 + "::" + key2 + "\n" + string)
+ 
 
 ###################################################################
 ####### MATRIX 3: quality matrix (phred from structure prediction) 
 ###################################################################
-#This in in R b/c of Biostrings, so using RPy2 and biostrings 
+#This in in R b/c of Biostrings
 
 #create a just-phred file to read into R
 all_lines = []
@@ -113,15 +137,15 @@ with open('just_qual.csv', mode='w') as csv_file:
 
 csv_file.close()
 
-import rpy2
-import rpy2.robjects as robjects
-import rpy2.robjects.packages as rpackages
-import bio
-
-package_names = ('biostrings')
-biostrings.biostrings_env['PHRED_MATRIX']
+#### we're just going to run the R script instead of using RPy2
+import subprocess
+subprocess.check_call(['Rscript', 'quality_biostringz.R'], shell=False)
+#this is fine, EXCEPT FOR reading in the .fastqish file...I need the R script to take the same sysargv[1] as this script...
 
 
 
+###################################################################
+####### Merge all marticies together 
+###################################################################
 
-
+##again R script?
