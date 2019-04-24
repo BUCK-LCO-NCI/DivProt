@@ -36,7 +36,7 @@ phred_mat_fin <- sapply(full_obj, function(i){
   })
 })
 
-write.csv(phred_mat_fin, "./phred_mat_align.cs") #possibly change location
+write.csv(phred_mat_fin, "./phred_align_matrix.csv") #possibly change location
 
 #####################################
 #Produce score_mat and prob_mat actual matrics
@@ -49,12 +49,12 @@ library("reshape")
 
 #1. for score_mat
 ##subject file
-struct_align_score_table <- read.table("struct_score_table.csv", sep = ",", header = FALSE)
-colnames(struct_align_score_table) <- c("qseqid", "sseqid", "align_score")
-struct_align_score_table$align_score = as.numeric(gsub("Score=", "", struct_align_score_table$align_score)) #gets rid of Score=
+score_mat_score_table <- read.table("score_mat_score_table.csv", sep = ",", header = FALSE)
+colnames(score_mat_score_table) <- c("qseqid", "sseqid", "align_score")
+score_mat_score_table$align_score = as.numeric(gsub("Score=", "", score_mat_score_table$align_score)) #gets rid of Score=
 
 ####align score
-shaped_algn_score <- reshape(struct_align_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
+shaped_algn_score <- reshape(score_mat_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
 names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) 
 
 
@@ -70,17 +70,17 @@ algnscore_matrix <- shaped_algn
 #it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
 #algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
 
-write.csv(algnscore_matrix, "algnscore_matrix.csv") 
+write.csv(algnscore_matrix, "score_align_matrix.csv") 
 
 
 #2. for prob_mat
 ##subject file
-struct_align_score_table <- read.table("struct_score_table.csv", sep = ",", header = FALSE)
-colnames(struct_align_score_table) <- c("qseqid", "sseqid", "align_score")
-struct_align_score_table$align_score = as.numeric(gsub("Score=", "", struct_align_score_table$align_score)) #gets rid of Score=
+prob_mat_score_table <- read.table("prob_mat_score_table.csv", sep = ",", header = FALSE)
+colnames(prob_mat_score_table) <- c("qseqid", "sseqid", "align_score")
+prob_mat_score_table$align_score = as.numeric(gsub("Score=", "", prob_mat_score_table$align_score)) #gets rid of Score=
 
 ####align score
-shaped_algn_score <- reshape(struct_align_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
+shaped_algn_score <- reshape(prob_mat_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
 names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) 
 
 
@@ -95,7 +95,7 @@ algnscore_matrix <- shaped_algn
 #Here perfect alignment across the diagonal is a real , and variable,value. Not a problem for the tees and networks as we can ignore diagonal 
 #it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
 #algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
-write.csv(algnscore_matrix, "algnscore_matrix.csv") 
+write.csv(algnscore_matrix, "prob_align_matrix.csv") 
 
 
 ######################################
@@ -103,18 +103,18 @@ write.csv(algnscore_matrix, "algnscore_matrix.csv")
 ######################################
 #read in score_mat
 
-score_mat <- read.csv(file = , header = TRUE, row.names = 1)
+score_mat <- read.csv(file = "./score_align_matrix.csv", header = TRUE, row.names = 1)
 
 #read in prob_mat
 
-prob_mat <- read.csv(file = , header = TRUE, row.names = 1)
+prob_mat <- read.csv(file = "./prob_align_matrix.csv", header = TRUE, row.names = 1)
 
 #read in phred_mat
 #(or ggg var)
-phred_mat <- read.csv(file = , header = TRUE, row.names = 1)
+phred_mat <- read.csv(file = "./phred_align_matrix.csv"), header = TRUE, row.names = 1)
 
 
-temp_df <- cbind(score_mat,prob_mat, phred_mat)
+temp_df <- cbind(score_mat, prob_mat, phred_mat)
 
 fin_df <- sapply(unique(colnames(temp_df)), 
                  function(x) rowSums(temp[, colnames(temp_df) == x, drop = FALSE]))
