@@ -35,3 +35,37 @@ phred_mat_fin <- sapply(full_obj, function(i){
     score(pairwiseAlignment(i, j, substitutionMatrix = submat))
   })
 })
+
+write.csv(phred_mat_fin, "./phred_mat_align.cs") #possibly change location
+
+#####################################
+#Produce score_mat and prob_mat actual matrics
+#####################################
+
+
+
+
+
+
+######################################
+###SUM ALL THREE MATRICES
+######################################
+#read in score_mat
+
+score_mat <- read.csv(file = , header = TRUE, row.names = 1)
+
+#read in prob_mat
+
+prob_mat <- read.csv(file = , header = TRUE, row.names = 1)
+
+#read in phred_mat
+#(or ggg var)
+phred_mat <- read.csv(file = , header = TRUE, row.names = 1)
+
+
+temp_df <- cbind(score_mat,prob_mat, phred_mat)
+
+fin_df <- sapply(unique(colnames(temp_df)), 
+                 function(x) rowSums(temp[, colnames(temp_df) == x, drop = FALSE]))
+
+write.csv(fin_df, file = "final_3_align_matrix.csv")
