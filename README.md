@@ -110,7 +110,7 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ...That's it for now...
 
 Notes and TODO:
-> 1. New alignment strategy coming soon!
+> 1. Alter linear structure file to accept + output multiple files
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used
 > 3. Add dynamic network edge cutoffs
 > 4. Add .log file for ss aligner
