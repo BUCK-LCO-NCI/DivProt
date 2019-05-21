@@ -4,6 +4,7 @@ from Bio.pairwise2 import format_alignment
 import itertools, sys
 from Bio.SubsMat import MatrixInfo
 from Bio import Align
+import warnings
 
 fastq = sys.argv[1]
 
@@ -46,6 +47,9 @@ alignment_out_1 = []
 def funct_score_mat():
     for key1 in final_dictionary:
         for key2 in final_dictionary:
+            if len(final_dictionary[key1]) < 30:
+                warnings.warn("You have submitted one or more sequences that contain less than 30 characters. Sequences of this size are typically of low complexity in secondary structure, and thus results regaring them can be less meaningful, amd should be regarded with less confidence")
+                #
                 align_1 = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
                 string_1 = format_alignment(*align_1[0])
                 score_table_1.append(key1 + "," + key2 + "," + string_1.splitlines()[3])
