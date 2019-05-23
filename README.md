@@ -110,11 +110,11 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ...That's it for now...
 
 Notes and TODO:
-> 1. Alter linear structure file to accept + output multiple files
+> 1. Add look-up name file for users (seq_07 = input_07_actual_id)
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used
 > 3. Add dynamic network edge cutoffs
 > 4. Add .log file for ss aligner
-> 5. Work on tsne + csv outfile
+> 5. Work on tsne + csv outfile + tsne cluster trees
 > 6. Add error messages and --help
 > 7. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
 
