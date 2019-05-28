@@ -78,20 +78,13 @@ def funct_score_mat():
 ##STILL IN PROGRESS##
 
 import os, io
-import itertools
 from itertools import combinations, count
 from itertools import zip_longest, islice
 import uuid
 from Bio.Align.Applications import ClustalwCommandline
 from Bio import AlignIO
 from Bio.Align import AlignInfo
-from Bio import SubsMat
-from Bio import SeqIO, pairwise2
-from Bio.SeqRecord import SeqRecord
-from Bio.pairwise2 import format_alignment
-import itertools, sys
-from Bio.SubsMat import MatrixInfo
-from Bio import Align
+
 
 just_fa = []
 
