@@ -88,6 +88,7 @@ from Bio.Align import AlignInfo
 
 just_fa = []
 
+#make this all a function
 with open(sys.argv[1]) as fin:
      paired = zip_longest(*[iter(fin)] * 2, fillvalue='')
      every_other = islice(paired, None, None, 2)
