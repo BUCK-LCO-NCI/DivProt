@@ -75,62 +75,82 @@ def funct_score_mat():
 ####### MATRIX 2: substitution matrix (log-odds probability matrix)
 ###################################################################
 
-#1. clustalw alignment (pairwise2 canoot produce an MSA, which we must have for this process)
+##STILL IN PROGRESS##
+
+import os, io
+import itertools
+from itertools import combinations, count
+from itertools import zip_longest, islice
+import uuid
 from Bio.Align.Applications import ClustalwCommandline
-
-#change to fasta here
-just_fa = []
-with open('All_psi_plus_SS8.fastqish') as f:
-    x = [v for i, v in enumerate(f, start=1) if i % 1 == 0] #?
-    just_fa.append(x)
-    
-print(just_fa)
-
-
-with open('my_test.fasta', mode='w') as csv_file:
-    writer = csv.writer(csv_file)
-    writer.writerows(all_lines)
-
-csv_file.close()
-
-
-#alignment begin
-cline = ClustalwCommandline("clustalw2", infile="my_test.fasta") #Have to change it to fasta :/ lame
-print(cline)
-stdout, stderr = cline() #run it here (.aln production)
-
-#2. alignmanet object
 from Bio import AlignIO
-
-alignment = AlignIO.read(open("my_test.aln"), "clustal")
-
-#3. calculate summary information
 from Bio.Align import AlignInfo
 from Bio import SubsMat
+from Bio import SeqIO, pairwise2
+from Bio.SeqRecord import SeqRecord
+from Bio.pairwise2 import format_alignment
+import itertools, sys
+from Bio.SubsMat import MatrixInfo
+from Bio import Align
 
-summary_align = AlignInfo.SummaryInfo(alignment)
-consensus = summary_align.dumb_consensus()
-print(consensus)
+just_fa = []
 
-#4. substitution matrix
-replace_info = summary_align.replacement_dictionary()
-#print(replace_info[("B", "G")]) just checking
+with open('Koonin_80.ss8.fastqish') as fin:
+     paired = zip_longest(*[iter(fin)] * 2, fillvalue='')
+     every_other = islice(paired, None, None, 2)
+     for lines in every_other:
+             line1, line2 = lines
+             just_fa.append(list(lines))
 
-my_arm = SubsMat.SeqMat(replace_info)
-custom_sub_mat = SubsMat.make_log_odds_matrix(my_arm)
-custom_sub_mat.print_full_mat()
+for lst in just_fa:
+    for j, item in enumerate(lst):
+        lst[j] = item.replace('\n', '')
 
-score_table_2 = []
-alignment_out_2 = []
+for x in just_fa: #need to change this, it's creating too many file, pretty sure it's going 80^80 rather than 80x80 - use itertools
+    for y in just_fa:
+        if x != y:
+            my_test = [x,y]
+            
+            for n, i in enumerate(my_test):
+                for j,a in enumerate(i):
+                    if '@' in a:
+                        my_test[n][j] = a.replace('@','>')
+                        
+            for lst in my_test:
+                for j, item in enumerate(lst):
+                    lst[j] = item.replace(' ', '')    
+                        
+            outname = str(uuid.uuid1()) #+ ".fasta"
+            outname_aln = str(outname + ".aln")
+            
+            with open(outname, "w") as openfile:
+                for e in itertools.chain.from_iterable(my_test):
+                    openfile.write(e+'\n')
+                    
+            cline = ClustalwCommandline("clustalw2", infile = outname) #doesn't actually need the ".fasta"
+            stdout, stderr = cline()
+            alignment = AlignIO.read(open(outname_aln), "clustal") #alphabet = alpha)
+            summary_align = AlignInfo.SummaryInfo(alignment)
+            consensus = summary_align.dumb_consensus()
+            replace_info = summary_align.replacement_dictionary()
+            arm = SubsMat.SeqMat(replace_info)
+            custom_sub_mat = SubsMat.make_log_odds_matrix(arm)
+            align_2 = pairwise2.align.globalds(my_test[0][1],my_test[1][1], custom_sub_mat, -10,-1, one_alignment_only=True)
+            string_2 = format_alignment(*align_2[0])
 
-#loop to re run alignment with this matrix
-funct_prob_mat():
-    for key1 in final_dictionary:
-        for key2 in final_dictionary:
-                align_2 = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],custom_sub_mat, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
-                string_2 = format_alignment(*align_2[0])
-                score_table_2.append(key1 + "," + key2 + "," + string_2.splitlines()[3])
-                alignment_out_2.append(key1 + "::" + key2 + "\n" + string_2)
+            i = 0
+            while os.path.exists("score_table_%s.txt" % i):
+                i += 1
+            score_f = open("score_table_%03i.txt" % i, 'w')
+            score_f.write(my_test[0][0] + "," + my_test[1][0] + "," + string_2.splitlines()[3])
+            score_f.close()
+            
+            while os.path.exists("alignment_out_%s.txt" % i):
+                i += 1
+            align_f = open("alignment_out_%03i.txt", 'w')
+            align_f.write(my_test[0][0] + "::" + my_test[1][1] + "\n" + string_2)
+            align_f.close()
+
 
 #funct_prob_mat()
 
