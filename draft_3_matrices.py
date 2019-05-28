@@ -6,7 +6,7 @@ from Bio.SubsMat import MatrixInfo
 from Bio import Align
 import warnings
 
-fastq = sys.argv[1]
+fastqish = sys.argv[1]
 
 id_list = []
 for seq_record in SeqIO.parse(sys.argv[1], "fastq"):
@@ -95,7 +95,7 @@ from Bio import Align
 
 just_fa = []
 
-with open('Koonin_80.ss8.fastqish') as fin:
+with open(sys.argv[1]) as fin:
      paired = zip_longest(*[iter(fin)] * 2, fillvalue='')
      every_other = islice(paired, None, None, 2)
      for lines in every_other:
