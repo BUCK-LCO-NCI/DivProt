@@ -99,51 +99,41 @@ with open(sys.argv[1]) as fin:
 for lst in just_fa:
     for j, item in enumerate(lst):
         lst[j] = item.replace('\n', '')
+        
+just_fa_2 =  list(itertools.combinations(just_fa, 2))
 
-for x in just_fa: #need to change this, it's creating too many file, pretty sure it's going 80^80 rather than 80x80 - use itertools
-    for y in just_fa:
-        if x != y:
-            my_test = [x,y]
+for x in just_fa_2:            
+    for n, i in enumerate(x):
+        for j,a in enumerate(i):
+            if '@' in a:
+                x[n][j] = a.replace('@','>')
+                
+    outname = str(uuid.uuid1()) #+ ".fasta"
+    outname_aln = str(outname + ".aln")
+    
+    with open(outname, "w") as openfile:
+        for e in itertools.chain.from_iterable(x):
+            openfile.write(e+'\n')
             
-            for n, i in enumerate(my_test):
-                for j,a in enumerate(i):
-                    if '@' in a:
-                        my_test[n][j] = a.replace('@','>')
-                        
-            for lst in my_test:
-                for j, item in enumerate(lst):
-                    lst[j] = item.replace(' ', '')    
-                        
-            outname = str(uuid.uuid1()) #+ ".fasta"
-            outname_aln = str(outname + ".aln")
-            
-            with open(outname, "w") as openfile:
-                for e in itertools.chain.from_iterable(my_test):
-                    openfile.write(e+'\n')
-                    
-            cline = ClustalwCommandline("clustalw2", infile = outname) #doesn't actually need the ".fasta"
-            stdout, stderr = cline()
-            alignment = AlignIO.read(open(outname_aln), "clustal") #alphabet = alpha)
-            summary_align = AlignInfo.SummaryInfo(alignment)
-            consensus = summary_align.dumb_consensus()
-            replace_info = summary_align.replacement_dictionary()
-            arm = SubsMat.SeqMat(replace_info)
-            custom_sub_mat = SubsMat.make_log_odds_matrix(arm)
-            align_2 = pairwise2.align.globalds(my_test[0][1],my_test[1][1], custom_sub_mat, -10,-1, one_alignment_only=True)
-            string_2 = format_alignment(*align_2[0])
-
-            i = 0
-            while os.path.exists("score_table_%s.txt" % i):
-                i += 1
-            score_f = open("score_table_%03i.txt" % i, 'w')
-            score_f.write(my_test[0][0] + "," + my_test[1][0] + "," + string_2.splitlines()[3])
-            score_f.close()
-            
-            while os.path.exists("alignment_out_%s.txt" % i):
-                i += 1
-            align_f = open("alignment_out_%03i.txt", 'w')
-            align_f.write(my_test[0][0] + "::" + my_test[1][1] + "\n" + string_2)
-            align_f.close()
+    cline = ClustalwCommandline("clustalw2", infile = outname) #doesn't actually need the ".fasta"
+    stdout, stderr = cline()
+    alignment = AlignIO.read(open(outname_aln), "clustal") #alphabet = alpha)
+    summary_align = AlignInfo.SummaryInfo(alignment)
+    consensus = summary_align.dumb_consensus()
+    replace_info = summary_align.replacement_dictionary()
+    arm = SubsMat.SeqMat(replace_info)
+    custom_sub_mat = SubsMat.make_log_odds_matrix(arm)
+    
+    align_2 = pairwise2.align.globalds(x[0][1],x[1][1], custom_sub_mat, -10,-1, one_alignment_only=True)
+    string_2 = format_alignment(*align_2[0]) 
+    
+    score_f = open("score_table2.csv" % i, 'a') #NEED TO CLEAN THIS UP! won't be read into Rscript correctly as is
+    score_f.write(x[0][0] + "," + x[1][0] + "," + string_2.splitlines()[3])
+    score_f.close()
+    
+    align_f = open("alignment_out.txt", 'a')
+    align_f.write(x[0][0] + "::" + x[1][0] + "\n" + string_2)
+    align_f.close()
 
             
             
