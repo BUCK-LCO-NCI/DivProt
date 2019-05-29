@@ -145,6 +145,38 @@ for x in just_fa: #need to change this, it's creating too many file, pretty sure
             align_f.write(my_test[0][0] + "::" + my_test[1][1] + "\n" + string_2)
             align_f.close()
 
+            
+            
+#concat files for one output of all seqs
+import shutil
+import glob
+
+with open('prob_mat_score_table.csv','w') as fstm2:
+    for f in glob.glob("score_table_*"):
+        with open(f,'r') as f2:
+            shutil.copyfileobj(f2, fstm2)
+
+with open('prob_mat_align_out.txt','w') as faom2:
+    for f in glob.glob("alignment_out_*"):
+        with open(f,'r') as f2:
+            shutil.copyfileobj(f2, faom2)
+
+#delete mat2 files now
+dir_name = "./" #or subdir if i make things better
+dd = os.listdir(dir_name)
+
+for item in dd:
+    if item.endswith((".aln", "dnd","temp.txt")): #still need to delete the fasta it makes, that doesn't have a file extension right now 
+        os.remove(os.path.join(dir_name, item))            
+            
+            
+            
+            
+            
+            
+            
+            
+#multithreading and running            
 
 #funct_prob_mat()
 
@@ -183,14 +215,16 @@ with open ("score_mat_align_out.txt", "w") as f:
     for item in alignment_out_1:
             f.write("%s\n" % item)   
 
-#Mat 2
-with open ("prob_mat_score_table.csv", "w") as f:
-    for item in score_table_2:
-            f.write("%s\n" % item)
             
-with open ("prob_mat_align_out.txt", "w") as f:
-    for item in alignment_out_2:
-            f.write("%s\n" % item) 
+            
+#Mat 2 -- nope, this needs to be defined above with concatination, shouldn't all be saved as a variable
+#with open ("prob_mat_score_table.csv", "w") as f:
+   # for item in score_table_2:
+         #   f.write("%s\n" % item)
+            
+#with open ("prob_mat_align_out.txt", "w") as f:
+   # for item in alignment_out_2:
+          #  f.write("%s\n" % item) 
             
 ###################################################################
 ####### MATRIX 3: quality matrix (phred from structure prediction) 
