@@ -142,7 +142,7 @@ dir_name = "./" #or subdir if i make things better
 dd = os.listdir(dir_name)
 
 for item in dd:
-    if item.endswith((".aln", "dnd")): #still need to delete the fasta it makes, that doesn't have a file extension right now 
+    if item.endswith((".aln", ".dnd", ".temp.csv")): #still need to delete the fasta it makes, that doesn't have a file extension right now 
         os.remove(os.path.join(dir_name, item))            
             
             
