@@ -127,36 +127,22 @@ for x in just_fa_2:
     align_2 = pairwise2.align.globalds(x[0][1],x[1][1], custom_sub_mat, -10,-1, one_alignment_only=True)
     string_2 = format_alignment(*align_2[0]) 
     
-    score_f = open("score_table2.csv" % i, 'a') #NEED TO CLEAN THIS UP! won't be read into Rscript correctly as is
-    score_f.write(x[0][0] + "," + x[1][0] + "," + string_2.splitlines()[3])
+    score_f = open("prob_mat_score_table.csv" % i, 'a') #NEED TO CLEAN THIS UP! won't be read into Rscript correctly as is
+    score_f.write(x[0][0] + "," + x[1][0] + "," + string_2.splitlines()[3] + "\n")
     score_f.close()
     
-    align_f = open("alignment_out.txt", 'a')
+    align_f = open("prob_mat_align_out.txt", 'a')
     align_f.write(x[0][0] + "::" + x[1][0] + "\n" + string_2)
     align_f.close()
-
-            
-            
-#concat files for one output of all seqs
-import shutil
-import glob
-
-with open('prob_mat_score_table.csv','w') as fstm2:
-    for f in glob.glob("score_table_*"):
-        with open(f,'r') as f2:
-            shutil.copyfileobj(f2, fstm2)
-
-with open('prob_mat_align_out.txt','w') as faom2:
-    for f in glob.glob("alignment_out_*"):
-        with open(f,'r') as f2:
-            shutil.copyfileobj(f2, faom2)
+    
+    
 
 #delete mat2 files now
 dir_name = "./" #or subdir if i make things better
 dd = os.listdir(dir_name)
 
 for item in dd:
-    if item.endswith((".aln", "dnd","temp.txt")): #still need to delete the fasta it makes, that doesn't have a file extension right now 
+    if item.endswith((".aln", "dnd")): #still need to delete the fasta it makes, that doesn't have a file extension right now 
         os.remove(os.path.join(dir_name, item))            
             
             
