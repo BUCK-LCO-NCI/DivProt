@@ -44,16 +44,29 @@ from Bio.SubsMat import MatrixInfo as matlist
 score_table_1 = []
 alignment_out_1 = []
 
-def funct_score_mat():
-    for key1 in final_dictionary:
-        for key2 in final_dictionary:
-            if len(final_dictionary[key1]) < 30:
-                warnings.warn("You have submitted one or more sequences that contain less than 30 characters. Sequences of this size are typically of low complexity in secondary structure, and thus results regaring them can be less meaningful, amd should be regarded with less confidence")
-                #
-                align_1 = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
-                string_1 = format_alignment(*align_1[0])
-                score_table_1.append(key1 + "," + key2 + "," + string_1.splitlines()[3])
-                alignment_out_1.append(key1 + "::" + key2 + "\n" + string_1)
+#def funct_score_mat():
+
+for key1 in final_dictionary:
+    for key2 in final_dictionary:
+        if len(final_dictionary[key1]) < 30:
+            warnings.warn("You have submitted one or more sequences that contain less than 30 characters. Sequences of this size are typically of low complexity in secondary structure, and thus results regaring them can be less meaningful, amd should be regarded with less confidence")
+            #
+            align_1 = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
+            string_1 = format_alignment(*align_1[0])
+            score_table_1.append(key1 + "," + key2 + "," + string_1.splitlines()[3])
+            alignment_out_1.append(key1 + "::" + key2 + "\n" + string_1)
+
+#i think these go outside of the loop...
+with open ("score_mat_score_table.csv", "w") as f:
+    for item in score_table_1:
+            f.write("%s\n" % item)
+            
+with open ("score_mat_align_out.txt", "w") as f:
+    for item in alignment_out_1:
+            f.write("%s\n" % item)   
+
+            
+#we'll set up multithreading later
 
 #The matrix and list output will be created after matrix 2 (probability martrix) to enable multithreading 
 #funct_score_mat()
@@ -197,31 +210,31 @@ for item in dd:
             
             
             
-            
+ #WE'LL DEAL WITH THIS LATER           
 #multithreading and running            
 
 #funct_prob_mat()
 
-import threading
+#import threading
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # creating thread
-    t1 = threading.Thread(target=funct_score_mat)
-    t2 = threading.Thread(target=funct_prob_mat)
+   # t1 = threading.Thread(target=funct_score_mat)
+    #t2 = threading.Thread(target=funct_prob_mat)
 
 
     # starting thread 1
-    t1.start()
+   # t1.start()
     # starting thread 2
-    t2.start()
+   # t2.start()
 
     # wait until thread 1 is completely executed
-    t1.join()
+  #  t1.join()
     # wait until thread 2 is completely executed
-    t2.join()
+  #  t2.join()
 
     # both threads completely executed
-    print("alignmnets 1/3 and 2/3 are done")
+ #   print("alignmnets 1/3 and 2/3 are done")
  
 
 #######
@@ -229,13 +242,13 @@ if __name__ == "__main__":
 ######  
 
 #Mat 1
-with open ("score_mat_score_table.csv", "w") as f:
-    for item in score_table_1:
-            f.write("%s\n" % item)
+#with open ("score_mat_score_table.csv", "w") as f:
+#    for item in score_table_1:
+#            f.write("%s\n" % item)
             
-with open ("score_mat_align_out.txt", "w") as f:
-    for item in alignment_out_1:
-            f.write("%s\n" % item)   
+#with open ("score_mat_align_out.txt", "w") as f:
+#    for item in alignment_out_1:
+#            f.write("%s\n" % item)   
 
             
             
