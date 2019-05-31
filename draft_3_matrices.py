@@ -75,8 +75,6 @@ def funct_score_mat():
 ####### MATRIX 2: substitution matrix (log-odds probability matrix)
 ###################################################################
 
-##STILL IN PROGRESS##
-
 import os, io
 from itertools import combinations, count
 from itertools import zip_longest, islice
@@ -134,10 +132,29 @@ for x in just_fa_2:
     align_f = open("prob_mat_align_out.temp.txt", 'a')
     align_f.write(x[0][0] + "::" + x[1][0] + "\n" + string_2)
     align_f.close()
+
     
+#concat files for one output of all seqs
+import shutil
+import glob
+
+with open('prob_mat_score_table.temp2.csv','w') as fstm2:
+    for f in glob.glob("score_table_*"):
+        with open(f,'r') as f2:
+            shutil.copyfileobj(f2, fstm2)
+
+with open('prob_mat_align_out.temp2.txt','w') as faom2:
+    for f in glob.glob("alignment_out_*"):
+        with open(f,'r') as f2:
+            shutil.copyfileobj(f2, faom2)
+
+
+
+
+
 #transformation from negative numbers for score table only -> will do alignment file too
 
-integers = open('test_temp_table.csv', 'r')
+integers = open('prob_mat_score_table.temp2.csv', 'r')
 third2file = []
 smallestInt = float('inf')
 
@@ -152,14 +169,14 @@ fin_t3f = list(map(float, third2file))
 min_val = min(fin_t3f)
 listlen = len(third2file)
 
-integers = open('prob_mat_score_table.temp.csv', 'r')
+integers = open('prob_mat_score_table.temp2.csv', 'r')
 for line in integers:
         linesplit = line.strip().split(",")
         third = linesplit[2]
         linesplit2 =third.strip().split("=")
         third2 = (linesplit2[1])
         third2file.append(third2)
-        score_f_fin = open("prob_mat_score_table.csv","a")
+        score_f_fin = open("prob_mat_score_table.csv", "a")
         l = [float(linesplit2[1]),abs(min_val),float(1)] #this = (original score + abslute val lowest score + 1 ) to make everything positive
         sumvar = sum(l)
         score_f_fin.write(linesplit[0] + "," + linesplit[1] + "," + "  " + "Score=" + str(sumvar) + "\n")
@@ -171,7 +188,7 @@ dir_name = "./" #or subdir if i make things better
 dd = os.listdir(dir_name)
 
 for item in dd:
-    if item.endswith((".aln", ".dnd", ".temp.csv")): #still need to delete the fasta it makes, that doesn't have a file extension right now 
+    if item.endswith((".aln", ".dnd", ".temp.csv", ".temp2.csv", ".temp.txt")): #still need to delete the fasta it makes, that doesn't have a file extension right now  -- plus i also need to add temp_2.txt, but i need to write the - -> + transofmation fot that file. Right now we're just keeping the negatives, but i'll do that....soon....
         os.remove(os.path.join(dir_name, item))            
             
             
