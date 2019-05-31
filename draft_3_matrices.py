@@ -127,17 +127,46 @@ for x in just_fa_2:
     align_2 = pairwise2.align.globalds(x[0][1],x[1][1], custom_sub_mat, -10,-1, one_alignment_only=True)
     string_2 = format_alignment(*align_2[0]) 
     
-    score_f = open("prob_mat_score_table.csv" % i, 'a') #NEED TO CLEAN THIS UP! won't be read into Rscript correctly as is
+    score_f = open("prob_mat_score_table.temp.csv" % i, 'a') #NEED TO CLEAN THIS UP! won't be read into Rscript correctly as is
     score_f.write(x[0][0] + "," + x[1][0] + "," + string_2.splitlines()[3] + "\n")
     score_f.close()
     
-    align_f = open("prob_mat_align_out.txt", 'a')
+    align_f = open("prob_mat_align_out.temp.txt", 'a')
     align_f.write(x[0][0] + "::" + x[1][0] + "\n" + string_2)
     align_f.close()
     
-    
+#transformation from negative numbers for score table only -> will do alignment file too
 
-#delete mat2 files now
+integers = open('test_temp_table.csv', 'r')
+third2file = []
+smallestInt = float('inf')
+
+for line in integers:
+        linesplit = line.strip().split(",")
+        third = linesplit[2]
+        linesplit2 =third.strip().split("=")
+        third2 = (linesplit2[1])
+        third2file.append(third2)
+
+fin_t3f = list(map(float, third2file))
+min_val = min(fin_t3f)
+listlen = len(third2file)
+
+integers = open('prob_mat_score_table.temp.csv', 'r')
+for line in integers:
+        linesplit = line.strip().split(",")
+        third = linesplit[2]
+        linesplit2 =third.strip().split("=")
+        third2 = (linesplit2[1])
+        third2file.append(third2)
+        score_f_fin = open("prob_mat_score_table.csv","a")
+        l = [float(linesplit2[1]),abs(min_val),float(1)] #this = (original score + abslute val lowest score + 1 ) to make everything positive
+        sumvar = sum(l)
+        score_f_fin.write(linesplit[0] + "," + linesplit[1] + "," + "  " + "Score=" + str(sumvar) + "\n")
+        score_f_fin.close()
+
+        
+#delete mat2 unnecessary files now
 dir_name = "./" #or subdir if i make things better
 dd = os.listdir(dir_name)
 
