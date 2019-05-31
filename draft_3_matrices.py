@@ -268,17 +268,16 @@ for item in dd:
 
 #create a just-phred file to read into R
 all_lines = []
-with open('All_psi_plus_SS8.fastqish') as f:
+with open(sys.argv[1]) as f:
     x = [v for i, v in enumerate(f, start=1) if i % 4 == 0]
     all_lines.append(x)
-    
-print(all_lines)
+f.close()    
+#print(all_lines)
 
 
 with open('just_qual.csv', mode='w') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerows(all_lines)
-
 csv_file.close()
 
 #### we're just going to run the R script instead of using RPy2
