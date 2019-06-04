@@ -62,7 +62,7 @@ algnscore_matrix <- read.csv("./algnscore_matrix.csv")
 library("stats")
 library("ape")
 #dynamic subsetting + trees from clust subsets subsetting algnscore
-#TODO make this less ugly
+#TODO make this less ugly, also include which cluster in title name of trees
 for(i in unique(input_and_clust$d_tsne_1_original.cl_kmeans)) {
   i_clusts <- input_and_clust[input_and_clust$d_tsne_1_original.cl_kmeans==i, 'names']
   sub_mat <- algnscore_matrix[i_clusts,i_clusts]
