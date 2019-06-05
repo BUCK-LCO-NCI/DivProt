@@ -2,8 +2,8 @@ library(Biostrings)
 args = commandArgs(trailingOnly=TRUE)
 
 #read in fastq as stringset biostrings object
-#fastq = sysargv from python script
-x <- readBStringSet(fastq, format="fastq",
+#fastqish = sysargv from python script
+x <- readBStringSet(fastqish, format="fastq",
                       nrec=-1L, skip=0L, seek.first.rec=FALSE, use.names=TRUE, with.qualities = TRUE) #with.qualities doesn't work, we're going to have to load them in seperately
 
 #check qual is in there - it's not
