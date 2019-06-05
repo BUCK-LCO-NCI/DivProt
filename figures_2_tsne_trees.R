@@ -57,7 +57,7 @@ input_and_clust <- data.frame(trainlist, d_tsne_1_original$cl_kmeans)
 
 
 #algnscore_matrix <- read.csv("./algnscore_matrix.csv") nope this needs to be dyanmic b/c someone could use main 3-mat csv, weighted csv, or even one of the 3 method mat csvs if they want
-algnscore_matrix <- align_csv #variable from python wrapper script
+algnscore_matrix <- align_file #variable from python wrapper script, the input csv
 
 library("stats")
 library("ape")
