@@ -25,7 +25,7 @@ ggplot(d_tsne_1, aes(x=V1, y=V2)) +
 d_tsne_1_original=d_tsne_1
 
 ## Creating k-means clustering model, and assigning the result to the data used to create the tsne
-fit_cluster_kmeans=kmeans(scale(d_tsne_1), variable_to_pass) #this var will be imported from py wrapper
+fit_cluster_kmeans=kmeans(scale(d_tsne_1), var_score_to_pass) #this var will be imported from py wrapper
 d_tsne_1_original$cl_kmeans = factor(fit_cluster_kmeans$cluster)
 
 
@@ -56,8 +56,8 @@ trainlist = list(train[,0])
 input_and_clust <- data.frame(trainlist, d_tsne_1_original$cl_kmeans)
 
 
-algnscore_matrix <- read.csv("./algnscore_matrix.csv")
-
+#algnscore_matrix <- read.csv("./algnscore_matrix.csv") nope this needs to be dyanmic b/c someone could use main 3-mat csv, weighted csv, or even one of the 3 method mat csvs if they want
+algnscore_matrix <- align_csv #variable from python wrapper script
 
 library("stats")
 library("ape")
