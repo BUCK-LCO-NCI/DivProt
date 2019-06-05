@@ -114,7 +114,7 @@ Notes and TODO:
 > 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used
 > 3. Add dynamic network edge cutoffs
 > 4. Add .log file for ss aligner
-> 5. Work on tsne + csv outfile + tsne cluster trees
+> 5. Add multithreading
 > 6. Add error messages and --help
 > 7. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
 
