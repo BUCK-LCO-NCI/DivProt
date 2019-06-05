@@ -1,8 +1,9 @@
 
-#python3 run_figures.py -tsne_trees/heatmap/network -k (or -tm for threshold modifier, but actually doesn't matter, just change so people arent confusd) 2
+#python3 run_figures.py alignmatrix.csv -tsne_trees/heatmap/network -k (or -tm for threshold modifier, but actually doesn't matter, just change so people arent confusd) 2
 import subprocess
+import sys
 
-
+align_file = sys.argv[1]
 script_to_pass = sys.argv[2]
 
 #this loop if for deining deafult values if -k/-tm are not given 
