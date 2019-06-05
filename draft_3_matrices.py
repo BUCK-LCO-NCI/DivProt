@@ -57,7 +57,7 @@ for key1 in final_dictionary:
             alignment_out_1.append(key1 + "::" + key2 + "\n" + string_1)
 
 #i think these go outside of the loop...
-with open ("score_mat_score_table.csv", "w") as f:
+with open ("score_mat_score_table.temp.csv", "w") as f:
     for item in score_table_1:
             f.write("%s\n" % item)
             
@@ -65,6 +65,34 @@ with open ("score_mat_align_out.txt", "w") as f:
     for item in alignment_out_1:
             f.write("%s\n" % item)   
 
+#transform all values to positive in score table (align file is still negative)
+integers = open('score_mat_score_table.temp.csv', 'r')
+third2file = []
+smallestInt = float('inf')
+
+for line in integers:
+        linesplit = line.strip().split(",")
+        third = linesplit[2]
+        linesplit2 =third.strip().split("=")
+        third2 = (linesplit2[1])
+        third2file.append(third2)
+
+fin_t3f = list(map(float, third2file))
+min_val = min(fin_t3f)
+listlen = len(third2file)
+
+integers = open('score_mat_score_table.temp.csv', 'r')
+for line in integers:
+        linesplit = line.strip().split(",")
+        third = linesplit[2]
+        linesplit2 =third.strip().split("=")
+        third2 = (linesplit2[1])
+        third2file.append(third2)
+        score_f_fin = open("score_mat_score_table.csv", "a")
+        l = [float(linesplit2[1]),abs(min_val),float(1)] #this = (original score + abslute val lowest score + 1 ) to make everything positive
+        sumvar = sum(l)
+        score_f_fin.write(linesplit[0] + "," + linesplit[1] + "," + "  " + "Score=" + str(sumvar) + "\n")
+        score_f_fin.close()
             
 #we'll set up multithreading later
 
