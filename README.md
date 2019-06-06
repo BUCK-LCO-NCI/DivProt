@@ -34,8 +34,7 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
 
 ## For running on conserved amino acid domains:
 
-[coming soon]
-
+Running the amino acid pipeline is extremely simple. Just upload your protein sequences and run the aligner script for PSIBLAST. Figures will be automatically generated.
 
 Note: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, persent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three pis-blast outputs. You can certainly change this though by going into the R script (R_script_aa) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
 
@@ -60,7 +59,9 @@ You'll need to set up Porter5 with a single sequence before you can run all in y
 ### Step 1. 
 Run the pre_pre_processing script on your fasta input file. Both single and multiline fasta are fine.
 HOWEVER, you cannot have any non-sequence characters in your file outside of the header. 
-###### So you can't have a * at the end of each protein sequence. This will cause Porter5 to fail
+
+~ Note:  You can't have a * at the end of each protein sequence. This will cause Porter5 to fail
+
 Ex.
 ```
 bash pre_pre_processing.sh Adoma_polyoma_LTandVP1.fasta
@@ -93,13 +94,37 @@ awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.
 ~ Note: we *highly* reccommend using the .ss8 files for meaningful alignments ~
 
 ### Step 4
-Run the aligner to produce a matrix of alignment scores of all your input structure sequences. The R file to produce figures will automatically run from the aligner_finalish.py script. They will be outputted into Rplots.pdf. You do need to load an R module though. 
+Run the aligner to produce a matrix of alignment scores of all your input structure sequences. 
 
 Run aligner:
 ```
 $ module load R/3.5
 $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ```
+
+### Step 5
+Run the R_figs_wrapper.py script to generate figures after loading an R module. You need to specify which of three figures you want after writing the file in the command line (examples below). Figures were seperated out to accomidate users playing around with papameters without generating lots of unnecessary figures.
+
+The three figures:
+1. Heatmap
+2. Phylogenetic tree(s) 
+3. Networks
+
+2 has the optional varible parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following TSNE reduction. The cluster plot is included in the  output file.
+
+Example of producing trees:
+```
+$ python3 run_figures.py input_align.csv -tsne_trees -k 3
+```
+
+3 contains an optional variable parameter "-tm" for threshold modifier. The methodolgy to build the networks contains a cutoff value that reduces erroneoud connection between nodes. Without this, given the sensitivity of DivProt, likely every protein would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the termainal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
+
+Example of producing networks:
+```
+$ python3 run_figures.py input_align.csv -networks -tm XXX
+```
+
+.... 
 
 #### On the structure:
 > XX.ss3: helix (H), strand (E), and coil (C)
