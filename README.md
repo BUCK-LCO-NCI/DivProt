@@ -150,7 +150,7 @@ $ python3 run_figures.py input_align.csv -networks -tm XXX
 
 Notes and TODO:
 > 1. Add look-up name file for users (seq_07 = input_07_actual_id)
-> 2. There currently is not a limit to fasta input size, except figures will only be able to scale up to a certain degree, and will get difficult to read after a certain number of sequences are used
+> 2. Maybe make a python wrapper for matrix weighting script, since that's the only one left in R at the user level
 > 3. Add dynamic network edge cutoffs
 > 4. Add .log file for ss aligner
 > 5. Add multithreading
