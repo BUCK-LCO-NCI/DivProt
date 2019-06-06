@@ -102,6 +102,19 @@ $ module load R/3.5
 $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ```
 
+### Step 4.5
+Optional weighting.
+As the user, you have the option to weight your secondary strucure alignment score matrix with an amino acid matrix (the reason we included the aa PSIBLAST methodolgy in this programme), or alternatively, weight your aa matrix with your ss matrix. What we mean by this is that weighting is not limited in any way. For example, you could weigh your new matrix at 80% secondary structure and 20% amino acid scoring, or 80% aa and 20% ss, depending on your question and what your data looks like. More details can be found in the Methods section of the paper.
+
+How to run the weigthing:
+
+```
+$ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
+```
+
+~Note: Order is important! 
+
+
 ### Step 5
 Run the R_figs_wrapper.py script to generate figures after loading an R module. You need to specify which of three figures you want after writing the file in the command line (examples below). Figures were seperated out to accomidate users playing around with papameters without generating lots of unnecessary figures.
 
