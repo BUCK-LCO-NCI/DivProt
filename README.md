@@ -109,10 +109,11 @@ As the user, you have the option to weight your secondary strucure alignment sco
 How to run the weigthing:
 
 ```
-$ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
+(sinteractive -> module load R) 
+$Rscript post_align_weight.R aa_align_ scores.csv 0.25 ss_align_scores.csv 0.75
 ```
 
-~Note: Order is important! 
+~Note: Order is important! Feed in the amino acid matrix first!
 
 
 ### Step 5
