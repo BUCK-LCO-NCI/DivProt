@@ -13,7 +13,7 @@ This is compiled to work on the NIH's Biowulf cluster, and will need adjusting t
 Anywhere below where you see .ssX, I am referring to the Porter5 output files .ss3 or .ss8. .ssX denotes that you should specify which one you are working with. 
 
 
-#### Dependencies
+#### Dependencies & modules
 1. Python3
   - pandas
   - NumPy
@@ -31,6 +31,7 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
   - Packages: Biostrings, pheatmap, igraph, dplyr, tidyr,reshape, tsne(?)
 
 4. clustalW
+
 
 ## For running on conserved amino acid domains:
 
@@ -73,7 +74,7 @@ Submit a swarm job like the prompt at the end of the pre_pre_processing.sh scrip
 ### Step 3.
 Run the pre_procesing.py script to take the Porter5 output and produce what I'm calling "fastqish" files.
 
-They're basically fastq files (but they don't contain the line numbers I've included here):
+They're basically fastq files:
 
 >1. @Arowana_adomavirus_LT | 14901:17525 Reverse
 >2. CCCHHHHHHHHHHHHHCCCCCCCCHHHHHHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHCCCC
@@ -103,7 +104,10 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ```
 
 ### Step 4.5
-Optional weighting.
+Optional weighting
+
+[TO-DO: figure here]
+
 As the user, you have the option to weight your secondary strucure alignment score matrix with an amino acid matrix (the reason we included the aa PSIBLAST methodolgy in this programme), or alternatively, weight your aa matrix with your ss matrix. What we mean by this is that weighting is not limited in any way. For example, you could weigh your new matrix at 80% secondary structure and 20% amino acid scoring, or 80% aa and 20% ss, depending on your question and what your data looks like. More details can be found in the Methods section of the paper.
 
 How to run the weigthing:
@@ -123,6 +127,8 @@ The three figures:
 1. Heatmap
 2. Phylogenetic tree(s) 
 3. Networks
+
+[TO-DO: figure here]
 
 2 has the optional varible parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following TSNE reduction. The cluster plot is included in the  output file.
 
@@ -148,12 +154,13 @@ $ python3 run_figures.py input_align.csv -networks -tm XXX
 
 ...That's it for now...
 
-Notes and TODO:
+My TO-DO:
 > 1. Add look-up name file for users (seq_07 = input_07_actual_id)
-> 2. Maybe make a python wrapper for matrix weighting script, since that's the only one left in R at the user level
+> 2. Maybe make a python wrapper for matrix weighting script, since that's the only one left in R at the user level (pre-pre-proc is bash - this code may be unnecessary now with Porter updates, will just need to check speed comparison)
 > 3. Add dynamic network edge cutoffs
 > 4. Add .log file for ss aligner
 > 5. Add multithreading
 > 6. Add error messages and --help
-> 7. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing. will need to change that outfile a little)
+> 7. collect Porter output in a new dir (or write something about usr creating and moving into a new dir, then executing pre_processing...will need to change that outfile a little...basically just new/better file and dir management)
+> 8. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes? etc
 
