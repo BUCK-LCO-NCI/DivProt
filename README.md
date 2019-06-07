@@ -1,4 +1,7 @@
 # DivProt
+
+[TODO: logo here]
+
 Alignment programme for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space. Alignment 
 
 DivProt works by iteratively aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (heatmap, phylogenetic trees, and networks) to help visualise evolutionary relationships.
@@ -106,7 +109,7 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ### Step 4.5
 Optional weighting
 
-[TO-DO: figure here]
+[TODO: figure here]
 
 As the user, you have the option to weight your secondary strucure alignment score matrix with an amino acid matrix (the reason we included the aa PSIBLAST methodolgy in this programme), or alternatively, weight your aa matrix with your ss matrix. What we mean by this is that weighting is not limited in any way. For example, you could weigh your new matrix at 80% secondary structure and 20% amino acid scoring, or 80% aa and 20% ss, depending on your question and what your data looks like. More details can be found in the Methods section of the paper.
 
@@ -128,7 +131,7 @@ The three figures:
 2. Phylogenetic tree(s) 
 3. Networks
 
-[TO-DO: figure here]
+[TODO: figure here]
 
 2 has the optional varible parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following TSNE reduction. The cluster plot is included in the  output file.
 
@@ -154,7 +157,7 @@ $ python3 run_figures.py input_align.csv -networks -tm XXX
 
 ...That's it for now...
 
-My TO-DO:
+My TODO:
 > 1. Add look-up name file for users (seq_07 = input_07_actual_id)
 > 2. Maybe make a python wrapper for matrix weighting script, since that's the only one left in R at the user level (pre-pre-proc is bash - this code may be unnecessary now with Porter updates, will just need to check speed comparison)
 > 3. Add dynamic network edge cutoffs
