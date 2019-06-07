@@ -46,6 +46,9 @@ Note: the R script currently outs three matrices, the output of your iterative p
 
 
 ### Step 0.
+
+[UPDATE: Porter5 is now Dockerized - instructions below will not be necessary - will likely remove soon]
+
 You'll need to set up Porter5 with a single sequence before you can run all in your fasta file. Porter5 requests the paths to its dependencies. I do this by pulling the first sequence in my fasta file, creating a new .fa with that, and submitting that to Porter. This lets me input my paths and set everything up. You only need to do this once.
 
 > Example of how I configure the paths (this will be almost the same for anyone else running on biowulf):
