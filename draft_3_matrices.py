@@ -55,15 +55,12 @@ for key1 in final_dictionary:
             string_1 = format_alignment(*align_1[0])
             score_table_1.append(key1 + "," + key2 + "," + string_1.splitlines()[3])
             alignment_out_1.append(key1 + "::" + key2 + "\n" + string_1)
-
-#i think these go outside of the loop...
-with open ("score_mat_score_table.temp.csv", "w") as f:
-    for item in score_table_1:
-            f.write("%s\n" % item)
-            
-with open ("score_mat_align_out.txt", "w") as f:
-    for item in alignment_out_1:
-            f.write("%s\n" % item)   
+            with open ("score_mat_score_table.temp.csv", "w") as f:
+                for item in score_table_1:
+                    f.write("%s\n" % item)
+            with open ("score_mat_align_out.txt", "w") as f:
+                for item in alignment_out_1:
+                    f.write("%s\n" % item)   
 
 #transform all values to positive in score table (align file is still negative)
 integers = open('score_mat_score_table.temp.csv', 'r')
