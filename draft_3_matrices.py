@@ -15,7 +15,7 @@ for seq_record in SeqIO.parse(sys.argv[1], "fastq"):
 
 
 seq_list = []
-for seq_record in SeqIO.parse(fastq, "fastq"):
+for seq_record in SeqIO.parse(fastqish, "fastq"):
     x = (seq_record.seq)
     seq_list.append(x)
 
