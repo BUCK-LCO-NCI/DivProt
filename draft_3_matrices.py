@@ -35,7 +35,8 @@ matrix = {
 ("B", "E"): -2.0, ("B", "B"): 5.0, ("B", "T"): -3.0, ("B", "S"): -3.0, ("T", "C"): -3.0, ("T", "H"): -3.0, ("T", "G"): -3.0,
 ("T", "I"): -3.0, ("T", "E"): -3.0, ("T", "B"): -3.0, ("T", "T"): 5.0, ("T", "S"): -3.0, ("S", "C"): -3.0, ("S", "H"): -3.0,
 ("S", "G"): -3.0, ("S", "I"): -3.0, ("S", "E"): -3.0, ("S", "B"): -3.0, ("S", "T"): -3.0, ("S", "S"): 5.0, ("C", "C"): 5.0,
-("C", "H"): -3.0, ("C", "G"): -3.0, ("C", "I"): -3.0, ("C", "E"): -3.0, ("C", "B"): -3.0, ("C", "T"): -3.0, ("C", "S"): -3.0
+("C", "H"): -3.0, ("C", "G"): -3.0, ("C", "I"): -3.0, ("C", "E"): -3.0, ("C", "B"): -3.0, ("C", "T"): -3.0, ("C", "S"): -3.0,
+("H", "H"): 5.0
 }
 
 from Bio import SubsMat
@@ -45,22 +46,25 @@ score_table_1 = []
 alignment_out_1 = []
 
 #def funct_score_mat():
+#need to put in warning. inside the below loop broke the loop...
+#if len(final_dictionary[key1]) < 30:
+#warnings.warn("You have submitted one or more sequences that contain less than 30 characters. Sequences of this size are typically of low complexity in secondary structure, and thus results regaring them can be less meaningful, amd should be regarded with less confidence")
 
 for key1 in final_dictionary:
     for key2 in final_dictionary:
-        if len(final_dictionary[key1]) < 30:
-            warnings.warn("You have submitted one or more sequences that contain less than 30 characters. Sequences of this size are typically of low complexity in secondary structure, and thus results regaring them can be less meaningful, amd should be regarded with less confidence")
-            #
-            align_1 = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) #NOTEEEE: The -100 mismatch score is completely arbitrary, but it has to be there as a placeholder, otherwise only matches will be called on from the input matrix, not the mismatches. weird i kno, i mean it's obvioulsy overwritten by the matrix, but weird. oh but gap extend matters
+            align_1 = pairwise2.align.globalds(final_dictionary[key1],final_dictionary[key2],matrix, -10,-1, one_alignment_only=True) 
             string_1 = format_alignment(*align_1[0])
             score_table_1.append(key1 + "," + key2 + "," + string_1.splitlines()[3])
             alignment_out_1.append(key1 + "::" + key2 + "\n" + string_1)
-            with open ("score_mat_score_table.temp.csv", "w") as f:
-                for item in score_table_1:
-                    f.write("%s\n" % item)
-            with open ("score_mat_align_out.txt", "w") as f:
-                for item in alignment_out_1:
-                    f.write("%s\n" % item)   
+#will give a "PyEval_EvalFrameEx" error, but it's all good
+
+with open ("score_mat_score_table.temp.csv", "w") as f:
+    for item in score_table_1:
+        f.write("%s\n" % item)
+
+with open ("score_mat_align_out.txt", "w") as f:
+    for item in alignment_out_1:
+        f.write("%s\n" % item)   
 
 #transform all values to positive in score table (align file is still negative)
 integers = open('score_mat_score_table.temp.csv', 'r')
