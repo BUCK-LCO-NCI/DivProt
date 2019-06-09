@@ -167,7 +167,7 @@ for x in just_fa_2:
     align_2 = pairwise2.align.globalds(x[0][1],x[1][1], custom_sub_mat, -10,-1, one_alignment_only=True)
     string_2 = format_alignment(*align_2[0]) 
     
-    score_f = open("prob_mat_score_table.temp.csv" % i, 'a') #NEED TO CLEAN THIS UP! won't be read into Rscript correctly as is
+    score_f = open("prob_mat_score_table.temp.csv" % i, 'a')
     score_f.write(x[0][0] + "," + x[1][0] + "," + string_2.splitlines()[3] + "\n")
     score_f.close()
     
@@ -176,27 +176,9 @@ for x in just_fa_2:
     align_f.close()
 
     
-#concat files for one output of all seqs
-import shutil
-import glob
+#transformation from negative numbers for score table only -> will do alignment file too (TODO here)
 
-with open('prob_mat_score_table.temp2.csv','w') as fstm2:
-    for f in glob.glob("score_table_*"):
-        with open(f,'r') as f2:
-            shutil.copyfileobj(f2, fstm2)
-
-with open('prob_mat_align_out.temp2.txt','w') as faom2:
-    for f in glob.glob("alignment_out_*"):
-        with open(f,'r') as f2:
-            shutil.copyfileobj(f2, faom2)
-
-
-
-
-
-#transformation from negative numbers for score table only -> will do alignment file too
-
-integers = open('prob_mat_score_table.temp2.csv', 'r')
+integers = open('prob_mat_score_table.temp.csv', 'r')
 third2file = []
 smallestInt = float('inf')
 
@@ -211,7 +193,7 @@ fin_t3f = list(map(float, third2file))
 min_val = min(fin_t3f)
 listlen = len(third2file)
 
-integers = open('prob_mat_score_table.temp2.csv', 'r')
+integers = open('prob_mat_score_table.temp.csv', 'r') #(just for ease, part of above process)
 for line in integers:
         linesplit = line.strip().split(",")
         third = linesplit[2]
@@ -230,7 +212,7 @@ dir_name = "./" #or subdir if i make things better
 dd = os.listdir(dir_name)
 
 for item in dd:
-    if item.endswith((".aln", ".dnd", ".temp.csv", ".temp2.csv", ".temp.txt")): #still need to delete the fasta it makes, that doesn't have a file extension right now  -- plus i also need to add temp_2.txt, but i need to write the - -> + transofmation fot that file. Right now we're just keeping the negatives, but i'll do that....soon....
+    if item.endswith((".aln", ".dnd", ".temp.csv")): #still need to delete the fasta it makes, that doesn't have a file extension right now  -- plus i also need to add temp.txt, but i need to write the - -> + transofmation fot that file. Right now we're just keeping the negatives, but i'll do that....soon....
         os.remove(os.path.join(dir_name, item))            
             
             
