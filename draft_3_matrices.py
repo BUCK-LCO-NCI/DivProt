@@ -276,7 +276,7 @@ for item in dd:
 ####### MATRIX 3: quality matrix (phred from structure prediction) 
 ###################################################################
 #This in in R b/c of Biostrings
-
+import csv
 #create a just-phred file to read into R
 all_lines = []
 with open(sys.argv[1]) as f:
