@@ -9,7 +9,7 @@ DivProt works by iteratively aligning sequences, storing the scores (bitscore, e
 For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
 For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with a 3-tierd alignemnt strategy that utilises a scoring matrix based on structure grouping, a log-odd probability matrix, and predicted structure probablilty. Amino acid weighting from running your dataset through the PSI-BLAST method can influence your secondary structure scoring (or vise-versa) according to input specifications.
 
-![](./
+![](Matrix_align_methodfig.png)
 
 This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory + set up a custom enviornment to run python modules not automatically availible (instruction on this are at the top of the pre_pre_proc file).
 
