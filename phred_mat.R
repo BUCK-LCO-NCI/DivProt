@@ -33,8 +33,11 @@ phred_mat_fin <- sapply(full_obj, function(i){
   })
 })
 
-write.csv(phred_mat_fin, "./phred_align_matrix.csv") #possibly change location
+## Do transformation for positive
+adjust_phred_mf <- phred_mat_fin + (abs(min(phred_mat_fin)) +1)
 
+# write mat
+write.csv(adjust_phred_mf, "./phred_align_matrix.csv") #possibly change location(?)
 
 #####################################
 #Produce score_mat and prob_mat actual matrics
