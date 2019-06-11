@@ -4,10 +4,7 @@ args = commandArgs(trailingOnly=TRUE)
 #read in fastq as stringset biostrings object
 #fastqish = sysargv from python script
 x <- readBStringSet(fastqish, format="fastq",
-                      nrec=-1L, skip=0L, seek.first.rec=FALSE, use.names=TRUE, with.qualities = TRUE) #with.qualities doesn't work, we're going to have to load them in seperately
-
-#check qual is in there - it's not
-as.data.frame(x)
+                      nrec=-1L, skip=0L, seek.first.rec=FALSE, use.names=TRUE, with.qualities = TRUE) #with.qualities doesn't work/make a difference, we're going to have to load them in seperately
 
 #### We made the file in python before this
 ww <- read.csv("./just_qual.csv", header = FALSE, row.names = NULL)
@@ -26,9 +23,9 @@ qual_mat = qualitySubstitutionMatrices(fuzzyMatch = c(0, 1), alphabetLength = 8L
 
 submat <- matrix(qual_mat,8, 8)
 
-my_alphbabet <- str("G","I","E","B","T","S","C","H")
+my_alphabet = LETTERS[c(2,3,5,7,19,20,8,9)]
 
-dimnames(submat) <- list(my_alphbabet, my_alphbabet)
+dimnames(submat) <- list(my_alphabet, my_alphabet)
 
 phred_mat_fin <- sapply(full_obj, function(i){
   sapply(full_obj, function(j){
@@ -37,6 +34,7 @@ phred_mat_fin <- sapply(full_obj, function(i){
 })
 
 write.csv(phred_mat_fin, "./phred_align_matrix.csv") #possibly change location
+
 
 #####################################
 #Produce score_mat and prob_mat actual matrics
