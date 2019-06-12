@@ -140,7 +140,7 @@ for lst in just_fa:
     for j, item in enumerate(lst):
         lst[j] = item.replace('\n', '')
         
-just_fa_2 =  list(itertools.combinations(just_fa, 2))
+just_fa_2 =  list(itertools.product(just_fa, repeat=2)) #dev note - if iter.product throws an error try iter.combinations_with_replacement
 
 for x in just_fa_2:            
     for n, i in enumerate(x):
