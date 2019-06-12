@@ -105,19 +105,25 @@ write.csv(algnscore_matrix, "prob_align_matrix.csv")
 ######################################
 ###SUM ALL THREE MATRICES
 ######################################
-#read in score_mat
 
+#read in score_mat
 score_mat <- read.csv(file = "./score_align_matrix.csv", header = TRUE, row.names = 1)
 
 #read in prob_mat
-
 prob_mat <- read.csv(file = "./prob_align_matrix.csv", header = TRUE, row.names = 1)
 
 #read in phred_mat
-#(or ggg var)
 phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.names = 1)
 
+##have to get rid of the name ">" in this matrix in order to be able to cbind
+#for colnames:
+names(phred_mat_testing) <- substring(names(phred_mat_testing), 3)
 
+#for rownames:
+rownames(phred_mat_testing) <- sub(">", "", rownames(phred_mat_testing))
+
+
+#Now let's actually sum them!
 temp_df <- cbind(score_mat, prob_mat, phred_mat)
 
 fin_df <- sapply(unique(colnames(temp_df)), 
