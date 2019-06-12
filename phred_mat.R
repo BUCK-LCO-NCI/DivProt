@@ -1,5 +1,8 @@
 library(Biostrings)
+
 args = commandArgs(trailingOnly=TRUE)
+args
+fastqish = args
 
 #read in fastq as stringset biostrings object
 #fastqish = sysargv from python script
@@ -112,7 +115,7 @@ prob_mat <- read.csv(file = "./prob_align_matrix.csv", header = TRUE, row.names 
 
 #read in phred_mat
 #(or ggg var)
-phred_mat <- read.csv(file = "./phred_align_matrix.csv"), header = TRUE, row.names = 1)
+phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.names = 1)
 
 
 temp_df <- cbind(score_mat, prob_mat, phred_mat)
