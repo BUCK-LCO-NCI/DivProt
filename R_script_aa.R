@@ -83,9 +83,6 @@ myphylo <- as.phylo.hclust(hc)
 plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.6,
      no.margin = TRUE)
 
-##Fan/circular
-plot(as.phylo.hclust(hc), type = "fan")
-
 #heatmap
 library("pheatmap")
 ph <- pheatmap(bitscore_matrix, width = 10, height = 10)
