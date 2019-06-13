@@ -148,14 +148,14 @@ for x in just_fa_2:
             if '@' in a:
                 x[n][j] = a.replace('@','>')
                 
-    outname = str(uuid.uuid1()) #+ ".fasta"
+    outname = str(uuid.uuid1()) + "_fa_temp"
     outname_aln = str(outname + ".aln")
     
     with open(outname, "w") as openfile:
         for e in itertools.chain.from_iterable(x):
             openfile.write(e+'\n')
             
-    cline = ClustalwCommandline("clustalw2", infile = outname) #doesn't actually need the ".fasta"
+    cline = ClustalwCommandline("clustalw2", infile = outname) 
     stdout, stderr = cline()
     alignment = AlignIO.read(open(outname_aln), "clustal") #alphabet = alpha)
     summary_align = AlignInfo.SummaryInfo(alignment)
@@ -212,7 +212,7 @@ dir_name = "./" #or subdir if i make things better
 dd = os.listdir(dir_name)
 
 for item in dd:
-    if item.endswith((".aln", ".dnd", ".temp.csv")): #still need to delete the fasta it makes, that doesn't have a file extension right now  -- plus i also need to add temp.txt, but i need to write the - -> + transofmation fot that file. Right now we're just keeping the negatives, but i'll do that....soon....
+    if item.endswith((".aln", ".dnd", ".temp.csv", "_fa_temp")): #still need to delete the fasta it makes, that doesn't have a file extension right now  -- plus i also need to add temp.txt, but i need to write the - -> + transofmation fot that file. Right now we're just keeping the negatives, but i'll do that....soon....
         os.remove(os.path.join(dir_name, item))            
             
             
