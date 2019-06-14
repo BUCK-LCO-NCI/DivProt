@@ -1,6 +1,5 @@
-# DivProt
-
-#<img src="logo.png" alt="drawing" width="400"/>
+# DivProt 
+<img src="logo.png" alt="drawing" width="300"/>
 
 Alignment programme for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space. Alignment 
 
