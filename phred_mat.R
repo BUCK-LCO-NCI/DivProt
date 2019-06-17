@@ -45,7 +45,6 @@ write.csv(adjust_phred_mf, "./phred_align_matrix.csv") #possibly change location
 #####################################
 #Produce score_mat and prob_mat actual matrics
 #####################################
-#this is just copied from the top of the older ss_rscript...i suppose that file will turn into just producing the figures
 
 library("tidyr")
 library("dplyr")
@@ -69,11 +68,6 @@ shaped_algn <- tmpb
 
 algnscore_matrix <- shaped_algn
 
-#Below replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. 
-#Here perfect alignment across the diagonal is a real , and variable,value. Not a problem for the tees and networks as we can ignore diagonal 
-#it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
-#algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
-
 write.csv(algnscore_matrix, "score_align_matrix.csv") 
 
 
@@ -82,6 +76,9 @@ write.csv(algnscore_matrix, "score_align_matrix.csv")
 prob_mat_score_table <- read.table("prob_mat_score_table.csv", sep = ",", header = FALSE)
 colnames(prob_mat_score_table) <- c("qseqid", "sseqid", "align_score")
 prob_mat_score_table$align_score = as.numeric(gsub("Score=", "", prob_mat_score_table$align_score)) #gets rid of Score=
+prob_mat_score_table$sseqid = as.character(gsub("_2**", "", prob_mat_score_table$sseqid, fixed = TRUE)) #gets rid of clustalw tricking tag
+prob_mat_score_table$qseqid = as.character(gsub(">", "", prob_mat_score_table$qseqid)) #...more cleaning...
+prob_mat_score_table$sseqid = as.character(gsub(">", "", prob_mat_score_table$sseqid)) 
 
 ####align score
 shaped_algn_score <- reshape(prob_mat_score_table,idvar = "qseqid", timevar = "sseqid", direction = "wide")
@@ -95,10 +92,6 @@ shaped_algn <- tmpb
 
 algnscore_matrix <- shaped_algn
 
-#Below replaces NA with 0, was necessary for amino acid script as perfect alignments gave us NA out. 
-#Here perfect alignment across the diagonal is a real , and variable,value. Not a problem for the tees and networks as we can ignore diagonal 
-#it is visible on the heatmap though. I don't think it's a problem, as the diagonal always = best score, which one can see. I can edit though to produce a prefct diagonal if we decide we want that though
-#algnscore_matrix[is.na(algnscore_matrix)] <- 0 #matrix with 0s to replace Nas
 write.csv(algnscore_matrix, "prob_align_matrix.csv") 
 
 
@@ -115,13 +108,6 @@ prob_mat <- read.csv(file = "./prob_align_matrix.csv", header = TRUE, row.names 
 #read in phred_mat
 phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.names = 1)
 
-##have to get rid of the name ">" in this matrix in order to be able to cbind
-#for colnames:
-names(prob_mat) <- substring(names(prob_mat), 3)
-names(prob_mat) <- substring(names(prob_mat), -4) 
-#for rownames:
-rownames(prob_mat) <- sub(">", "", rownames(prob_mat))
-rownames(prob_mat) <- sub("_2**", "", rownames(prob_mat))
 
 #Now let's actually sum them!
 temp_df <- cbind(score_mat, prob_mat, phred_mat)
@@ -129,4 +115,4 @@ temp_df <- cbind(score_mat, prob_mat, phred_mat)
 fin_df <- sapply(unique(colnames(temp_df)), 
                  function(x) rowSums(temp[, colnames(temp_df) == x, drop = FALSE]))
 
-write.csv(fin_df, file = "final_3_align_matrix.csv")
+write.csv(fin_df, file = "Final_3_align_matrix.csv")
