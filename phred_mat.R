@@ -117,11 +117,11 @@ phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.name
 
 ##have to get rid of the name ">" in this matrix in order to be able to cbind
 #for colnames:
-names(phred_mat_testing) <- substring(names(phred_mat_testing), 3)
-names(phred_mat_testing) <- substring(names(phred_mat_testing), -4) 
+names(prob_mat) <- substring(names(prob_mat), 3)
+names(prob_mat) <- substring(names(prob_mat), -4) 
 #for rownames:
-rownames(phred_mat_testing) <- sub(">", "", rownames(phred_mat_testing))
-rownames(phred_mat_testing) <- sub("_2**", "", rownames(phred_mat_testing))
+rownames(prob_mat) <- sub(">", "", rownames(prob_mat))
+rownames(prob_mat) <- sub("_2**", "", rownames(prob_mat))
 
 #Now let's actually sum them!
 temp_df <- cbind(score_mat, prob_mat, phred_mat)
