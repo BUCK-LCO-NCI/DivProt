@@ -1,4 +1,4 @@
-# DivProt   <img src="XX" alt="drawing" img align="center" width="150"/>
+# DivProt   <img src="XX" alt="logo" img align="center" width="150"/>
 
 Alignment programme for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space. Alignment 
 
@@ -7,7 +7,7 @@ DivProt works by iteratively aligning sequences, storing the scores (bitscore, e
 For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
 For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with a 3-tierd alignemnt strategy that utilises a scoring matrix based on structure grouping, a log-odd probability matrix, and predicted structure probablilty. Amino acid weighting from running your dataset through the PSI-BLAST method can influence your secondary structure scoring (or vise-versa) according to input specifications.
 
-<img src="Matrix_align_method_fig.png" alt="drawing" width="600"/>
+<img src="Matrix_align_method_fig.png" alt="Figure 1" width="600"/>
 
 This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory + set up a custom enviornment to run python modules not automatically availible (instruction on this are at the top of the pre_pre_proc file).
 
@@ -110,7 +110,7 @@ $ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
 ### Step 4.5
 Optional weighting
 
-<img src="Matrix_weight.png" alt="drawing" width="450"/>
+<img src="Matrix_weight.png" alt="Figure 2" width="450"/>
 
 As the user, you have the option to weight your secondary strucure alignment score matrix with an amino acid matrix (the reason we included the aa PSIBLAST methodolgy in this programme), or alternatively, weight your aa matrix with your ss matrix. What we mean by this is that weighting is not limited in any way. For example, you could weigh your new matrix at 80% secondary structure and 20% amino acid scoring, or 80% aa and 20% ss, depending on your question and what your data looks like. More details can be found in the Methods section of the paper.
 
