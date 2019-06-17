@@ -96,7 +96,7 @@ Create the file with something like:
 ```
 awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.fastqish)
 ```
-~ Note: we *highly* reccommend using the .ss8 files for meaningful alignments ~
+~ Note: we *highly* reccommend using the .ss8 files for the mostsensitivealignments. Using .ss3 is certainly warrented though if you wish to decrease sensitivity to increase [simplistic] accuracy and prediction confidence  ~
 
 ### Step 4
 Run the aligner to produce a matrix of alignment scores of all your input structure sequences. 
