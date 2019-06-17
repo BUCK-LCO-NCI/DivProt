@@ -142,6 +142,22 @@ for lst in just_fa:
         
 just_fa_2 =  list(itertools.product(just_fa, repeat=2)) #dev note - if iter.product throws an error try iter.combinations_with_replacement
 
+#for changing matching seq IDs b/c it makes clustalw upset
+item = []
+
+for x in just_fa_2:
+    aslist = list(x)
+    if aslist[0][0] == aslist[1][0]:
+        aslist[0] = aslist[0]
+        aslist[1] = [aslist[1][0] + '_2**', aslist[1][1]] #we'll remove this tag in R before concatinating matrices
+    else:
+        aslist[0] = aslist[0]
+        aslist[1] = aslist[1]  
+    item.append(tuple(aslist))
+
+just_fa_2 = item
+
+
 for x in just_fa_2:            
     for n, i in enumerate(x):
         for j,a in enumerate(i):
