@@ -88,7 +88,7 @@ shaped_algn_score <- reshape(prob_mat_score_table,idvar = "qseqid", timevar = "s
 names(shaped_algn_score) <- substring(names(shaped_algn_score),13,100) 
 
 
-#this creates rownames (seq ids are in a  column/row now)
+#this creates rownames (seq ids are in a column/row now)
 tmpb <- shaped_algn_score[,-1]
 rownames(tmpb) <- shaped_algn_score[,1]
 shaped_algn <- tmpb
@@ -118,10 +118,10 @@ phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.name
 ##have to get rid of the name ">" in this matrix in order to be able to cbind
 #for colnames:
 names(phred_mat_testing) <- substring(names(phred_mat_testing), 3)
-
+names(phred_mat_testing) <- substring(names(phred_mat_testing), -4) 
 #for rownames:
 rownames(phred_mat_testing) <- sub(">", "", rownames(phred_mat_testing))
-
+rownames(phred_mat_testing) <- sub("_2**", "", rownames(phred_mat_testing))
 
 #Now let's actually sum them!
 temp_df <- cbind(score_mat, prob_mat, phred_mat)
