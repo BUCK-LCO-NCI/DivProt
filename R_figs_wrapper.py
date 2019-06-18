@@ -15,8 +15,8 @@ if script_to_pass == "-tsne_trees":
 
 
 if script_to_pass == "-heatmap":
-    subprocess.check_call(['Rscript', 'figures_1_heatmap.R'], stderr=subprocess.STDOUT, shell=False) #or just Rscript figures_1_heatmap.R
+    subprocess.call(['Rscript', 'figures_1_heatmap.R', align_file], stderr=subprocess.STDOUT, shell=False) #or just Rscript figures_1_heatmap.R
 elif script_to_pass == "-tsne_trees":
-    subprocess.check_call(['Rscript', '--args', '$align_file','$var_score_to_pass','figures_2_tsne_trees.R'], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
+    subprocess.call(['Rscript', 'figures_2_tsne_trees.R', align_file, var_score_to_pass], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
 elif script_to_pass == "-network":
-    subprocess.check_call(['Rscript', '--args', '$var_score_to_pass','figures_3_networks.R'], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
+    subprocess.check_call(['Rscript', 'figures_3_networks.R', align_file, var_score_to_pass], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
