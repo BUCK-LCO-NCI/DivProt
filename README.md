@@ -29,7 +29,7 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
   - uniref90
   
 3. R
-  - Packages: Biostrings, pheatmap, igraph, dplyr, tidyr,reshape, tsne(?)
+  - Packages: Biostrings, ggplot2, pheatmap, igraph, dplyr, tidyr,reshape, Matrix, Rtsne
 
 4. clustalW
 
