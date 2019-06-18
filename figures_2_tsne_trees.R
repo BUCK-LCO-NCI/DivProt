@@ -34,7 +34,7 @@ d_tsne_1_original$cl_kmeans = factor(fit_cluster_kmeans$cluster)
 
 
 # plot the t-SNE map.
-pdf(file = "tane_clust_trees_Rplots.pdf")
+pdf(file = "tsne_clust_trees_Rplots.pdf")
 
 plot_cluster=function(data, var_cluster, palette)
 {
@@ -58,6 +58,9 @@ plot_cluster(d_tsne_1_original, "cl_kmeans", "Accent")
 #now let's extract the clusters and build those trees
 trainlist = list(train[,0])
 input_and_clust <- data.frame(trainlist, d_tsne_1_original$cl_kmeans)
+#this is, in fact, necessary
+input_and_clust2 <- data.frame(names = row.names(input_and_clust), input_and_clust)
+rownames(input_and_clust2) <- NULL
 
 
 #algnscore_matrix <- read.csv("./algnscore_matrix.csv") nope this needs to be dyanmic b/c someone could use main 3-mat csv, weighted csv, or even one of the 3 method mat csvs if they want
@@ -67,8 +70,8 @@ library("stats")
 library("ape")
 #dynamic subsetting + trees from clust subsets subsetting algnscore
 #TODO make this less ugly, also include which cluster in title name of trees
-for(i in unique(input_and_clust$d_tsne_1_original.cl_kmeans)) {
-  i_clusts <- input_and_clust[input_and_clust$d_tsne_1_original.cl_kmeans==i, 'names']
+for(i in unique(input_and_clust2$d_tsne_1_original.cl_kmeans)) {
+  i_clusts <- input_and_clust2[input_and_clust2$d_tsne_1_original.cl_kmeans==i, 'names']
   sub_mat <- algnscore_matrix[i_clusts,i_clusts]
   for_hclust <- dist(sub_mat, method = "canberra", diag = FALSE, upper = FALSE, p = 2) #method can be changed. From our tests, the one chosen here produced the most resonable trees
   hc <- hclust(for_hclust, method = "average", members = NULL)
