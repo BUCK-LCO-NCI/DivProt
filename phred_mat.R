@@ -113,6 +113,6 @@ phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.name
 temp_df <- cbind(score_mat, prob_mat, phred_mat)
 
 fin_df <- sapply(unique(colnames(temp_df)), 
-                 function(x) rowSums(temp[, colnames(temp_df) == x, drop = FALSE]))
+                 function(x) rowSums(temp_df[, colnames(temp_df) == x, drop = FALSE]))
 
 write.csv(fin_df, file = "Final_3_align_matrix.csv")
