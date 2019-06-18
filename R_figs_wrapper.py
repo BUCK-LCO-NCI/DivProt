@@ -10,7 +10,7 @@ script_to_pass = sys.argv[2]
 #this loop if for deining deafult values if -k/-tm are not given 
 if script_to_pass == "-tsne_trees":
     var_score_to_pass = sys.argv[4] if len(sys.argv) >= 4 else '1'
-elif scrip t_to_pass == "-network":
+elif script_to_pass == "-network":
     var_score_to_pass = sys.argv[4] if len(sys.argv) >= 4 else #'the default cutoff soon-to-come'
 
 
