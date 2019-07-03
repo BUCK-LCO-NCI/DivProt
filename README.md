@@ -66,6 +66,7 @@ Run the pre_pre_processing script on your fasta input file. Both single and mult
 HOWEVER, you cannot have any non-sequence characters in your file outside of the header. 
 
 ~ Note:  You can't have a * at the end of each protein sequence. This will cause Porter5 to fail
+~ Note:  You can only have one .fasta file in the main DivProt dir, otherwise pre_pre_proc won't work. If you have multiple,     just place them in a sub dir and switch them out each new time you run pre_pre_proc
 
 Ex.
 ```
@@ -74,6 +75,11 @@ bash pre_pre_processing.sh Adoma_polyoma_LTandVP1.fasta
 
 ### Step 2. 
 Submit a swarm job like the prompt at the end of the pre_pre_processing.sh script says to do with the outfile. Do this from within the DivProt directory (no subdirectory), linking to the location of the file in ./split_out. 
+
+Ex.
+```
+swarm -f porter5_submission.swarm -g 40 -t 8 --module hhsuite --time 12:00:00
+```
 
 ### Step 3.
 Run the pre_procesing.py script to take the Porter5 output and produce what I'm calling "fastqish" files.
