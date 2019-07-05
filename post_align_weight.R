@@ -23,7 +23,7 @@ ss_weighted <- (ss * y)
 
 temp_df <- cbind(aa_weighted, ss_weighted)
 fin_df <- sapply(unique(colnames(temp_df)), 
-       function(x) rowSums(temp[, colnames(temp_df) == x, drop = FALSE]))
+       function(x) rowSums(temp_df[, colnames(temp_df) == x, drop = FALSE]))
 
 write.csv(fin_df, file = "aa_ss_weighted_aligments.csv")
 
