@@ -38,6 +38,11 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
 
 Running the amino acid pipeline is extremely simple. Just upload your protein sequences and run the aligner script for PSIBLAST. Figures will be automatically generated and are stored in the "Rplots.pdf" file.
 
+You just need to call the fasta file, and name the output directory you want your results to go into:
+```
+$bash psi_matrix_aa.sh Koonin_81.fasta psi_aa_out
+```
+
 Note 1: You must activate an interactive session on Biowulf. R sessions are not allowed on the login mode, and thus the Rscript will not run.
 
 Note 2: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, persent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three pis-blast outputs. You can certainly change this though by going into the R script (R_script_aa) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
