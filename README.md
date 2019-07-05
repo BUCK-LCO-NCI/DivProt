@@ -136,6 +136,7 @@ $Rscript post_align_weight.R aa_align_ scores.csv 0.25 ss_align_scores.csv 0.75
 
 ~Note: Order is important! Feed in the amino acid matrix first!
 
+The output file name is ""aa_ss_weighted_aligments.csv" we suggest renaming the file with information regarding how you weighted.
 
 ### Step 5
 Run the R_figs_wrapper.py script to generate figures after loading an R module. You need to specify which of three figures you want after writing the file in the command line (examples below). Figures were seperated out to accomidate users playing around with papameters without generating lots of unnecessary figures.
