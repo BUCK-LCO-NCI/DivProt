@@ -117,7 +117,7 @@ Run the aligner to produce a matrix of alignment scores of all your input struct
 Run aligner:
 ```
 $ module load R/3.5
-$ python3 aligner_finalish.py split_out/original_fasta_name.ss3.fastqish
+$ python3 Aligner_3_matrices.py split_out/your_fasta_name.ss3.fastqish
 ```
 
 ### Step 4.5
