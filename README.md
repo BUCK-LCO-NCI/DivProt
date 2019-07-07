@@ -152,14 +152,14 @@ The three figures:
 
 Example of producing trees:
 ```
-$ python3 run_figures.py input_align.csv -tsne_trees -k 3
+$ python3 R_figs_wrapper.py input_align.csv -tsne_trees -k 3
 ```
 
 3 contains an optional variable parameter "-tm" for threshold modifier. The methodolgy to build the networks contains a cutoff value that reduces erroneoud connection between nodes. Without this, given the sensitivity of DivProt, likely every protein would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the termainal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
 
 Example of producing networks:
 ```
-$ python3 run_figures.py input_align.csv -networks -tm XXX
+$ python3 R_figs_wrapper.py input_align.csv -networks -tm XXX
 ```
 
 .... 
