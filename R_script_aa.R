@@ -59,34 +59,36 @@ A2 = t((bitscore_matrix)/apply(bitscore_matrix,2,max))
 A1 <- as.matrix(A1)
 A2 <- as.matrix(A2)
 result = ifelse(A1>A2,A1,A2)
-bitscore_matrix <- as.data.frame(result) 
+bitscore_matrix_2 <- as.data.frame(result) 
 ##doing the transformation gives you different values on different sides of the matrix from dividing by different maximums
 #we have three options for dealing with this: choosing the smallest, choosing the largest, or avging them
 #after discussing we're taking the largest, since that value is the one from the smaller max bitscore division, which 
 #equals the greater the "confidence" in the bitscore from a longer protein (even though all are 100% similar,
 #longer prots have more weight = smaller = sortabetter bitscore)
 
-write.csv(bitscore_matrix, "bitscore_matrix.csv") 
+write.csv(bitscore_matrix, "bitscore_matrix.csv")
+write.csv(bitscore_matrix_2, "bitscore_matrix_diag_normd.csv") 
 
+#TO-DO: CHANGE THIS (choose one) WHEN WE DECIDE WHICH IS BEST!!
 
 #dendrogram / tree
 library("stats")
 pdf(file = "Rplots.pdf")
 for_hclust <- dist(bitscore_matrix, method = "canberra", diag = FALSE, upper = FALSE, p = 2)
 hc <- hclust(for_hclust, method = "average", members = NULL)
-plot(hc, hang = -0.5, cex = 0.6) 
+plot(hc, hang = -0.5, cex = 0.5) 
 
 #more trees
 library("ape")
 ##unrooted
 myphylo <- as.phylo.hclust(hc)
-plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.6,
+plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.5,
      no.margin = TRUE)
 
 #heatmap
 library("pheatmap")
 ph <- pheatmap(bitscore_matrix, width = 10, height = 10)
-plot(ph, cex = 0.6)
+plot(ph, cex = 0.5)
 
 #igraph
 matrix_confirm <- as.matrix(bitscore_matrix)
