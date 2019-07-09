@@ -43,16 +43,16 @@ You just need to call the fasta file, and name the output directory you want you
 $bash psi_matrix_aa.sh Koonin_81.fasta psi_aa_out
 ```
 
-Note 1: You must activate an interactive session on Biowulf. R sessions are not allowed on the login mode, and thus the Rscript will not run.
+Note 1: You must activate an interactive session on Biowulf. R sessions ($module load R) are not allowed on the login mode, and thus the Rscript will not run.
 
-Note 2: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, persent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three pis-blast outputs. You can certainly change this though by going into the R script (R_script_aa) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
+Note 2: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, percent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three psi-blast outputs. You can certainly change this though by going into the R script (R_script_aa.R) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
 
 ## For running on predicted secondary structure:
 
 
 ### Step 0.
 
-[UPDATE: Porter5 is now Dockerized - instructions below will not be necessary - will likely remove soon]
+[UPDATE: Porter5 is now Dockerized - instructions below will not be necessary, but may be faster. We will be testing]
 
 You'll need to set up Porter5 with a single sequence before you can run all in your fasta file. Porter5 requests the paths to its dependencies. I do this by pulling the first sequence in my fasta file, creating a new .fa with that, and submitting that to Porter. This lets me input my paths and set everything up. You only need to do this once.
 
