@@ -53,6 +53,7 @@ shaped_bit <- tmpb
 bitscore_matrix <- shaped_bit[,rownames(shaped_bit)]
 
 bitscore_matrix[is.na(bitscore_matrix)] <- 0 #matrix with 0s to replace Nas
+bitscore_matrix[bitscore_matrix == 0] <- 1 #we need to replace all 0s with 1s because of weighting. We can't weight with 0s. 1s are just fine, and don't influence the actual scores (they're always much much higher)
 
 A1 = bitscore_matrix/apply(bitscore_matrix,1,max) ###normalise all values in column to highest value (different bitscore maximums because of prot length, but this is not good - max 100% identity needs to have the same value)
 A2 = t((bitscore_matrix)/apply(bitscore_matrix,2,max))
