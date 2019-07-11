@@ -25,7 +25,7 @@ shaped_eval <- tmp
 
 evalue_matrix <- shaped_eval[,rownames(shaped_eval)]
 
-write.csv(evalue_matrix, "evalue_matrix.csv")
+write.csv(evalue_matrix, "aa_align_evalue_matrix_original.csv")
 
 #####%identity
 
@@ -39,7 +39,7 @@ shaped_pident <- tmpi
 
 pident_matrix <- shaped_pident[,rownames(shaped_pident)]
 
-write.csv(pident_matrix, "pident_matrix.csv")
+write.csv(pident_matrix, "aa_align_pident_matrix_original.csv")
 
 #####bitscore
 shaped_bit <- reshape(PSI_bitscore,idvar = "qseqid", timevar = "sseqid", direction = "wide")
