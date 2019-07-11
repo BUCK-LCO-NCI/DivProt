@@ -53,7 +53,7 @@ shaped_bit <- tmpb
 bitscore_matrix <- shaped_bit[,rownames(shaped_bit)]
 
 bitscore_matrix[is.na(bitscore_matrix)] <- 0 #matrix with 0s to replace Nas
-bitscore_matrix[bitscore_matrix == 0] <- 1 #we need to replace all 0s with 1s because of weighting. We can't weight with 0s. 1s are just fine, and don't influence the actual scores (they're always much much higher)
+#bitscore_matrix[bitscore_matrix == 0] <- 1 #for a matrix that undergo the transformation, we need to replace all 0s with 1s because of weighting. We can't weight with 0s. 1s are just fine, and don't influence the actual scores (they're always much much higher)
 
 A1 = bitscore_matrix/apply(bitscore_matrix,1,max) ###normalise all values in column to highest value (different bitscore maximums because of prot length, but this is not good - max 100% identity needs to have the same value)
 A2 = t((bitscore_matrix)/apply(bitscore_matrix,2,max))
@@ -67,10 +67,12 @@ bitscore_matrix_2 <- as.data.frame(result)
 #equals the greater the "confidence" in the bitscore from a longer protein (even though all are 100% similar,
 #longer prots have more weight = smaller = sortabetter bitscore)
 
-write.csv(bitscore_matrix, "bitscore_matrix.csv")
-write.csv(bitscore_matrix_2, "bitscore_matrix_diag_normd.csv") 
+bitscore_matrix_2 <- bitscore_matrix_2 * 10000 #more info on this value in the paper, but basically we need to scale the matrix up post-normalisation to actually have any effect in weighting, what we're assuming you will use it for
 
-#TO-DO: CHANGE THIS (choose one) WHEN WE DECIDE WHICH IS BEST!!
+write.csv(bitscore_matrix, "bitscore_matrix_original.csv")
+write.csv(bitscore_matrix_2, "bitscore_matrix_diag_normd_scaled.csv") 
+
+#TO-DO: CHANGE THIS(?) (choose one) WHEN WE DECIDE WHICH IS BEST!!
 
 #dendrogram / tree
 library("stats")
