@@ -156,7 +156,7 @@ $ Rscript post_align_weight.R aa_align_bitscore_diag_normd_scaled.csv 0.25 ss_al
 
 ~Note: Order is important! Feed in the amino acid matrix first!
 ~Note: Be sure to run "aa_align_bitscore_diag_normd_scaled.csv" NOT "aa_align_bitscore_original"!
-  cont. "aa_align_bitscore_diag_normd_scaled.csv" has been transformed (normalised to the self-score) and scaled for the purpose of weighting. "aa_align_bitscore_original" is for you to view the original PSI-BLAST output values in a matrix, but will not be useful at all for weighint 
+~"aa_align_bitscore_diag_normd_scaled.csv" has been transformed (normalised to the self-score) and scaled for the purpose of weighting. "aa_align_bitscore_original" is for you to view the original PSI-BLAST output values in a matrix, but will not be useful at all for weighint 
 
 The output file name is ""aa_ss_weighted_aligments.csv" we suggest renaming the file with information regarding how you weighted.
 
