@@ -155,10 +155,12 @@ $ Rscript post_align_weight.R aa_align_bitscore_diag_normd_scaled.csv 0.25 ss_al
 ```
 
 ~Note: Order is important! Feed in the amino acid matrix first!
-~Note: Be sure to run "aa_align_bitscore_diag_normd_scaled.csv" NOT "aa_align_bitscore_original"!
-~"aa_align_bitscore_diag_normd_scaled.csv" has been transformed (normalised to the self-score) and scaled for the purpose of weighting. "aa_align_bitscore_original" is for you to view the original PSI-BLAST output values in a matrix, but will not be useful at all for weighint 
 
-The output file name is ""aa_ss_weighted_aligments.csv" we suggest renaming the file with information regarding how you weighted.
+~Note: Be sure to run "aa_align_bitscore_diag_normd_scaled.csv" NOT "aa_align_bitscore_original.csv"!
+
+~"aa_align_bitscore_diag_normd_scaled.csv" has been transformed (normalised to the self-score) and scaled for the purpose of weighting. "aa_align_bitscore_original.csv" is for you to view the original PSI-BLAST output values in a matrix, but will not be useful at all for weighint 
+
+The output file name is ""aa_ss_weighted_aligments.csv" we suggest renaming the file with information regarding how you weighted. Especially if you are running the script multiple times at different weights (the script will rewrite the file each time as the output will shate the same name).
 
 ### Step 5
 Run the R_figs_wrapper.py script to generate figures after loading an R module. You need to specify which of three figures you want after writing the file in the command line (examples below). Figures were seperated out to accomidate users playing around with papameters without generating lots of unnecessary figures.
