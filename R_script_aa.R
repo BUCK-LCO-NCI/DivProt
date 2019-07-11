@@ -77,7 +77,7 @@ write.csv(bitscore_matrix_2, "bitscore_matrix_diag_normd_scaled.csv")
 #dendrogram / tree
 library("stats")
 pdf(file = "Rplots.pdf")
-for_hclust <- dist(bitscore_matrix, method = "canberra", diag = FALSE, upper = FALSE, p = 2)
+for_hclust <- dist(bitscore_matrix_2, method = "canberra", diag = FALSE, upper = FALSE, p = 2)
 hc <- hclust(for_hclust, method = "average", members = NULL)
 plot(hc, hang = -0.5, cex = 0.5) 
 
@@ -90,14 +90,13 @@ plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.5,
 
 #heatmap
 library("pheatmap")
-ph <- pheatmap(bitscore_matrix, width = 10, height = 10)
-plot(ph, cex = 0.5)
+
+matrix_confirm <- as.matrix(bitscore_matrix_2)
+mode(matrix_confirm) <- "numeric"
+pheatmap(matrix_confirm, cex = 0.6, main = "Heatmap: Just AA, transformed, scaled")
+
 
 #igraph
-matrix_confirm <- as.matrix(bitscore_matrix)
-mode(matrix_confirm) <- "numeric"
-
-
 ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = FALSE)
 
 community_clustering <- fastgreedy.community(ig)
