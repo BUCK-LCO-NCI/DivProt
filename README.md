@@ -1,4 +1,4 @@
-# DivProt   <img src="DP_logo_2.png" alt="logo" img align="center" width="300"/>
+# DivProt   <img src="DP_logo_2.png" alt="logo" img align="center" width="350"/>
 
 Alignment programme for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space. Alignment 
 
@@ -40,7 +40,7 @@ Running the amino acid pipeline is extremely simple. Just upload your protein se
 
 You just need to call the fasta file, and name the output directory you want your results to go into:
 ```
-$bash psi_matrix_aa.sh Koonin_81.fasta psi_aa_out
+$ bash psi_matrix_aa.sh Koonin_81.fasta psi_aa_out
 ```
 
 Note 1: You must activate an interactive session on Biowulf. R sessions ($module load R) are not allowed on the login mode, and thus the Rscript will not run.
@@ -77,7 +77,7 @@ HOWEVER, you cannot have any non-sequence characters in your file outside of the
 
 Ex.
 ```
-bash pre_pre_processing.sh Adoma_polyoma_LTandVP1.fasta
+$ bash pre_pre_processing.sh Adoma_polyoma_LTandVP1.fasta
 ```
 
 ### Step 2. 
@@ -85,7 +85,7 @@ Submit a swarm job like the prompt at the end of the pre_pre_processing.sh scrip
 
 Ex.
 ```
-swarm -f split_out/porter5_submission.swarm -g 40 -t 8 --module hhsuite --time 12:00:00
+$ swarm -f split_out/porter5_submission.swarm -g 40 -t 8 --module hhsuite --time 12:00:00
 ```
 
 ### Step 3.
@@ -102,12 +102,12 @@ You want to run this script on all of the files in the directory (all individual
 
 So in the terminal, run:
 ```
-for f in *.ssX; do python3 ../pre_processing.py $f ../original_fasta.fasta; done
+$ for f in *.ssX; do python3 ../pre_processing.py $f ../original_fasta.fasta; done
 ```
 Once this is done, you'll want to create one merged file of all the XX.ssX.fastqish files. This file contains the sequence name, secondary structure prediction, and phred score of each position structure.
 Create the file with something like:
 ```
-awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.fastqish)
+$ awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.fastqish)
 ```
 ~ Note: we *highly* reccommend using the .ss8 files for the mostsensitivealignments. Using .ss3 is certainly warrented though if you wish to decrease sensitivity to increase [simplistic] accuracy and prediction confidence  ~
 
@@ -118,6 +118,26 @@ Run aligner:
 ```
 $ module load R
 $ python3 Aligner_3_matrices.py split_out/your_fasta_name.ss3.fastqish
+```
+
+Alternatively, you can submit this as a batch job to free up your command line for the few hours the alignment will take. Here's an example of one of mine:
+
+```
+#!/bin/bash
+
+source /data/belfordak/Buck_lab/conda/etc/profile.d/conda.sh 
+conda activate base
+conda activate all_libs  #remember I mentioned this above - it's a custom enviornment, mostly for pandas
+
+module load clustalw
+module load R
+
+python3 Aligner_3_matrices.py split_out_fa_6/group_6.ss8.fastqish
+```
+
+ran with:
+```
+$ sbatch --time=16:00:00 --mem=4g --cpus-per-task=4 submit_group6_test.sh
 ```
 
 ### Step 4.5
@@ -131,7 +151,7 @@ How to run the weigthing:
 
 ```
 (sinteractive -> module load R) 
-$Rscript post_align_weight.R aa_align_ scores.csv 0.25 ss_align_scores.csv 0.75
+$ Rscript post_align_weight.R aa_align_ scores.csv 0.25 ss_align_scores.csv 0.75
 ```
 
 ~Note: Order is important! Feed in the amino acid matrix first!
@@ -170,7 +190,12 @@ $ python3 R_figs_wrapper.py input_align.csv -networks -tm XXX
 > XX.ss8: α-helix (H), π-helix (I), 3<sub>10</sub> helix (G), β-stand (E), β-bridge (B), H bonded turn (T), bend (S), and Coil and others (C)
 
 
-...That's it for now...
+####
+
+~Note on run time:
+As of July 2019, you can expect a job of ~100 sequences to take ~2 hours and a job of ~600 to take ~8 hrs. We're working on this (multithreading).
+
+Also note that the directory you run DivProt out of willl not really be availible during a lot of this time (many temp files are created, and while they are deleted, when they're in there, they will hinder things you may try and do in that dir)
 
 My TODO:
 > 1. Add look-up name file for users (seq_07 = input_07_actual_id)
