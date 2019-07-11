@@ -69,11 +69,12 @@ bitscore_matrix_2 <- as.data.frame(result)
 
 bitscore_matrix_2 <- bitscore_matrix_2 * 10000 #more info on this value in the paper, but basically we need to scale the matrix up post-normalisation to actually have any effect in weighting, what we're assuming you will use it for
 
-write.csv(bitscore_matrix, "bitscore_matrix_original.csv")
-write.csv(bitscore_matrix_2, "bitscore_matrix_diag_normd_scaled.csv") 
+write.csv(bitscore_matrix, "aa_align_bitscore_original.csv")
+write.csv(bitscore_matrix_2, "aa_align_bitscore_diag_normd_scaled.csv") 
 
-#TO-DO: CHANGE THIS(?) (choose one) WHEN WE DECIDE WHICH IS BEST!!
+#TO-DO: CHANGE THIS(?) (choose one) WHEN WE DECIDE WHICH IS BEST
 
+#Figures:
 #dendrogram / tree
 library("stats")
 pdf(file = "Rplots.pdf")
@@ -81,9 +82,8 @@ for_hclust <- dist(bitscore_matrix_2, method = "canberra", diag = FALSE, upper =
 hc <- hclust(for_hclust, method = "average", members = NULL)
 plot(hc, hang = -0.5, cex = 0.5) 
 
-#more trees
+#unrooted tree
 library("ape")
-##unrooted
 myphylo <- as.phylo.hclust(hc)
 plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.5,
      no.margin = TRUE)
