@@ -42,4 +42,4 @@ plot(ig, layout=ll,
      vertex.label.color="black",
      edge.width=0.3)
 
-ddev.off()
+dev.off()
