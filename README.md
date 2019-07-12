@@ -197,7 +197,7 @@ $ python3 R_figs_wrapper.py input_align.csv -networks -tm XXX
 ####
 
 ~Note on run time:
-As of July 2019, you can expect a job of ~100 sequences to take ~2 hours and a job of ~600 to take ~8 hrs. We're working on this (multithreading).
+As of July 2019, you can expect a job of ~100 sequences to take ~2 hours and a job of ~600 to take ~8 hrs. We're working on this (multithreading). Additionally, know that time is largely influenced by protein size. i.e. a dataset of sequences ~300 ssX sequence elements long will take ~3x the time of a dataset that contains the same number of sequences at ~100 length each.
 
 Also note that the directory you run DivProt out of willl not really be availible during a lot of this time (many temp files are created, and while they are deleted, when they're in there, they will hinder things you may try and do in that dir)
 
