@@ -5,11 +5,11 @@ Alignment programme for divergent proteins based on amino acid sequence and pred
 DivProt works by iteratively aligning sequences, storing the scores (bitscore, e-value, or alignment score for amino acids, and alignment score for secondary structure) in a matrix, and producing figures (heatmap, phylogenetic trees, and networks) to help visualise evolutionary relationships.
 
 For the amino acid method, DivProt uses PSI-BLAST to pull conserved amino acid domains between the input sequences.
-For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with a 3-tierd alignemnt strategy that utilises a scoring matrix based on structure grouping, a log-odd probability matrix, and predicted structure probablilty. Amino acid weighting from running your dataset through the PSI-BLAST method can influence your secondary structure scoring (or vise-versa) according to input specifications.
+For secondary structure, DivProt utilizes Porter5 [https://github.com/mircare/Porter5] to predict structure (using either HHBLITS or both PSI-BLAST and HHBLITS) and custom aligns with a 3-tierd alignment strategy that utilises a scoring matrix based on structure grouping, a log-odd probability matrix, and predicted structure probabilty. Amino acid weighting from running your dataset through the PSI-BLAST method can influence your secondary structure scoring (or vise-versa) according to input specifications.
 
 <img src="Matrix_align_method_fig.png" alt="Figure 1" width="600"/>
 
-This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory + set up a custom enviornment to run python modules not automatically availible (instruction on this are at the top of the pre_pre_proc file).
+This is compiled to work on the NIH's Biowulf cluster, and will need adjusting to run locally. When running on biowulf, call an interactive session to avoid any jobs being killed if they take up too much memory + set up a custom environment to run python modules not automatically available (instruction on this are at the top of the pre_pre_proc file).
 
 Anywhere below where you see .ssX, I am referring to the Porter5 output files .ss3 or .ss8. .ssX denotes that you should specify which one you are working with. 
 
@@ -43,9 +43,9 @@ You just need to call the fasta file, and name the output directory you want you
 $ bash psi_matrix_aa.sh Koonin_81.fasta psi_aa_out
 ```
 
-Note 1: You must activate an interactive session on Biowulf. R sessions ($module load R) are not allowed on the login mode, and thus the Rscript will not run.
+Note 1: You must activate an interactive session on Biowulf. R sessions ($module load R) are not allowed on the login node, and thus the Rscript will not run.
 
-Note 2: the R script currently outs three matrices, the output of your iterative psi-blast alignemnts by evalue, percent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three psi-blast outputs. You can certainly change this though by going into the R script (R_script_aa.R) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
+Note 2: the R script currently outs three matrices, the output of your iterative psi-blast alignments by e-value, percent identity, and bitscore. However, the figures produced by the script are fed only by the bitscore matrix, as we believe this one to be the most informative of the three psi-blast outputs. You can certainly change this though by going into the R script (R_script_aa.R) and replacing any instances of "bitscore_matrix" below line 70 with "evalue_matrix" or "pident_matrix". Figures will then be created with that data.
 
 ## For running on predicted secondary structure:
 
@@ -66,7 +66,7 @@ You'll need to set up Porter5 with a single sequence before you can run all in y
 
 >psiblast = /usr/local/apps/ncbi-toolkit/21.0.0/bin/psiblast
 
-(If found that your prediction works and you get your .ssX files, you're good to go. If you get an error message, it is likely due to your paths, even though there was probably no error called when you set them up. Also, just fyi, the error messages from Porter don't always obviously direct you to the problem (an error telling you a certain psi-blast related file could not be found doesn't necessarily mean there is anything wrong with your psi-blast directory/module/path).
+(If found that your prediction works and you get your .ssX files, you're good to go. If you get an error message, it is likely due to your paths, even though there was probably no error called when you set them up. Also, just fyi, the error messages from Porter5 don't always obviously direct you to the problem (an error telling you a certain psi-blast related file could not be found doesn't necessarily mean there is anything wrong with your psi-blast directory/module/path, it could just as equally be your uniprot or uniref paths).
   
 ### Step 1. 
 Run the pre_pre_processing script on your fasta input file. Both single and multiline fasta are fine.
@@ -109,7 +109,7 @@ Create the file with something like:
 ```
 $ awk 1 *ssX.fastqish > whatever_file_name_you_want (e.x. original_fasta_name.ss3.fastqish)
 ```
-~ Note: we *highly* reccommend using the .ss8 files for the mostsensitivealignments. Using .ss3 is certainly warrented though if you wish to decrease sensitivity to increase [simplistic] accuracy and prediction confidence  ~
+~ Note: we *highly* recommend using the .ss8 files for the most sensitive alignments. Using .ss3 is certainly warranted though if you wish to decrease sensitivity to increase [simplistic] accuracy and prediction confidence. For more on this, see the technical manuscript. 
 
 ### Step 4
 Run the aligner to produce a matrix of alignment scores of all your input structure sequences. 
@@ -127,7 +127,7 @@ Alternatively, you can submit this as a batch job to free up your command line f
 
 source /data/belfordak/Buck_lab/conda/etc/profile.d/conda.sh 
 conda activate base
-conda activate all_libs  #remember I mentioned this above - it's a custom enviornment, mostly for pandas
+conda activate all_libs  #remember I mentioned this above - it's a custom environment, mostly for pandas
 
 module load clustalw
 module load R
@@ -145,9 +145,9 @@ Optional weighting
 
 <img src="Matrix_weight.png" alt="Figure 2" width="450"/>
 
-As the user, you have the option to weight your secondary strucure alignment score matrix with an amino acid matrix (the reason we included the aa PSIBLAST methodolgy in this programme), or alternatively, weight your aa matrix with your ss matrix. What we mean by this is that weighting is not limited in any way. For example, you could weigh your new matrix at 80% secondary structure and 20% amino acid scoring, or 80% aa and 20% ss, depending on your question and what your data looks like. More details can be found in the Methods section of the paper.
+As the user, you have the option to weight your secondary structure alignment score matrix with an amino acid matrix (the reason we included the aa PSIBLAST methodology in this programme), or alternatively, weight your aa matrix with your ss matrix. What we mean by this is that weighting is not limited in any way. For example, you could weigh your new matrix at 80% secondary structure and 20% amino acid scoring, or 80% aa and 20% ss, depending on your question and what your data looks like. More details can be found in the Methods section of the paper.
 
-How to run the weigthing:
+How to run the weighting:
 
 ```
 (sinteractive -> module load R) 
@@ -158,12 +158,12 @@ $ Rscript post_align_weight.R aa_align_bitscore_diag_normd_scaled.csv 0.25 ss_al
 
 ~Note: Be sure to run "aa_align_bitscore_diag_normd_scaled.csv" NOT "aa_align_bitscore_original.csv"!
 
-~"aa_align_bitscore_diag_normd_scaled.csv" has been transformed (normalised to the self-score) and scaled for the purpose of weighting. "aa_align_bitscore_original.csv" is for you to view the original PSI-BLAST output values in a matrix, but will not be useful at all for weighint 
+~"aa_align_bitscore_diag_normd_scaled.csv" has been transformed (normalised to the self-score) and scaled for the purpose of weighting. "aa_align_bitscore_original.csv" is for you to view the original PSI-BLAST output values in a matrix, but will not be useful at all for weighting. 
 
-The output file name is ""aa_ss_weighted_aligments.csv" we suggest renaming the file with information regarding how you weighted. Especially if you are running the script multiple times at different weights (the script will rewrite the file each time as the output will shate the same name).
+The output file name is ""aa_ss_weighted_aligments.csv" we suggest renaming the file with information regarding how you weighted. Especially if you are running the script multiple times at different weights (the script will rewrite the file each time as the output will share the same name).
 
 ### Step 5
-Run the R_figs_wrapper.py script to generate figures after loading an R module. You need to specify which of three figures you want after writing the file in the command line (examples below). Figures were seperated out to accomidate users playing around with papameters without generating lots of unnecessary figures.
+Run the R_figs_wrapper.py script to generate figures after loading an R module. You need to specify which of three figures you want after writing the file in the command line (examples below). Figures were separated out to accommodate users playing around with parameters without generating lots of unnecessary figures.
 
 The three figures:
 1. Heatmap
@@ -172,14 +172,14 @@ The three figures:
 
 [TODO: figure here]
 
-2 has the optional varible parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following TSNE reduction. The cluster plot is included in the  output file.
+2 has the optional variable parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following T-SNE reduction. The cluster plot is included in the  output file.
 
 Example of producing trees:
 ```
 $ python3 R_figs_wrapper.py input_align.csv -tsne_trees -k 3
 ```
 
-3 contains an optional variable parameter "-tm" for threshold modifier. The methodolgy to build the networks contains a cutoff value that reduces erroneoud connection between nodes. Without this, given the sensitivity of DivProt, likely every protein would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the termainal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
+3 contains an optional variable parameter "-tm" for threshold modifier. The methodology to build the networks contains a cutoff value that reduces erroneous connection between nodes. Without this, given the sensitivity of DivProt, likely every protein would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the terminal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
 
 Example of producing networks:
 ```
@@ -199,7 +199,7 @@ $ python3 R_figs_wrapper.py input_align.csv -networks -tm XXX
 ~Note on run time:
 As of July 2019, you can expect a job of ~100 sequences to take ~2 hours and a job of ~600 to take ~8 hrs. We're working on this (multithreading). Additionally, know that time is largely influenced by protein size. i.e. a dataset of sequences ~300 ssX sequence elements long will take ~3x the time of a dataset that contains the same number of sequences at ~100 length each.
 
-Also note that the directory you run DivProt out of willl not really be availible during a lot of this time (many temp files are created, and while they are deleted, when they're in there, they will hinder things you may try and do in that dir)
+Also note that the directory you run DivProt out of willl not really be available during a lot of this time (many temp files are created, and while they are deleted, when they're in there, they will hinder things you may try and do in that dir)
 
 My TODO:
 > 1. Add index file for users (seq_07 = input_07_actual_id)
