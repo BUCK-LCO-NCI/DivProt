@@ -5,9 +5,8 @@
 #conda activate all_libs  (just an env with pandas and other packages)
     #done with: conda create -n all_libs python=3.6 numpy scipy pandas biopython
 #python
-
-#run as python3 pre_processing.py seq_00.fa.ss3 (except for all file in dir so some sort of loop?) <- TODO
 #this script produces the fastqish file from the Porter5 output
+
 #!/usr/bin/env python
 
 import numpy as np
