@@ -13,6 +13,7 @@ import numpy as np
 from math import *
 import pandas as pd
 import sys, re, os
+import csv 
 
 infile = pd.read_csv(sys.argv[1],delimiter = '\t' )
 
@@ -122,10 +123,16 @@ keys = list_seq_XX_fin #id_temp_clean in test
 values = list_seq_fa_orig
 dict_for_name_appends = dict(zip(keys, values)) 
 
-#3.5 parse file name for key val search
+#3.5 make index file
+with open('index_file.csv', 'w') as f:
+    write_dict = csv.writer(f)
+    for key, value in dict_for_name_appends.items():
+        write_dict.writerow([key, value])
+
+#4 parse file name for key val search
 sep = os.path.basename(infile_name).split('.')[0]
 
-#4. if filename = key, print value as line 0 in file
+#5. if filename = key, print value as line 0 in file
 #replace > with @
 dict_var = dict_for_name_appends[sep]
 
