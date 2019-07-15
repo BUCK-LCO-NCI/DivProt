@@ -202,12 +202,11 @@ As of July 2019, you can expect a job of ~100 sequences to take ~2 hours and a j
 Also note that the directory you run DivProt out of willl not really be available during a lot of this time (many temp files are created, and while they are deleted, when they're in there, they will hinder things you may try and do in that dir)
 
 My TODO:
-> 1. Add index file for users (seq_07 = input_07_actual_id)
+> 1. Add .log file for ss aligner
 > 2. Maybe make a python wrapper for matrix weighting script, since that's the only one left in R at the user level (pre-pre-proc is bash - this code may be unnecessary now with Porter updates, will just need to check speed comparison)
 > 3. Add dynamic network edge cutoffs
-> 4. Add .log file for ss aligner
+> 4. Add error messages and --help
 > 5. Add multithreading
-> 6. Add error messages and --help
-> 7. Docker!
-> 8. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes? etc
+> 6. Docker!
+> 7. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes? etc
 
