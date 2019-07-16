@@ -1,10 +1,10 @@
 #THIS IS A DRAFT, THRESHOLDING METHOD IS ON IT'S WAY
 
 args = commandArgs(trailingOnly=TRUE)
-matrix confirm = args[1]
+matrix_confirm = args[1]
 var_score_to_pass = args[2]
 
- #csv var passed from python wrapper script
+#csv var passed from python wrapper script
 
 #actual igraph, two for different layout options
 library("igraph")
