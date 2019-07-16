@@ -1,10 +1,14 @@
 #THIS IS A DRAFT, THRESHOLDING METHOD IS ON IT'S WAY
 
 args = commandArgs(trailingOnly=TRUE)
-matrix_confirm = args[1]
+matrix_confirm_temp = args[1]
 var_score_to_pass = args[2]
 
 #csv var passed from python wrapper script
+
+#formatting
+matrix_confirm <- as.matrix(matrix_confirm_temp)
+mode(matrix_confirm) <- "numeric"   
 
 #actual igraph, two for different layout options
 library("igraph")
@@ -14,7 +18,7 @@ community_clustering <- fastgreedy.community(ig)
 cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
 l <- layout <- layout.reingold.tilford(ig, circular=T)
-ll <- layout.fruchterman.reingold(ig, niter=10000)
+ll <- layout.fruchterman.reingold(ig, niter=5000)
 #layout_nicel  with the same params = same graph. This seems to be the best network layout for this data. If you want to play around with layouts, we highly recommend a high number of iterations like we've used, as it makes a significant difference in clustering. Higher niter = MUCH more accurate
 #circlar plot provided b/c sometimes the characteristics of data can make a typical network hard to read. It's usually not going to be espacially valuable.
 
