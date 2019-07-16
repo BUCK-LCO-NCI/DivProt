@@ -33,6 +33,7 @@ plot(ig, layout=l,
      vertex.size=3,
      vertex.color=cluster_colours[membership(community_clustering)],
      vertex.label.color="black",
+     main="[title]",
      edge.width=0.3)
 
 plot(ig, layout=ll,
@@ -44,6 +45,7 @@ plot(ig, layout=ll,
      vertex.size=3,
      vertex.color=cluster_colours[membership(community_clustering)],
      vertex.label.color="black",
+     main="[title]",
      edge.width=0.3)
 
 dev.off()
