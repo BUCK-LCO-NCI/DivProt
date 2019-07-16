@@ -5,6 +5,12 @@ import itertools, sys
 from Bio.SubsMat import MatrixInfo
 from Bio import Align
 import warnings
+import logging
+
+print("DivProt alignment is currently running on your data!")
+
+#out console messages or error to logfile
+logging.basicConfig(filename='log_ss.out', filemode='a', format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%H:%M:%S',level=logging.DEBUG)
 
 fastqish = sys.argv[1]
 
