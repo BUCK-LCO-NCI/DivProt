@@ -17,9 +17,9 @@ ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = F
 community_clustering <- fastgreedy.community(ig)
 cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
-l <- layout <- layout.reingold.tilford(ig, circular=T)
-ll <- layout_with_graphopt(ig, niter=5000, charge = 0.01)
-#layout_nicel  with the same params = same graph. This seems to be the best network layout for this data. If you want to play around with layouts, we highly recommend a high number of iterations like we've used, as it makes a significant difference in clustering. Higher niter = MUCH more accurate
+l <- layout <- layout.reingold.tilford(ig, circular=T) #circ is not useful for connections, but is for name reading / ref for IDs
+ll <- layout.fruchterman.reingold(ig, niter=5000) #don't change this to the better layout_with_graphopt below - it's not actually better when the data is contains so many edges like this original will before transformations below
+#layout_nicely = same as fruchtermna reingold in my tests   
 #circlar plot provided b/c sometimes the characteristics of data can make a typical network hard to read. It's usually not going to be espacially valuable.
 
 pdf(file = "networks_Rplots3.pdf")
