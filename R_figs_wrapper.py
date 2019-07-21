@@ -1,5 +1,6 @@
-
-#python3 run_figures.py alignmatrix.csv -tsne_trees/heatmap/network -k (or -tm for threshold modifier, but actually doesn't matter, just change so people arent confusd) 2
+#python3 run_figures.py alignmatrix.csv -heatmap
+#python3 run_figures.py alignmatrix.csv -tsne_trees -k 2
+#python3 run_figures.py alignmatrix.csv -network original_fasta_name.fa -tm 1.2 
 import subprocess
 import sys
 
@@ -11,8 +12,8 @@ orig_fasta = sys.argv[3]
 #this loop if for deining deafult values if -k/-tm are not given 
 if script_to_pass == "-tsne_trees":
     var_score_to_pass = sys.argv[4] if len(sys.argv) >= 4 else '1'
-#elif script_to_pass == "-network":
-   # var_score_to_pass = sys.argv[4] if len(sys.argv) >= 4 else 'XXXXXX'#'the default cutoff soon-to-come'
+elif script_to_pass == "-network":
+    var_score_to_pass = sys.argv[4] if len(sys.argv) >= 4 else 'XXXXXX'#'the default cutoff soon-to-come' #NOTEEE TO ME
 
 
 if script_to_pass == "-heatmap":
