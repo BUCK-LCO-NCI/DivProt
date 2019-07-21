@@ -172,21 +172,18 @@ The three figures:
 
 [TODO: figure here]
 
-2 has the optional variable parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following T-SNE reduction. The cluster plot is included in the  output file.
+On mkaing trees: You have the optional variable parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following T-SNE reduction. The cluster plot is included in the  output file.
 
-Example of producing trees:
-```
-$ python3 R_figs_wrapper.py input_align.csv -tsne_trees -k 3
-```
+Here are examples of how to produce each figure from the wrapper script, note how they're all a little different, and like stated elsewhere in this README, order matters!:
 
-3 contains an optional variable parameter "-tm" for threshold modifier. The methodology to build the networks contains a cutoff value that reduces erroneous connection between nodes. Without this, given the sensitivity of DivProt, likely every protein would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the terminal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
-
-Example of producing networks:
 ```
-$ python3 R_figs_wrapper.py input_align.csv -networks -tm XXX
+#python3 run_figures.py alignmatrix.csv -heatmap
+#python3 run_figures.py alignmatrix.csv -tsne_trees -k 2
+#python3 run_figures.py alignmatrix.csv -network your_original_fasta.fa -tm 1.2 
 ```
 
-.... 
+On making networks: contains an optional variable parameter "-tm" for threshold modifier. The methodology to build the networks contains a cutoff value that reduces erroneous connection between nodes. Without this, given the sensitivity of DivProt, likely every protein you submitted would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the terminal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
+
 
 #### On the structure:
 > XX.ss3: helix (H), strand (E), and coil (C)
