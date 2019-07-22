@@ -120,3 +120,8 @@ plot(dv,
 
 
 dev.off()
+
+#create a table of node groups
+clu <- components(dv) #TO-TO --- OR TE OR IG
+clu_who <- groups(clu)
+lapply(clu_who, function(x) write.table(as.data.frame(x), 'network_cluster_communities.csv', append= T, sep=',' ))
