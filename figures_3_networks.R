@@ -8,7 +8,7 @@ orig_fasta = arg[3]
 ####################################
 #1. calculate orig_fasta average aa length
 library(Biostrings)
-for_avg_len <- fasta.seqlengths(orig_fasta)
+for_avg_len <- fasta.seqlengths(orig_fasta) #this will probably work...requires ".fasta" without sys.arv
 avg_AA_len <- mean(for_avg_len)
 
 ####################################
