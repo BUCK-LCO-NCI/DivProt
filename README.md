@@ -40,7 +40,7 @@ Running the amino acid pipeline is extremely simple. Just upload your protein se
 
 You just need to call the fasta file, and name the output directory you want your results to go into:
 ```
-$ bash psi_matrix_aa.sh Koonin_81.fasta psi_aa_out
+$ bash psi_matrix_aa.sh your_fasta.fasta psi_aa_out
 ```
 
 Note 1: You must activate an interactive session on Biowulf. R sessions ($module load R) are not allowed on the login node, and thus the Rscript will not run.
