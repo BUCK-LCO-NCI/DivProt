@@ -73,6 +73,7 @@ Run the pre_pre_processing script on your fasta input file. Both single and mult
 HOWEVER, you cannot have any non-sequence characters in your file outside of the header. 
 
 ~ Note:  You can't have a * at the end of each protein sequence. This will cause Porter5 to fail
+~ Note:  Your fasta cannot have spaces between the sequences (empty line between end of one sequence and ID of the next), just delete the empty line
 ~ Note:  You can only have one .fasta file in the main DivProt dir, otherwise pre_pre_proc won't work. If you have multiple,     just place them in a sub dir and switch them out each new time you run pre_pre_proc
 
 Ex.
