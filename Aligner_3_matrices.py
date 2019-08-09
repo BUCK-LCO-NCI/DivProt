@@ -315,7 +315,7 @@ csv_file.close()
 
 #### we're just going to run the R script instead of using RPy2
 import subprocess
-subprocess.call(['Rscript', 'phred_mat2.R', sys.argv[1]], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
+subprocess.call(['Rscript', 'phred_mat.R', sys.argv[1]], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
 #this is fine, EXCEPT FOR reading in the .fastqish file...I need the R script to take the same sysargv[1] as this script...
 
 
