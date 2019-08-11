@@ -7,7 +7,7 @@ exec 1>log_aa.out 2>&1
 module load blast
 module load R
 
-chmod +x psi_matrix.sh
+chmod +x psi_matrix_aa.sh
 
 DIRNAME=$2
 QUERYFILE=$1
