@@ -86,7 +86,7 @@ Submit a swarm job like the prompt at the end of the pre_pre_processing.sh scrip
 
 Ex.
 ```
-$ swarm -f split_out/porter5_submission.swarm -g 20 -t 28 --module hhsuite --time 24:00:00
+$ swarm -f split_out/porter5_submission.swarm -g 28 -t 32 --module hhsuite --time 24:00:00
 ```
 
 ### Step 3.
