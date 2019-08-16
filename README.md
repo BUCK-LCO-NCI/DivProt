@@ -206,4 +206,5 @@ My TODO:
 > 4. Add sequence length warning and --help
 > 5. Docker!
 > 6. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes? etc.
+> 7. Change how DP utilises cpu + ram ... right now it's not computationally intensive (positive way of looking at it) ... or computationally efficient (negative way of looking at it) ... but yeah, I want to get it to use more resources as it runs to increase speed.
 
