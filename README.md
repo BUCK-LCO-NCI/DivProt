@@ -173,7 +173,7 @@ The three figures:
 
 [TODO: figure here]
 
-On mkaing trees: You have the optional variable parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following T-SNE reduction. The cluster plot is included in the  output file.
+On making trees: You have the optional variable parameter "-k" for cluster. If your input data is functionally divergent and does not contain a common ancestor (i.e. no relationship between them should reasonably be mapped, and they should not be connected on a tree) then you denote this with the k value when running the script. So denoting -k 3 would produce three phylogenetic trees. Default is 1. Clustering is done on k-means, following T-SNE reduction. The cluster plot is included in the  output file.
 
 Here are examples of how to produce each figure from the wrapper script, note how they're all a little different, and like stated elsewhere in this README, order matters!:
 
@@ -183,7 +183,14 @@ Here are examples of how to produce each figure from the wrapper script, note ho
 #python3 run_figures.py alignmatrix.csv -network your_original_fasta.fa -tm 1.2 
 ```
 
-On making networks: contains an optional variable parameter "-tm" for threshold modifier. The methodology to build the networks contains a cutoff value that reduces erroneous connection between nodes. Without this, given the sensitivity of DivProt, likely every protein you submitted would be connected. This cutoff value ..... (see methods section of paper).... . The default value is calculated based on the average length of your input sequence lengths. This value is printed to the terminal, so you can know at what value to start increasing or decreasing, if you wish to view your network with more or less stringency. We encourage the user to read the paper methods section before this, and consider biological meaningfulness when altering such a parameter.
+On making networks: 
+
+DivProt outs 5 networks with variable threshold edge cut-off weights. What this means is you will get 5 seperate networks with increasing stringency for permitting connections between nodes (your genes). Each of these networks is equally as 'correct' as the other, but siply provides differeing resolution. We've decided to output five as the characterisitcs of your data (particularly what the mix of highly divergent and not so divergent looks like) heavily impact what DivProt uses for its computation of base edge-weight cut-off (upper IQR of align scores). This is necessary as given the sensitivity of DivProt, likely every protein you submitted would be connected.
+
+Networks 1-5 simply show the application of increased scaling to the cut-off upper IQR alignment score. More details can be found in the manuscript. Also you can see an example of this in the net_examples folder.
+
+
+As you'll see in the example code above, the -networks paramater also contains an optional variable parameter "-tm" for threshold modifier. The methodology to build the networks contains a cutoff value that reduces erroneous connection between nodes. [will explain this more]
 
 
 #### On the structure:
