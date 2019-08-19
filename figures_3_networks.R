@@ -1,15 +1,18 @@
-#THIS IS A DRAFT, THRESHOLDING METHOD IS ON IT'S WAY
+#STILL A DRAFT
 
 args = commandArgs(trailingOnly=TRUE)
 matrix_confirm_temp = args[1]
 var_score_to_pass = args[2]
 orig_fasta = arg[3]
 
+
 ####################################
-#1. calculate orig_fasta average aa length
+#1. calculate orig_fasta average aa len info
 library(Biostrings)
 for_avg_len <- fasta.seqlengths(orig_fasta) #this will probably work...requires ".fasta" without sys.arv
 avg_AA_len <- mean(for_avg_len)
+min_AA_len <- min(for_avg_len)
+max_AA_len <- max(for_avg_len)
 
 ####################################
 #2. this is the math to compute the threshold expect modified equation value. See the paper for further information.
@@ -36,19 +39,56 @@ z <- 1.960
 m <- median(group1[group1!=0])
 
 #2f. r = range (just for fun)
-r <- range(group1[group1!=0])
+rmin <- min(group1[group1!=0])
+rmax <- max(group1[group1!=0])
 
 #2g. 95% confidence interval = x +- (z*(s/sqrt(n)))
 # + 
 conf_95_pos <- x + (z*(s/sqrt(n)))
+conf_95_neg <- x - (z*(s/sqrt(n)))
+
+#3.IQR and upper IQR
+library(stats)
+g1 <-as.numeric(unlist(group1[group1!=0]))
+
+iqr <- IQR(g1)
+iqr_up <- quantile(g1, 3/4)
+
+####################################
+#write input fasta stats to a .txt file for people to view
+
+txt_var <- file("input_fa_and_align_stats.txt")
+writeLines(c(paste("Average AA length: ", avg_AA_len), paste("Range AA length lower: ", min_AA_len), paste("Range AA length upper: ", max_AA_len),
+             paste("Number of observations (1/2 of matrix, excluding diagonal self-self scoring): ", n),
+             paste("Align score mean: ", x), paste("Align score standard deviation: ", s), paste("Align score median: ", m),
+             paste("Align score min: ", rmin), paste("Align score max: ", rmax), paste("Align score 95% confidence interval (upper): ",conf_95_pos),
+             paste("Align score 95% confidence interval (lower): ",conf_95_neg), paste("Align score IQR: ", iqr), 
+             paste("Align score upper IQR: ", iqr_up)), txt_var)
+close(txt_var)
 
 ####################################
 #3. put the conf interval into the equation we derived from PDB querying, see paper methods for details
 #This is what people change from wrapper script!
-#Ts <-
-#default
-Ts <- 0.3
-Tem <- ((2.824* avg_AA_len) + 504) + (((2.824* avg_AA_len) + 504) * Ts)#this is 30% scaling we found 
+Ts <- var_score_to_pass
+
+Ts_1 <- 0.1
+Ts_2 <- 0.2
+Ts_3 <- 0.3
+Ts_4 <- 0.4
+Ts_5 <- 0.5
+
+#this is from querying PDB structures pinned at different AA lengths and running through DP 
+#(eq = slope of the line of plotting upper IQR (y) against avg. AA len (x) -- see paper for more info)
+T_base <- ((3.657* avg_AA_len) + 260.1)
+
+Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) #this is what users will change if desired
+
+Tem_10 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_1) #10% scale
+Tem_20 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_2) #20% scale
+Tem_30 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_3) #30% scale
+Tem_40 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_4) #40% scale
+Tem_50 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_5) #50% scale
+
 
 ####################################
 #4. Now back to the regular network construction
@@ -65,7 +105,7 @@ cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
 #EDIT -- circ nets are not included right now
 #l <- layout <- layout.reingold.tilford(ig, circular=T) #circ is not useful for connections, but is for name reading / ref for IDs / colour grouping
-ll <- layout.fruchterman.reingold(ig, niter=5000) #don't change this to the better layout_with_graphopt below - it's not actually better when the data is contains so many edges like this original will before transformations below
+ll <- layout.fruchterman.reingold(ig, niter=1000) #don't change this to the better layout_with_graphopt below - it's not actually better when the data is contains so many edges like this original will before transformations below
 #layout_nicely = same as fruchterman reingold in my tests   
 
 ####################################
@@ -73,10 +113,10 @@ ll <- layout.fruchterman.reingold(ig, niter=5000) #don't change this to the bett
 te <- delete_edges(ig, E(ig)[weight< Tem])
 community_clustering <- fastgreedy.community(te)
 cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
-te2 <- layout.fruchterman.reingold(te, niter=5000)
+te2 <- layout.fruchterman.reingold(te, niter=1000)
 
 
-pdf(file = "networks_Rplots3.pdf")
+pdf(file = "networks_Rplots3_all_nodes.pdf")
 
 #Now let's finally build those networks
 #plot with edge weight applied
@@ -93,15 +133,20 @@ plot(te,
      edge.width=0.3,
      main="[title]")
 
+dev.off()
 ####################################
+
 #6. delete zero edge nodes of edgeweight-adjusted
 #gives more spaced + readable clusters but totherwise same as above
+
+pdf(file = "networks_Rplots3_zero_nodes_deleted.pdf")
+
 dv <- delete.vertices(te, V(te)[degree(te)==0])
 
 community_clustering <- multilevel.community(dv)
 cluster_colors <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
-lld <- layout_with_graphopt(dv, niter=5000,charge = 0.01) #this is BY FAR the best layout
+lld <- layout_with_graphopt(dv, niter=1000,charge = 0.01) #this is BY FAR the best layout
 
 #plot with edge weight applied and zero edge weight nodes deleted
 plot(dv,
@@ -118,10 +163,9 @@ plot(dv,
      main="[title]")
 
 
-
 dev.off()
-
+####################################
 #create a table of node groups
-clu <- components(dv) #TO-TO --- OR TE OR IG
+clu <- components(dv) #TO-TO --- OR TE OR IG .... need to figure out how do i wanna do this with variable Tem....
 clu_who <- groups(clu)
 lapply(clu_who, function(x) write.table(as.data.frame(x), 'network_cluster_communities.csv', append= T, sep=',' ))
