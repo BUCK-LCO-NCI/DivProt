@@ -185,10 +185,12 @@ Here are examples of how to produce each figure from the wrapper script, note ho
 
 On making networks: 
 
-DivProt outs 5 networks with variable threshold edge cut-off weights. What this means is you will get 5 seperate networks with increasing stringency for permitting connections between nodes (your genes). Each of these networks is equally as 'correct' as the other, but siply provides differeing resolution. We've decided to output five as the characterisitcs of your data (particularly what the mix of highly divergent and not so divergent looks like) heavily impact what DivProt uses for its computation of base edge-weight cut-off (upper IQR of align scores). This is necessary as given the sensitivity of DivProt, likely every protein you submitted would be connected.
+DivProt outs 5 networks with variable threshold edge cut-off weights. What this means is you will get 5 seperate networks with increasing stringency for permitting connections between nodes (your proteins). Each of these networks is equally as 'correct' as the other, but siply provides differeing resolution. We've decided to output five as the characterisitcs of your data (particularly what the mix of highly divergent and not so divergent looks like) heavily impact what DivProt uses for its computation of base edge-weight cut-off (upper IQR of align scores). This is necessary as given the sensitivity of DivProt, likely every protein you submitted would be connected.
 
 Networks 1-5 simply show the application of increased scaling to the cut-off upper IQR alignment score. More details can be found in the manuscript. Also you can see an example of this in the net_examples folder.
 
+You'll notice that you get two seperate .pdf files each containing 5 nets.
+"networks_Rplots3_zero_nodes_deleted.pdf" is likely the more useful of the two. It contains the nets with proteins containing no connections deleted (typically results in a tighter and much easier-to-read net) but otherwise is the exact same as the nets that contain all of your proteins ("networks_Rplots3_all_nodes.pdf")
 
 As you'll see in the example code above, the -networks paramater also contains an optional variable parameter "-tm" for threshold modifier. The methodology to build the networks contains a cutoff value that reduces erroneous connection between nodes. [will explain this more]
 
