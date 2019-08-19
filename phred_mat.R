@@ -100,13 +100,13 @@ write.csv(algnscore_matrix, "prob_align_matrix.csv")
 ######################################
 
 #read in score_mat
-score_mat <- read.csv(file = "./score_align_matrix.csv", header = TRUE, row.names = 1)
+score_mat <- read.csv(file = "./score_align_matrix.csv", header = TRUE, row.names = 1, check.names = FALSE)
 
 #read in prob_mat
-prob_mat <- read.csv(file = "./prob_align_matrix.csv", header = TRUE, row.names = 1)
+prob_mat <- read.csv(file = "./prob_align_matrix.csv", header = TRUE, row.names = 1, check.names = FALSE)
 
 #read in phred_mat
-phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.names = 1)
+phred_mat <- read.csv(file = "./phred_align_matrix.csv", header = TRUE, row.names = 1, check.names = FALSE)
 
 
 #Now let's actually sum them!
