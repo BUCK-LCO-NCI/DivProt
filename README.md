@@ -1,4 +1,4 @@
-# DivProt   <img src="DP_logo_2.png" alt="logo" img align="center" width="350"/>
+# DivProt   <img src="DP_logo_2.png" alt="logo" img align="center" width="350"/> 
 
 Alignment programme for divergent proteins based on amino acid sequence and predicted structure, producing figures that map divergent proteins in proximal phylogenetic space.  
 
@@ -196,7 +196,9 @@ As you'll see in the example code above, the -networks paramater also contains a
 
 [NOTE...is this clear??]
 
-[net figure here?]
+Here's an example of the process:
+
+<img src="example_nets_edge_cutoff.png" img align="center" width="850"/> 
 
 #### On the structure:
 > XX.ss3: helix (H), strand (E), and coil (C)
