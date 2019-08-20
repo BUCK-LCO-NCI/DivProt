@@ -180,7 +180,8 @@ Here are examples of how to produce each figure from the wrapper script, note ho
 ```
 #python3 run_figures.py alignmatrix.csv -heatmap
 #python3 run_figures.py alignmatrix.csv -tsne_trees -k 2
-#python3 run_figures.py alignmatrix.csv -network your_original_fasta.fa -tm 1.2 
+#python3 run_figures.py alignmatrix.csv -network your_original_fasta.fa 
+#python3 run_figures.py alignmatrix.csv -network_custom your_original_fasta.fa -tm 0.2 
 ```
 
 On making networks: 
@@ -190,9 +191,9 @@ DivProt outs 5 networks with variable threshold edge cut-off weights. This cut-o
 Networks 1-5 simply show the application of increased scaling to the cut-off upper IQR alignment score. More details can be found in the manuscript. Also you can see an example of this in the net_examples folder.
 
 You'll notice that you get two seperate .pdf files each containing 5 nets.
-"networks_Rplots3_zero_nodes_deleted.pdf" is likely the more useful of the two. It contains the nets with proteins containing no connections deleted (typically results in a tighter and much easier-to-read net) but otherwise is the exact same as the nets that contain all of your proteins ("networks_Rplots3_all_nodes.pdf")
+"networks_Rplots3_zero_nodes_deleted.pdf" is likely the more useful of the two. It contains the nets with proteins containing no connections deleted (typically results in a tighter and much easier-to-read net) but otherwise is the exact same as the nets that contain all of your proteins ("networks_Rplots3_all_nodes.pdf"). You will also notice two new directories. In /community_csvs you'll find 10 .csv files listing the communities in each network. In /adjusted_algn_score_csvs you'll find 5 .csv files that have replaced values below the threshold with 0. These may be useful in utlilsing other software, such as cytoscape for interactive and generally prettier networks.
 
-As you'll see in the example code above, the -networks paramater also contains an optional variable parameter "-tm" for threshold modifier. This is esentailly what is used interanlly for generating the 5 networks, buy you may wish to, or need to, depending on the characteristics of your data, move this threshold. For example, the biologically-informed internal equation is accuate for amino acids up to 800 base pairs; so if your data contains a lot of seqs greater than that, you will definitely be needing to increase the modifier by utilising -tm. Additionally, the base edge cut-off value is determined from average amino acid length, so if your input fasta contains a wide range of sequence lengths, the cut-off will be less precise, and you again will be needing to play aronud with optimal -tm, with the consideration of representing your data with multiple networks at different -tms. You can see seq length info and some other stats in the input_fa_stats.txt file 
+As you'll see in the example code above, there is a -network_custom paramater that contains an optional variable parameter "-tm" for threshold modifier. This is esentailly what is used interanlly for generating the 5 networks, buy you may wish to, or need to, depending on the characteristics of your data, move this threshold. For example, the biologically-informed internal equation is accuate for amino acids up to 800 base pairs; so if your data contains a lot of seqs greater than that, you will definitely be needing to increase the modifier by utilising -tm (i.e. -tm .65 for a 65% scaling to base threshold). Additionally, the base edge cut-off value is determined from average amino acid length, so if your input fasta contains a wide range of sequence lengths, the cut-off will be less precise, and you again will be needing to play around with optimal -tm, with the consideration of representing your data with multiple networks at different -tms. You can see seq length info and some other stats in the input_fa_and_align_stats.txt file. -network_custom also outs the community csv file and adjusted input alignment score csv as descrined in the paragraph above.
 
 [NOTE...is this clear??]
 
@@ -225,4 +226,4 @@ My TODO:
 
 #this may change a little, but if it's helpful for now:
 
-<img src="/readme_figures/DP_workflow.png" img align="center" width="750"/> 
+<img src="/readme_figures/DP_workflow.png" img align="center" width="800"/> 
