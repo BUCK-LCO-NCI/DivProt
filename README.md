@@ -198,7 +198,7 @@ As you'll see in the example code above, the -networks paramater also contains a
 
 Here's an example of the process:
 
-<img src="example_nets_edge_cutoff.png" img align="center" width="850"/> 
+<img src="/readme_figures/example_nets_edge_cutoff.png" img align="center" width="850"/> 
 
 #### On the structure:
 > XX.ss3: helix (H), strand (E), and coil (C)
@@ -222,3 +222,7 @@ My TODO:
 > 6. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes? etc.
 > 7. Change how DP utilises cpu + ram ... right now it's not computationally intensive (positive way of looking at it) ... or computationally efficient (negative way of looking at it) ... but yeah, I want to get it to use more resources as it runs to increase speed.
 
+
+#this may change a little, but if it's helpful for now:
+
+<img src="/readme_figures/DP_workflow.png" img align="center" width="700"/> 
