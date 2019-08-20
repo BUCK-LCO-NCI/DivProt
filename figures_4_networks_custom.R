@@ -9,7 +9,7 @@ orig_fasta = arg[3] #this script doesn't actually use the original fasta, I just
 
 Ts <- var_score_to_pass
 
-T_base <- ((3.657* avg_AA_len) + 260.1)
+#T_base <- ((3.657* avg_AA_len) + 260.1)
 
 Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) 
 
@@ -80,15 +80,18 @@ plot(dv,
      vertex.color=cluster_colors[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4, 
-     main="[title]")
+     main="Custom edge-adjusted network")
 
 
 dev.off()
 ##########################
 #create a table of node groups
-clu <- components(dv) #TO-TO --- OR TE OR IG ...
+clu <- components(dv) 
 clu_who <- groups(clu)
 lapply(clu_who, function(x) write.table(as.data.frame(x), 'network_CUSTOM_cluster_communities.csv', append= T, sep=',' ))
 
 ##########################
 #add make new matrix with 0 supplement at < cutoff
+matrix_confirm_temp[matrix_confirm_temp < Tem_custom] <- 0
+
+write.csv(matrix_confirm_temp, file = "adjusted_network_CUSTOM_Final_3_align_matrix.csv", row.names = TRUE)
