@@ -80,7 +80,8 @@ Ts_5 <- 0.5
 #(eq = slope of the line of plotting upper IQR (y) against avg. AA len (x) -- see paper for more info)
 T_base <- ((3.657* avg_AA_len) + 260.1)
 
-Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) #this is what users will change if desired
+#this is what users will change if desired -- see figures_3_networks_custom.R and use --networks_custom to use this!
+#Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) 
 
 Tem_10 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_1) #10% scale
 Tem_20 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_2) #20% scale
@@ -102,7 +103,7 @@ ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = F
 community_clustering <- fastgreedy.community(ig)
 cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
-#EDIT -- circ nets are not included right now
+
 #l <- layout <- layout.reingold.tilford(ig, circular=T) #circ is not useful for connections, but is for name reading / ref for IDs / colour grouping
 ll <- layout.fruchterman.reingold(ig, niter=1000) #don't change this to the better layout_with_graphopt below - it's not actually better when the data is contains so many edges like this original will before transformations below
 #layout_nicely = same as fruchterman reingold in my tests   
@@ -145,7 +146,7 @@ dv <- delete.vertices(te, V(te)[degree(te)==0])
 community_clustering <- multilevel.community(dv)
 cluster_colors <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 
-lld <- layout_with_graphopt(dv, niter=1000,charge = 0.01) #this is BY FAR the best layout
+lld <- layout_with_graphopt(dv, niter=1000,charge = 0.01) #this is BY FAR the best layout here
 
 #plot with edge weight applied and zero edge weight nodes deleted
 plot(dv,
@@ -163,8 +164,13 @@ plot(dv,
 
 
 dev.off()
+
 ####################################
 #create a table of node groups
-clu <- components(dv) #TO-TO --- OR TE OR IG .... need to figure out how do i wanna do this with variable Tem....
+clu <- components(dv) #TO-TO --- OR TE OR IG ... make this recursive for all 10 permutations, put in a new dir
 clu_who <- groups(clu)
 lapply(clu_who, function(x) write.table(as.data.frame(x), 'network_cluster_communities.csv', append= T, sep=',' ))
+
+####################################
+#need to add in adjust input Final_align.csv mat to have 5 new ones reflecting 10-50% scaling with < cutoff supplanted with 0s in new dir
+#useful if people want to use them for downstream/external applications, such as cytoscape for prettier nets or iqtree/figtree/MAFFT&phylo.io for prettier trees
