@@ -2,14 +2,13 @@
 
 args = commandArgs(trailingOnly=TRUE)
 matrix_confirm_temp = args[1]
-var_score_to_pass = args[2]
-orig_fasta = arg[3]
+orig_fasta = arg[2]
 
 
 ####################################
 #1. calculate orig_fasta average aa len info
 library(Biostrings)
-for_avg_len <- fasta.seqlengths(orig_fasta) #this will probably work...requires ".fasta" without sys.arv
+for_avg_len <- fasta.seqlengths(orig_fasta)
 avg_AA_len <- mean(for_avg_len)
 min_AA_len <- min(for_avg_len)
 max_AA_len <- max(for_avg_len)
@@ -63,7 +62,7 @@ writeLines(c(paste("Average AA length: ", avg_AA_len), paste("Range AA length lo
              paste("Align score mean: ", x), paste("Align score standard deviation: ", s), paste("Align score median: ", m),
              paste("Align score min: ", rmin), paste("Align score max: ", rmax), paste("Align score 95% confidence interval (upper): ",conf_95_pos),
              paste("Align score 95% confidence interval (lower): ",conf_95_neg), paste("Align score IQR: ", iqr), 
-             paste("Align score upper IQR: ", iqr_up)), txt_var)
+             paste("Align score upper IQR value (Q3): ", iqr_up)), txt_var)
 close(txt_var)
 
 ####################################
