@@ -25,4 +25,4 @@ elif script_to_pass == "-tsne_trees":
 elif script_to_pass == "-network":
     subprocess.call(['Rscript', 'figures_3_networks.R', align_file, orig_fasta], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
 elif script_to_pass == "-network_custom":
-    subprocess.call(['Rscript', 'figures_3_networks_custom.R', align_file, var_score_to_pass, orig_fasta], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
+    subprocess.call(['Rscript', 'figures_4_networks_custom.R', align_file, var_score_to_pass, orig_fasta], stderr=subprocess.STDOUT, shell=False) #pass fastq variable on
