@@ -225,4 +225,4 @@ My TODO:
 
 #this may change a little, but if it's helpful for now:
 
-<img src="/readme_figures/DP_workflow.png" img align="center" width="700"/> 
+<img src="/readme_figures/DP_workflow.png" img align="center" width="750"/> 
