@@ -66,29 +66,15 @@ writeLines(c(paste("Average AA length: ", avg_AA_len), paste("Range AA length lo
 close(txt_var)
 
 ####################################
-#3. put the conf interval into the equation we derived from PDB querying, see paper methods for details
-#This is what people change from wrapper script!
-Ts <- var_score_to_pass
-
-Ts_1 <- 0.1
-Ts_2 <- 0.2
-Ts_3 <- 0.3
-Ts_4 <- 0.4
-Ts_5 <- 0.5
-
 #this is from querying PDB structures pinned at different AA lengths and running through DP 
 #(eq = slope of the line of plotting upper IQR (y) against avg. AA len (x) -- see paper for more info)
-T_base <- ((3.657* avg_AA_len) + 260.1)
+#T_base <- ((3.657* avg_AA_len) + 260.1)
 
 #this is what users will change if desired -- see figures_3_networks_custom.R and use --networks_custom to use this!
 #Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) 
-
-Tem_10 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_1) #10% scale
-Tem_20 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_2) #20% scale
-Tem_30 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_3) #30% scale
-Tem_40 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_4) #40% scale
-Tem_50 <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts_5) #50% scale
-
+#10-50% scale
+t_scale_array <- as.array(c(0.1,0.2,0.3,0.4,0.5))
+new_array <- ((3.657*386) + 260.1) + (((3.657* 386) + 260.1) * t_scale_array))
 
 ####################################
 #4. Now back to the regular network construction
@@ -108,19 +94,22 @@ cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 ll <- layout.fruchterman.reingold(ig, niter=1000) #don't change this to the better layout_with_graphopt below - it's not actually better when the data is contains so many edges like this original will before transformations below
 #layout_nicely = same as fruchterman reingold in my tests   
 
+
 ####################################
-#5. Apply edgeweight cutoff
-te <- delete_edges(ig, E(ig)[weight< Tem])
+#. Apply edgeweight cutoff
+#define pdf outside fo the fucntion
+pdf(file = "networks_Rplots3_all_nodes.pdf")
+
+#FUNction 1 - all nodes, edge-adjusted
+Run_net_full <- lapply(new_array, function(x) {
+
+te <- delete_edges(ig, E(ig)[weight< x]) #x = Tem just fyi
 community_clustering <- fastgreedy.community(te)
 cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 te2 <- layout.fruchterman.reingold(te, niter=1000)
 
-
-pdf(file = "networks_Rplots3_all_nodes.pdf")
-
-#Now let's finally build those networks
 #plot with edge weight applied
-plot(te,
+print(plot(te,
      layout=te2,
      edge.arrow.size=0.5,
      vertex.label.cex=0.5,
@@ -131,8 +120,8 @@ plot(te,
      vertex.color=cluster_colours[membership(community_clustering)],
      vertex.label.color="black",
      edge.width=0.3,
-     main="[title]")
-
+     main="[title]"))
+})
 dev.off()
 ####################################
 
@@ -141,15 +130,17 @@ dev.off()
 
 pdf(file = "networks_Rplots3_zero_nodes_deleted.pdf")
 
+Run_net_edge_del <- lapply(new_array, function(x) {
+  
+te <- delete_edges(ig, E(ig)[weight< x])
 dv <- delete.vertices(te, V(te)[degree(te)==0])
-
 community_clustering <- multilevel.community(dv)
 cluster_colors <- rainbow(max(membership(community_clustering)), alpha = 0.5)
-
 lld <- layout_with_graphopt(dv, niter=1000,charge = 0.01) #this is BY FAR the best layout here
 
 #plot with edge weight applied and zero edge weight nodes deleted
-plot(dv,
+
+print(plot(dv,
      layout=lld, 
      edge.arrow.size=0.5, 
      vertex.label.cex=0.5, 
@@ -160,8 +151,8 @@ plot(dv,
      vertex.color=cluster_colors[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4, 
-     main="[title]")
-
+     main= "[title]"))
+})
 
 dev.off()
 
