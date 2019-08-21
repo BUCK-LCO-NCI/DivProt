@@ -5,6 +5,10 @@ matrix_confirm_temp = args[1]
 orig_fasta = arg[2]
 
 
+dir.create("./networks")
+dir.create("./networks/adjusted_algn_score_csvs")
+dir.create("./networks/community_csvs")
+
 ####################################
 #1. calculate orig_fasta average aa len info
 library(Biostrings)
@@ -56,7 +60,7 @@ iqr_up <- quantile(g1, 3/4)
 ####################################
 #write input fasta stats to a .txt file for people to view
 
-txt_var <- file("input_fa_and_align_stats.txt")
+txt_var <- file("./networks/input_fa_and_align_stats.txt")
 writeLines(c(paste("Average AA length: ", avg_AA_len), paste("Range AA length lower: ", min_AA_len), paste("Range AA length upper: ", max_AA_len),
              paste("Number of observations (1/2 of matrix, excluding diagonal self-self scoring): ", n),
              paste("Align score mean: ", x), paste("Align score standard deviation: ", s), paste("Align score median: ", m),
@@ -98,7 +102,7 @@ ll <- layout.fruchterman.reingold(ig, niter=1000) #don't change this to the bett
 ####################################
 #. Apply edgeweight cutoff
 #define pdf outside fo the fucntion
-pdf(file = "networks_Rplots3_all_nodes.pdf")
+pdf(file = "./networks/networks_Rplots3_all_nodes.pdf")
 
 #FUNction 1 - all nodes, edge-adjusted
 Run_net_full <- lapply(new_array, function(x) {
@@ -128,7 +132,7 @@ dev.off()
 #6. delete zero edge nodes of edgeweight-adjusted
 #gives more spaced + readable clusters but totherwise same as above
 
-pdf(file = "networks_Rplots3_zero_nodes_deleted.pdf")
+pdf(file = "./networks/networks_Rplots3_zero_nodes_deleted.pdf")
 
 Run_net_edge_del <- lapply(new_array, function(x) {
   
