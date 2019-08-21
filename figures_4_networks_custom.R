@@ -5,6 +5,11 @@ matrix_confirm_temp = args[1]
 var_score_to_pass = args[2]
 orig_fasta = arg[3] #this script doesn't actually use the original fasta, I just kept it in to be less confusing ;)
 
+
+dir.create("./network_custom")
+dir.create("./network_custom/adjusted_algn_score_csv")
+dir.create("./network_custom/community_csv")
+
 #you'll see this is pretty much just a simplified version of the main networks script
 
 Ts <- var_score_to_pass
@@ -39,7 +44,7 @@ cluster_colours <- rainbow(max(membership(community_clustering)), alpha = 0.5)
 te2 <- layout.fruchterman.reingold(te, niter=1000)
 
 
-pdf(file = "networks_Rplots3_CUSTOM.pdf")
+pdf(file = "./network_custom/networks_Rplots3_CUSTOM.pdf")
 
 #Now let's finally build those networks
 #plot with edge weight applied
@@ -88,10 +93,10 @@ dev.off()
 #create a table of node groups
 clu <- components(dv) 
 clu_who <- groups(clu)
-lapply(clu_who, function(x) write.table(as.data.frame(x), 'network_CUSTOM_cluster_communities.csv', append= T, sep=',' ))
+lapply(clu_who, function(x) write.table(as.data.frame(x), './network_custom/community_csv/network_CUSTOM_cluster_communities.csv', append= T, sep=',' ))
 
 ##########################
 #add make new matrix with 0 supplement at < cutoff
 matrix_confirm_temp[matrix_confirm_temp < Tem_custom] <- 0
 
-write.csv(matrix_confirm_temp, file = "adjusted_network_CUSTOM_Final_3_align_matrix.csv", row.names = TRUE)
+write.csv(matrix_confirm_temp, file = "./network_custom/adjusted_algn_score_csv/adjusted_network_CUSTOM_Final_3_align_matrix.csv", row.names = TRUE)
