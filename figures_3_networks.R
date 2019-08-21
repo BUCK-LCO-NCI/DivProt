@@ -125,8 +125,16 @@ print(plot(te,
      vertex.label.color="black",
      edge.width=0.3,
      main="[title]"))
+
+  #to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
+clu <- components(dv) 
+clu_who <- groups(clu)
+lapply(clu_who, function(clust) write.table(as.data.frame(clust), file=sprintf("./networks/community_csvs/all_nodes_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
+
 })
+
 dev.off()
+
 ####################################
 
 #6. delete zero edge nodes of edgeweight-adjusted
@@ -156,15 +164,15 @@ print(plot(dv,
      vertex.label.color="black", 
      edge.width=0.4, 
      main= "[title]"))
+
+#to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
+clu <- components(dv) 
+clu_who <- groups(clu)
+lapply(clu_who, function(clust) write.table(as.data.frame(clust), file=sprintf("./networks/community_csvs/zero_nodes_del_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
+
 })
 
 dev.off()
-
-####################################
-#create a table of node groups
-clu <- components(dv) #TO-TO --- OR TE OR IG ... make this recursive for all 10 permutations, put in a new dir
-clu_who <- groups(clu)
-lapply(clu_who, function(x) write.table(as.data.frame(x), 'network_cluster_communities.csv', append= T, sep=',' ))
 
 ####################################
 #need to add in adjust input Final_align.csv mat to have 5 new ones reflecting 10-50% scaling with < cutoff supplanted with 0s in new dir
