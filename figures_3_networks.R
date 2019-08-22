@@ -168,7 +168,7 @@ print(plot(dv,
 #to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
 clu <- components(dv) 
 clu_who <- groups(clu)
-lapply(clu_who, function(clust) write.table(as.data.frame(clust), file=sprintf("./networks/community_csvs/zero_nodes_del_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
+lapply(clu_who, function(cluster) write.table(as.data.frame(cluster), file=sprintf("./networks/community_csvs/zero_nodes_del_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
 
 })
 
