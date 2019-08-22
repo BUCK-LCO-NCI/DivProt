@@ -124,16 +124,18 @@ print(plot(te,
      vertex.color=cluster_colours[membership(community_clustering)],
      vertex.label.color="black",
      edge.width=0.3,
-     main="[title]"))
+     main= sprintf("All nodes: Network at edge-weight cutoff of %.2f",x"))) #maybe change this to include 10-50%
 
 #to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
 clu <- components(dv) 
 clu_who <- groups(clu)
 lapply(clu_who, function(clust) write.table(as.data.frame(clust), file=sprintf("./networks/community_csvs/all_nodes_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
 
-#to make variations of the "Final_3_..." matrix for potential downstream applications       
+#to make variations of the 'Final_3_...' matrix for potential downstream applications       
 matrix_confirm[matrix_confirm < x] <- 0
 write.csv(matrix_confirm, file = sprintf("./adjusted_algn_score_csvs/adjust_net_Final_3_align_matrix_at_%.2f.csv", x), row.names = TRUE)
+
+#maybe change the above two file sets to include mentioning 10-50% scaling in the title...
 
 })
 
@@ -167,7 +169,7 @@ print(plot(dv,
      vertex.color=cluster_colors[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4, 
-     main= "[title]"))
+     main= sprintf("Zero edge nodes deleted: Network at edge-weight cutoff of %.2f",x")))
 
 #to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
 clu <- components(dv) 
@@ -175,7 +177,7 @@ clu_who <- groups(clu)
 lapply(clu_who, function(cluster) write.table(as.data.frame(cluster), file=sprintf("./networks/community_csvs/zero_nodes_del_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
 
        
-#we don't need to make the 'variations of the "Final_3_..." matrix for potential downstream applications' again (5 total, not 10)        
+#we don't need to make the 'variations of the 'Final_3_...' matrix for potential downstream applications' again (5 total, not 10)        
 
 })
 
