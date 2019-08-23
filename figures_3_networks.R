@@ -23,8 +23,8 @@ library(Matrix)
 library(stats)
 
 #for upper half of each matrix, excluding the diagonal
-group <- matrix_confirm_temp
-group[lower.tri(group1,diag=TRUE)] <- 0
+group1 <- matrix_confirm_temp
+group1[lower.tri(group1,diag=TRUE)] <- 0
 
 #2a. n = number of observations (half of mat, excluding diag)
 n <- ((((length(group1) /2 ) * (length(group1) /2)) / 2) - (length(group1) /2))
@@ -78,7 +78,7 @@ close(txt_var)
 #Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) 
 #10-50% scale
 t_scale_array <- as.array(c(0.1,0.2,0.3,0.4,0.5))
-new_array <- ((3.657*386) + 260.1) + (((3.657* 386) + 260.1) * t_scale_array))
+new_array <- ((3.657*386) + 260.1) + (((3.657* 386) + 260.1) * t_scale_array)
 
 ####################################
 #4. Now back to the regular network construction
@@ -124,10 +124,11 @@ print(plot(te,
      vertex.color=cluster_colours[membership(community_clustering)],
      vertex.label.color="black",
      edge.width=0.3,
-     main= sprintf("All nodes: Network at edge-weight cutoff of %.2f",x"))) #maybe change this to include 10-50%
+     main= sprintf("All nodes: Network at edge-weight cutoff of %.2f",x))) #maybe change this to include 10-50%
 
 #to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
-clu <- components(dv) 
+
+clu <- components(te) 
 clu_who <- groups(clu)
 lapply(clu_who, function(clust) write.table(as.data.frame(clust), file=sprintf("./networks/community_csvs/all_nodes_community_clust_at_edge_cutoff_%.2f.csv",x), append= T, sep=',' ))
 
@@ -169,7 +170,7 @@ print(plot(dv,
      vertex.color=cluster_colors[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4, 
-     main= sprintf("Zero edge nodes deleted: Network at edge-weight cutoff of %.2f",x")))
+     main= sprintf("Zero edge nodes deleted: Network at edge-weight cutoff of %.2f",x)))
 
 #to make those cluster community lists at each cutoff. File title gives the numerical value at each increasing 10%
 clu <- components(dv) 
