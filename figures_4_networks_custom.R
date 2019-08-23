@@ -64,7 +64,7 @@ plot(te,
      vertex.color=cluster_colours[membership(community_clustering)],
      vertex.label.color="black",
      edge.width=0.3,
-     main="[title]")
+     main="Custom edge-adjusted network - all nodes")
 
 ####################################
 
@@ -90,7 +90,7 @@ plot(dv,
      vertex.color=cluster_colors[membership(community_clustering)], 
      vertex.label.color="black", 
      edge.width=0.4, 
-     main="Custom edge-adjusted network")
+     main="Custom edge-adjusted network - zero edge nodes deleted")
 
 
 dev.off()
