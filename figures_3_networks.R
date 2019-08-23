@@ -1,7 +1,7 @@
 #STILL A DRAFT
 
 args = commandArgs(trailingOnly=TRUE)
-matrix_confirm_temp = args[1]
+matrix_confirm_temp = read.csv(args[1], header = TRUE, row.names = 1, check.names = FALSE)
 orig_fasta = args[2]
 
 
@@ -134,7 +134,7 @@ lapply(clu_who, function(clust) write.table(as.data.frame(clust), file=sprintf("
 
 #to make variations of the 'Final_3_...' matrix for potential downstream applications       
 matrix_confirm[matrix_confirm < x] <- 0
-write.csv(matrix_confirm, file = sprintf("./adjusted_algn_score_csvs/adjust_net_Final_3_align_matrix_at_%.2f.csv", x), row.names = TRUE)
+write.csv(matrix_confirm, file = sprintf("./networks/adjusted_algn_score_csvs/adjust_net_Final_3_align_matrix_at_%.2f.csv", x), row.names = TRUE)
 
 #maybe change the above two file sets to include mentioning 10-50% scaling in the title...
 
