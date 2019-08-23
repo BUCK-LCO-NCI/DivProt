@@ -84,3 +84,5 @@ for(i in unique(input_and_clust2$d_tsne_1_original.cl_kmeans)) {
   }
 
 dev.off()
+
+#hey so don't worry about the 'There were __ warnings...' message you're going to get out to termainal, it's all good
