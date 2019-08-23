@@ -3,7 +3,7 @@ library(Rtsne)
 library(ggplot2)
 
 args = commandArgs(trailingOnly=TRUE)
-align_file = read.csv(args[1], header = TRUE, row.names = 1)
+align_file = read.csv(args[1], header = TRUE, row.names = 1, check.names = FALSE)
 var_score_to_pass = args[2]
 
 train <- tril(as.matrix(align_file))
