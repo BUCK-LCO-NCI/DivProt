@@ -1,7 +1,7 @@
 #STILL A DRAFT
 #nets custom
 args = commandArgs(trailingOnly=TRUE)
-matrix_confirm_temp = args[1]
+matrix_confirm_temp = read.csv(args[1], header = TRUE, row.names = 1, check.names = FALSE)
 var_score_to_pass = args[2]
 orig_fasta = arg[3] #this script doesn't actually use the original fasta, I just kept it in to be less confusing ;)
 
