@@ -178,10 +178,10 @@ On making trees: You have the optional variable parameter "-k" for cluster. If y
 Here are examples of how to produce each figure from the wrapper script, note how they're all a little different, and like stated elsewhere in this README, order matters!:
 
 ```
-#python3 run_figures.py alignmatrix.csv -heatmap
-#python3 run_figures.py alignmatrix.csv -tsne_trees -k 2
-#python3 run_figures.py alignmatrix.csv -network your_original_fasta.fa 
-#python3 run_figures.py alignmatrix.csv -network_custom your_original_fasta.fa -tm 0.2 
+#python3 R_figs_wrapper.py alignmatrix.csv -heatmap
+#python3 R_figs_wrapper.py alignmatrix.csv -tsne_trees -k 2
+#python3 R_figs_wrapper.py alignmatrix.csv -network your_original_fasta.fa 
+#python3 R_figs_wrapper.py alignmatrix.csv -network_custom your_original_fasta.fa -tm 0.2 
 ```
 
 On making networks: 
