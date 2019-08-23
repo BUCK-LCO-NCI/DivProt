@@ -98,7 +98,7 @@ dev.off()
 #create a table of node groups
 clu <- components(dv) 
 clu_who <- groups(clu)
-lapply(clu_who, function(x) write.table(as.data.frame(x), './network_custom/community_csv/network_CUSTOM_cluster_communities.csv', append= T, sep=',' ))
+lapply(clu_who, function(cluster) write.table(as.data.frame(cluster), './network_custom/community_csv/network_CUSTOM_cluster_communities.csv', append= T, sep=',' ))
 
 ##########################
 #add make new matrix with 0 supplement at < cutoff
