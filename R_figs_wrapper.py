@@ -15,7 +15,7 @@ orig_fasta = sys.argv[3]
 if script_to_pass == "-tsne_trees":
     var_score_to_pass = sys.argv[4] if len(sys.argv) >= 4 else '1'
 elif script_to_pass == "-network_custom":
-    var_score_to_pass = sys.argv[4] if len(sys.argv) >= 5 else 'XXXXXX'#'the default cutoff soon-to-come' #NOTEEE TO ME #>=4?
+    var_score_to_pass = sys.argv[5] #if len(sys.argv) >= 5 else 'XXXXXX' 'the default cutoff soon-to-come' #NOTEEE TO ME #>=4?
 
 
 if script_to_pass == "-heatmap":
