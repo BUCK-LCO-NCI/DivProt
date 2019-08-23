@@ -2,7 +2,7 @@
 
 args = commandArgs(trailingOnly=TRUE)
 matrix_confirm_temp = args[1]
-orig_fasta = arg[2]
+orig_fasta = args[2]
 
 
 dir.create("./networks")
@@ -23,7 +23,7 @@ library(Matrix)
 library(stats)
 
 #for upper half of each matrix, excluding the diagonal
-group <- matrix_confirm
+group <- matrix_confirm_temp
 group[lower.tri(group1,diag=TRUE)] <- 0
 
 #2a. n = number of observations (half of mat, excluding diag)
