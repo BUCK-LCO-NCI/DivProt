@@ -11,7 +11,7 @@ dir.create("./network_custom/adjusted_algn_score_csv")
 dir.create("./network_custom/community_csv")
 
 #you'll see this is pretty much just a simplified version of the main networks script
-Ts <- var_score_to_pass
+Ts <- as.numeric(var_score_to_pass)
 
 #T_base <- ((3.657* avg_AA_len) + 260.1)
 
