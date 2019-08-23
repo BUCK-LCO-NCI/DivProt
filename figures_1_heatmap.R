@@ -2,7 +2,7 @@
 library("pheatmap")
 
 args = commandArgs(trailingOnly=TRUE)
-align_file = read.csv(args[1], header = TRUE, row.names = 1)
+align_file = read.csv(args[1], header = TRUE, row.names = 1, check.names = FALSE)
 
 pdf(file = "heatmap_Rplots1.pdf")
 
