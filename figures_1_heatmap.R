@@ -1,6 +1,9 @@
 #heatmap
 library("pheatmap")
 
+args = commandArgs(trailingOnly=TRUE)
+align_file = read.csv(args[1], header = TRUE, row.names = 1)
+
 pdf(file = "heatmap_Rplots1.pdf")
 
 #algnscore_matrix <- read.csv("./algnscore_matrix.csv") #remeber this matrix needs to be fully done w/ R script before this vis
