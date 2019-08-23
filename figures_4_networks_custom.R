@@ -3,7 +3,7 @@
 args = commandArgs(trailingOnly=TRUE)
 matrix_confirm_temp = read.csv(args[1], header = TRUE, row.names = 1, check.names = FALSE)
 var_score_to_pass = args[2]
-orig_fasta = arg[3] #this script doesn't actually use the original fasta, I just kept it in to be less confusing ;)
+orig_fasta = args[3]
 
 
 dir.create("./network_custom")
@@ -11,10 +11,15 @@ dir.create("./network_custom/adjusted_algn_score_csv")
 dir.create("./network_custom/community_csv")
 
 #you'll see this is pretty much just a simplified version of the main networks script
-
 Ts <- var_score_to_pass
 
 #T_base <- ((3.657* avg_AA_len) + 260.1)
+
+#for avg aa len
+library(Biostrings)
+for_avg_len <- fasta.seqlengths(orig_fasta)
+avg_AA_len <- mean(for_avg_len)
+
 
 Tem_custom <- ((3.657* avg_AA_len) + 260.1) + (((3.657* avg_AA_len) + 260.1) * Ts) 
 
