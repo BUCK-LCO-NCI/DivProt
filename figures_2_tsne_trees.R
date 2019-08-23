@@ -56,8 +56,10 @@ plot_cluster(d_tsne_1_original, "cl_kmeans", "Accent")
 
 
 #now let's extract the clusters and build those trees
-trainlist = list(train[,0])
-input_and_clust <- data.frame(trainlist, d_tsne_1_original$cl_kmeans)
+trainlist = as.matrix(train[,0])
+
+dtsne1clkmeans = as.matrix(d_tsne_1_original$cl_kmeans)
+input_and_clust <- data.frame(trainlist, d_tsne_1_original$cl_kmeans) #has ids and inde and vector length of [1]
 #this is, in fact, necessary
 input_and_clust2 <- data.frame(names = row.names(input_and_clust), input_and_clust)
 rownames(input_and_clust2) <- NULL
