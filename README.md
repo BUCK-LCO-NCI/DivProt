@@ -220,10 +220,10 @@ My TODO:
 > 2. Maybe make a python wrapper for matrix weighting script, since that's the only one left in R at the user level (pre-pre-proc is bash - this code may be unnecessary now with Porter updates, will just need to check speed comparison)
 > 3. Add sequence length warning and --help
 > 4. Docker!
-> 5. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes? etc.
-> 6. Change how DP utilises cpu + ram ... right now it's not computationally intensive (positive way of looking at it) ... or computationally efficient (negative way of looking at it) ... but yeah, I want to get it to use more resources as it runs to increase speed.
+> 5. Have DivProt create a final html file with all figures, final matrix, stats, some representative sequenes(?) etc.
+> 6. Change how DP utilises cpu + ram ... right now it's not computationally intensive (positive way of looking at it) ... or computationally efficient (negative way of looking at it) ~ plan on getting it to use more resources as it runs to increase speed.
 
 
-#this may change a little, but if it's helpful for now:
+This may change a bit, but if it's helpful for now:
 
 <img src="/readme_figures/DP_workflow.png" img align="center" width="800"/> 
