@@ -97,13 +97,14 @@ pheatmap(matrix_confirm, cex = 0.6, main = "Heatmap: Just AA, transformed, scale
 
 
 #igraph
+library("igraph")
 ig <- graph.adjacency(matrix_confirm, mode="undirected", weighted=TRUE, diag = FALSE)
 
 community_clustering <- fastgreedy.community(ig)
 cluster_colours <- rainbow(max(membership(community_clustering)))
 
 l <- layout <- layout.reingold.tilford(ig, circular=T)
-ll <- layout.fruchterman.reingold(ig, niter=10000)
+ll <- layout.fruchterman.reingold(ig, niter=1000)
 
 
 plot(ig, layout=l, 
