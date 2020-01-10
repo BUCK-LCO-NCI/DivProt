@@ -80,12 +80,12 @@ library("stats")
 pdf(file = "Rplots.pdf")
 for_hclust <- dist(bitscore_matrix_2, method = "canberra", diag = FALSE, upper = FALSE, p = 2)
 hc <- hclust(for_hclust, method = "average", members = NULL)
-plot(hc, hang = -0.5, cex = 0.5) 
+plot(hc, hang = -0.5, cex = 0.3) 
 
 #unrooted tree
 library("ape")
 myphylo <- as.phylo.hclust(hc)
-plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.5,
+plot(as.phylo.hclust(hc), type = "unrooted", cex = 0.3,
      no.margin = TRUE)
 
 #heatmap
@@ -93,7 +93,7 @@ library("pheatmap")
 
 matrix_confirm <- as.matrix(bitscore_matrix_2)
 mode(matrix_confirm) <- "numeric"
-pheatmap(matrix_confirm, cex = 0.6, main = "Heatmap: Just AA, transformed, scaled")
+pheatmap(matrix_confirm, cex = 0.3, main = "Heatmap: Just AA, transformed, scaled")
 
 
 #igraph
@@ -109,7 +109,7 @@ ll <- layout.fruchterman.reingold(ig, niter=1000)
 
 plot(ig, layout=l, 
      edge.arrow.size=0.5, 
-     vertex.label.cex=0.5, 
+     vertex.label.cex=0.4, 
      vertex.label.family="Helvetica",
      vertex.label.font=1.5,
      vertex.shape="circle", 
@@ -120,7 +120,7 @@ plot(ig, layout=l,
 
 plot(ig, layout=ll, 
      edge.arrow.size=0.5, 
-     vertex.label.cex=0.5, 
+     vertex.label.cex=0.4, 
      vertex.label.family="Helvetica",
      vertex.label.font=1.5,
      vertex.shape="circle", 
