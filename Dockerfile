@@ -29,7 +29,7 @@ RUN R -e \
   "install.packages('igraph',dependencies=TRUE, repos='http://cran.rstudio.com/')"
   "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
   "install.packages('tidyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('eshape',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+  "install.packages('reshape',dependencies=TRUE, repos='http://cran.rstudio.com/')"
   "install.packages('Matrix',dependencies=TRUE, repos='http://cran.rstudio.com/')"
   "install.packages('Rtsne',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
