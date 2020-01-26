@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 LABEL maintainer "anna.k.belford@gmail.com"
 
+#please don't use this yet...I'm currently working on getting it running with everything we need!
+
 # get DivProt, Porter5
 RUN git clone https://github.com/BUCK-LCO-NCI/DivProt
 RUN git clone https://github.com/mircare/Porter5/ ./DivProt
@@ -23,14 +25,14 @@ RUN apt-get update && apt-get install -y \
 
 #get the R packages
 RUN R -e \
-  "install.packages('Biostrings',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('ggplot2',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('pheatmap',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('igraph',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('tidyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('reshape',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-  "install.packages('Matrix',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+  "install.packages('Biostrings',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('ggplot2',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('pheatmap',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('igraph',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('tidyr',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('reshape',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
+  "install.packages('Matrix',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
   "install.packages('Rtsne',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 
