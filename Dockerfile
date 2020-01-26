@@ -3,11 +3,8 @@ LABEL maintainer "anna.k.belford@gmail.com"
 
 #please don't use this yet...I'm currently working on getting it running with everything we need!
 
-# get DivProt, Porter5
-RUN git clone https://github.com/BUCK-LCO-NCI/DivProt
-RUN git clone https://github.com/mircare/Porter5/ ./DivProt
-
-RUN apt-get autoremove -y && rm -rf /DivProt/readme_figures /DivProt/example_DP_out
+#avoid prompts that come from
+ARG DEBIAN_FRONTEND=noninteractive
 
 # get the python libs and other software
 RUN apt-get update && apt-get install -y \
@@ -16,12 +13,20 @@ RUN apt-get update && apt-get install -y \
   python3-numpy \
   python3-pandas \
   python3-biopython \
-  biotite \
   hhsuite \
   ncbi-blast+ \
   build-essential \
   r-base \
   r-cran-randomforest
+
+#biotite seperately 
+RUN pip install biotite
+
+# get DivProt, Porter5
+RUN git clone https://github.com/BUCK-LCO-NCI/DivProt
+RUN git clone https://github.com/mircare/Porter5/ ./DivProt
+
+RUN apt-get autoremove -y && rm -rf /DivProt/readme_figures /DivProt/example_DP_out
 
 #get the R packages
 RUN R -e \
