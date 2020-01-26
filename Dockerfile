@@ -8,9 +8,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # get the python libs and other software
 RUN apt-get update && apt-get install -y \
+  git \ 
   python3 \
   python3-pip \
+  python3-setuptools \
   python3-numpy \
+  python3-requests \
+  python3-msgpack \
+  python3-matplotlib \
   python3-pandas \
   python3-biopython \
   hhsuite \
@@ -20,11 +25,14 @@ RUN apt-get update && apt-get install -y \
   r-cran-randomforest
 
 #biotite seperately 
-RUN pip install biotite
+RUN pip3 install biotite
 
 # get DivProt, Porter5
 RUN git clone https://github.com/BUCK-LCO-NCI/DivProt
-RUN git clone https://github.com/mircare/Porter5/ ./DivProt
+
+WORKDIR /Divprot
+#to put porter inside DP
+RUN git clone https://github.com/mircare/Porter5/ 
 
 RUN apt-get autoremove -y && rm -rf /DivProt/readme_figures /DivProt/example_DP_out
 
@@ -42,10 +50,7 @@ RUN R -e \
 
 
 #docker exec = execute a command inside of the container
-docker exec mkdir '/DivProt/dbs'
-
-#RUN mkdir -p '/DivProt/dbs'
-WORKDIR /Divprot
+RUN mkdir '/DivProt/dbs'
 
 #notes
 #check out https://docs.docker.com/get-started/part4/ for info about deploying this container to swarm if you're not on a hpc with the framework already all set up
