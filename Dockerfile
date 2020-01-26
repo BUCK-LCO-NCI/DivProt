@@ -1,8 +1,6 @@
 FROM ubuntu:latest
 LABEL maintainer "anna.k.belford@gmail.com"
 
-#please don't use this yet...I'm currently working on getting it running with everything we need!
-
 #avoid prompts that come from
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -10,8 +8,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
   git \ 
   python3 \
-  python3-pip \
   python3-setuptools \
+  python3-pip \
   python3-numpy \
   python3-requests \
   python3-msgpack \
@@ -30,10 +28,13 @@ RUN pip3 install biotite
 # get DivProt, Porter5
 RUN git clone https://github.com/BUCK-LCO-NCI/DivProt
 
-WORKDIR /Divprot
-#to put porter inside DP
-RUN git clone https://github.com/mircare/Porter5/ 
+#set DivProt as working directory from now on
+WORKDIR /DivProt
 
+#grab porter5
+RUN git clone https://github.com/mircare/Porter5/ ./Porter5 
+
+#clean
 RUN apt-get autoremove -y && rm -rf /DivProt/readme_figures /DivProt/example_DP_out
 
 #get the R packages
@@ -49,9 +50,9 @@ RUN R -e \
   "install.packages('Rtsne',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 
-#docker exec = execute a command inside of the container
-RUN mkdir '/DivProt/dbs'
+#make directory for databases to be deposited in in someone requests uniref and uniprot to be installed to the container (for porter)
+RUN mkdir ./dbs
 
 #notes
 #check out https://docs.docker.com/get-started/part4/ for info about deploying this container to swarm if you're not on a hpc with the framework already all set up
-#maybe need git clone hhsuite run
+#i maybe need git clone hhsuite run (?)
