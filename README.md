@@ -34,6 +34,15 @@ Anywhere below where you see .ssX, I am referring to the Porter5 output files .s
 4. clustalW
 
 
+
+### We now have a Docker image! 
+(it is currently in development...so keep that in mind...it should work, but needs to be tested more + one more script for easier set-up is on it's way)
+
+```
+#Grab the docker image with:
+$ docker pull bucklconci/divprot_test 
+```
+
 ## For running on conserved amino acid domains:
 
 Running the amino acid pipeline is extremely simple. Just upload your protein sequences and run the aligner script for PSIBLAST. Figures will be automatically generated and are stored in the "Rplots.pdf" file.
