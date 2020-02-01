@@ -23,8 +23,9 @@ RUN apt-get update && apt-get install -y \
   r-base \
   r-cran-randomforest
 
-#biotite seperately 
+#pip seperately 
 RUN pip3 install biotite
+RUN pip3 install wget
 
 # get DivProt, Porter5
 RUN git clone https://github.com/BUCK-LCO-NCI/DivProt
