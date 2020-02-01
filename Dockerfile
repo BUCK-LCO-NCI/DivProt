@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
   python3-matplotlib \
   python3-pandas \
   python3-biopython \
+  python-pexpect \
   hhsuite \
   ncbi-blast+ \
   build-essential \
