@@ -49,6 +49,9 @@ RUN R -e \
   "install.packages('Matrix',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
   "install.packages('Rtsne',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
+#setting a pathi in the environment --> I do not think this is necessary for hhblits to work for porter, but we'll see
+#ENV HHLIB=/hh-suite
+#ENV PATH="$HHLIB/bin:$HHLIB/scripts:${PATH}"
 
 #make directory for databases to be deposited in in someone requests uniref and uniprot to be installed to the container (for porter)
 RUN mkdir ./dbs
