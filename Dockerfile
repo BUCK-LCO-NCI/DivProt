@@ -51,13 +51,19 @@ RUN R -e \
   "install.packages('Matrix',dependencies=TRUE, repos='http://cran.rstudio.com/')" \
   "install.packages('Rtsne',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
-#setting a pathi in the environment --> I do not think this is necessary for hhblits to work for porter, but we'll see
+#setting a path in the environment --> I do not think this is necessary for hhblits to work for porter, but we'll see
 #ENV HHLIB=/hh-suite
 #ENV PATH="$HHLIB/bin:$HHLIB/scripts:${PATH}"
+
+#this is from the Porter5 docker, We're only setting the psiblast and hhsuite paths though, the databases are handled by the set-up script for more user options
+# initialize Porter5
+RUN echo "[DEFAULT]" >> Porter5/scripts/config.ini
+RUN echo "psiblast = psiblast" >> Porter5/scripts/config.ini
+RUN echo "hhblits = hhblits" >> Porter5/scripts/config.ini
+
 
 #make directory for databases to be deposited in in someone requests uniref and uniprot to be installed to the container (for porter)
 RUN mkdir ./dbs
 
 #notes
 #check out https://docs.docker.com/get-started/part4/ for info about deploying this container to swarm if you're not on a hpc with the framework already all set up
-#i maybe need git clone hhsuite run (?)
