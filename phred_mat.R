@@ -52,7 +52,7 @@ library("reshape")
 
 #1. for score_mat
 ##subject file
-score_mat_score_table <- read.table("score_mat_score_table.csv", sep = ",", header = FALSE)
+score_mat_score_table <- read.csv("score_mat_score_table.csv", sep = ",", header = FALSE)
 colnames(score_mat_score_table) <- c("qseqid", "sseqid", "align_score")
 score_mat_score_table$align_score = as.numeric(gsub("Score=", "", score_mat_score_table$align_score)) #gets rid of Score=
 
@@ -73,7 +73,7 @@ write.csv(algnscore_matrix, "score_align_matrix.csv")
 
 #2. for prob_mat
 ##subject file
-prob_mat_score_table <- read.table("prob_mat_score_table.csv", sep = ",", header = FALSE)
+prob_mat_score_table <- read.csv("prob_mat_score_table.csv", sep = ",", header = FALSE)
 colnames(prob_mat_score_table) <- c("qseqid", "sseqid", "align_score")
 prob_mat_score_table$align_score = as.numeric(gsub("Score=", "", prob_mat_score_table$align_score)) #gets rid of Score=
 prob_mat_score_table$sseqid = as.character(gsub("_2**", "", prob_mat_score_table$sseqid, fixed = TRUE)) #gets rid of clustalw tricking tag
