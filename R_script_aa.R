@@ -12,7 +12,7 @@ dir.create("./networks/adjusted_algn_score_csvs")
 dir.create("./networks/community_csvs")
 
 ##subject file
-PSI_table <- read.table("PSIBLAST_results.txt", sep = "\t", header = FALSE)
+PSI_table <- read.csv("PSIBLAST_results.txt", sep = "\t", header = FALSE)
 
 colnames(PSI_table) <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
 
