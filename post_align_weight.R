@@ -9,8 +9,8 @@ args <- commandArgs(trailingOnly = TRUE)
 filename1 <- args[1]
 filename2 <- args[3]
 
-aa <- read.csv(file = filename1, header = TRUE, row.names = 1)
-ss <- read.csv(file = filename2, header = TRUE, row.names = 1)
+aa <- read.csv(file = filename1, header = TRUE, row.names = 1, check.names = FALSE)
+ss <- read.csv(file = filename2, header = TRUE, row.names = 1, check.names = FALSE)
 
 x = as.numeric(args[2])
 y = as.numeric(args[4])
@@ -25,5 +25,5 @@ temp_df <- cbind(aa_weighted, ss_weighted)
 fin_df <- sapply(unique(colnames(temp_df)), 
        function(x) rowSums(temp_df[, colnames(temp_df) == x, drop = FALSE]))
 
-write.csv(fin_df, file = "aa_ss_weighted_aligments.csv")
+write.csv(fin_df, paste0("aa_",x,"_ss_",y,"_weighted_alignments.csv"))
 
