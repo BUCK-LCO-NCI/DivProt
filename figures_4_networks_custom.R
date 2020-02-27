@@ -1,4 +1,3 @@
-#STILL A DRAFT
 #nets custom
 args = commandArgs(trailingOnly=TRUE)
 matrix_confirm_temp = read.csv(args[1], header = TRUE, row.names = 1, check.names = FALSE)
