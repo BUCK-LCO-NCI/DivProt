@@ -85,7 +85,7 @@ library("pheatmap")
 
 matrix_confirm <- as.matrix(bitscore_matrix_2)
 mode(matrix_confirm) <- "numeric"
-pheatmap(matrix_confirm, cex = 0.3, main = "Heatmap: Just AA, transformed, scaled")
+pheatmap(matrix_confirm, cex = 0.3, border_color = NA, main = "Heatmap: Just AA, transformed, scaled")
 
 #dendrogram / tree
 library("stats")
