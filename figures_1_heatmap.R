@@ -10,6 +10,6 @@ pdf(file = "heatmap_Rplots1.pdf")
 algnscore_matrix <-  align_file #var passed from the python wrapper script
 matrix_confirm <- as.matrix(algnscore_matrix)
 mode(matrix_confirm) <- "numeric"
-pheatmap(matrix_confirm, cex = 0.5, main = "Heatmap")
+pheatmap(matrix_confirm, cex = 0.5, border_color = NA, main = "Heatmap")
 
 dev.off()
