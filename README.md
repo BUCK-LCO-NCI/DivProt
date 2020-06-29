@@ -214,7 +214,7 @@ Here's an example of the process:
 #### On the structure:
 > XX.ss3: helix (H), strand (E), and coil (C)
 
-> XX.ss8: α-helix (H), π-helix (I), 3<sub>10</sub> helix (G), β-stand (E), β-bridge (B), H bonded turn (T), bend (S), and Coil and others (C)
+> XX.ss8: α-helix (H), π-helix (I), 3<sub>10</sub> helix (G), β-strand (E), β-bridge (B), H bonded turn (T), bend (S), and Coil and others (C)
 
 
 ####
